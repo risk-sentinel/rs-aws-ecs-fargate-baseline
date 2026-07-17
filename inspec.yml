@@ -1,4 +1,4 @@
-name: aws-ecs-fargate-baseline
+name: rs-aws-ecs-fargate-v1r1
 title: AWS ECS Fargate Security Baseline
 maintainer: Risk Sentinel
 copyright: Risk Sentinel
