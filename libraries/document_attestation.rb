@@ -57,6 +57,16 @@
 # Design notes: docs/dev/Vendored_Resource_Gaps.md (document-as-evidence),
 # sparc-validate#154 (evidence-class model + multi-provider rollout).
 
+# Stdlib deps — always available, cheap to load, so required once up front.
+# (The heavy optional `aws-sdk-s3` gem stays lazy-required inside the s3 code
+#  paths — see the rationale at its require sites; only the s3:// scheme pays
+#  that load.)
+require "json"
+require "net/http"
+require "uri"
+require "time"
+require "erb"
+
 class DocumentAttestation < Inspec.resource(1)
   name "document_attestation"
   supports platform: "aws"
@@ -74,6 +84,9 @@ class DocumentAttestation < Inspec.resource(1)
 
   attr_reader :uri, :scheme, :last_modified, :connection_error
 
+  # `file://` scheme prefix — matched in `fetch` and stripped in the file readers.
+  FILE_URI_RE = %r{\Afile://}
+
   # Positional opts hash — NOT keyword args. InSpec routes resource args through
   # a *args splat, so under Ruby 3 `document_attestation(uri, max_age_days: 365)`
   # arrives as `.new(uri, {max_age_days: 365})` (two positional args). A keyword
@@ -86,7 +99,7 @@ class DocumentAttestation < Inspec.resource(1)
     end
     @uri              = uri.to_s
     @max_age_days     = opts[:max_age_days]
-    @region           = opts[:region] || ENV["AWS_REGION"] || "us-east-1"
+    @region           = opts[:region] || ENV.fetch("AWS_REGION", nil) || "us-east-1"
     @token            = opts[:token]
     @exists           = false
     @last_modified    = nil
@@ -118,7 +131,6 @@ class DocumentAttestation < Inspec.resource(1)
     return @attestation_json if defined?(@attestation_json)
     @attestation_json =
       begin
-        require "json"
         body = fetch_body
         body ? JSON.parse(body) : nil
       rescue JSON::ParserError, StandardError
@@ -138,7 +150,7 @@ class DocumentAttestation < Inspec.resource(1)
     when %r{\Ahttps?://} then fetch_http
     when %r{\Agithub://} then fetch_github
     when %r{\Agitlab://} then fetch_gitlab
-    when %r{\Afile://}   then fetch_file(@uri.sub(%r{\Afile://}, ""))
+    when FILE_URI_RE     then fetch_file(@uri.sub(FILE_URI_RE, ""))
     else                      fetch_file(@uri) # bare-path alias
     end
   end
@@ -149,6 +161,10 @@ class DocumentAttestation < Inspec.resource(1)
     return (@connection_error = "malformed s3 URI: #{@uri}") unless m
     @s3_bucket, @s3_key = m[1], m[2]
     begin
+      # Lazy-require by design: aws-sdk-s3 is a heavy optional gem, loaded only
+      # when an s3:// URI is actually fetched so file://, https://, and git
+      # consumers never pay for it. Intentionally NOT hoisted (Sonar S7816
+      # accepted). See docs/dev/Vendored_Resource_Gaps.md (lazy-require pattern).
       require "aws-sdk-s3"
       resp = s3_client.head_object(bucket: @s3_bucket, key: @s3_key)
       @exists        = true
@@ -165,9 +181,6 @@ class DocumentAttestation < Inspec.resource(1)
 
   def fetch_http
     @scheme = "https"
-    require "net/http"
-    require "uri"
-    require "time"
     parsed = URI.parse(@uri)
     resp = Net::HTTP.start(parsed.host, parsed.port, use_ssl: parsed.scheme == "https") do |http|
       http.head(parsed.request_uri)
@@ -261,15 +274,16 @@ class DocumentAttestation < Inspec.resource(1)
     case @scheme
     when "s3"
       return nil unless @exists
+      # Lazy-require by design — see the note in fetch_s3 (Sonar S7816 accepted).
       require "aws-sdk-s3"
       s3_client.get_object(bucket: @s3_bucket, key: @s3_key).body.read
     when "https"
-      require "net/http"
-      require "uri"
       Net::HTTP.get(URI.parse(@uri))
     when "file"
-      path = @uri.sub(%r{\Afile://}, "")
+      path = @uri.sub(FILE_URI_RE, "")
       File.read(path) if File.exist?(path)
+    else
+      nil # unknown scheme — nothing to fetch (best-effort, matches the fetch dispatch)
     end
     # github/gitlab: body fetch deliberately unsupported — these providers
     # answer existence + freshness only (commit metadata), not document bodies.
@@ -290,18 +304,16 @@ class DocumentAttestation < Inspec.resource(1)
 
   def git_token(host)
     return @token if @token && !@token.to_s.empty?
-    env = ENV["ATTESTATION_#{host}_TOKEN"]
+    env = ENV.fetch("ATTESTATION_#{host}_TOKEN", nil)
     env && !env.empty? ? env : nil
   end
 
   def url_encode(str)
-    require "erb"
     ERB::Util.url_encode(str.to_s)
   end
 
   def parse_git_time(str)
     return nil if str.nil?
-    require "time"
     Time.parse(str)
   rescue StandardError
     nil
@@ -310,9 +322,6 @@ class DocumentAttestation < Inspec.resource(1)
   # GET a git-host commits endpoint, parse the JSON array. Sets
   # @connection_error (and returns nil) on any non-2xx / transport error.
   def git_host_commits(api, headers)
-    require "net/http"
-    require "uri"
-    require "json"
     parsed = URI.parse(api)
     resp = Net::HTTP.start(parsed.host, parsed.port, use_ssl: true) do |http|
       req = Net::HTTP::Get.new(parsed.request_uri)
