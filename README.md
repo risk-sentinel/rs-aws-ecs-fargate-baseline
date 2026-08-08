@@ -98,3 +98,7 @@ The SPARC overlay lives in `risk-sentinel/sparc-validate` under
   for wildcard grants.
 - `iam_policy_statement` — pure-Ruby policy-statement parser (ported from
   cis-aws-foundations #72).
+
+---
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=risk-sentinel_aws-ecs-fargate-baseline)](https://sonarcloud.io/summary/new_code?id=risk-sentinel_aws-ecs-fargate-baseline)
