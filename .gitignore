@@ -2,3 +2,11 @@ vendor/
 *.lock
 hdf.json
 exec-*.json
+
+# ---- Local scan / evidence artifacts ----------------------------------------
+# An HDF or scanner output can contain REAL findings — for a secrets scanner,
+# the secret itself. Committing one by accident would publish the very thing the
+# scan exists to catch.
+*.hdf.json
+trufflehog.json
+/out/
