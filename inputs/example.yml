@@ -1,0 +1,97 @@
+# =============================================================================
+# rs-aws-ecs-fargate-baseline — reference inputs
+#
+#   cp inputs/example.yml inputs/mine.yml   # edit, then:
+#   cinc-auditor exec . -t aws:// --input-file inputs/mine.yml
+#
+# --input-file is NOT optional. cinc-auditor does not auto-load a profile-root
+# inputs file, and several controls scope themselves out when their input is
+# empty — so omitting it gives a quieter run rather than a failing one.
+# =============================================================================
+
+# ---- REQUIRED TO RUN --------------------------------------------------------
+
+# Which AWS partition is being scanned.
+#   aws         AWS Commercial
+#   aws-us-gov  AWS GovCloud (non-DoD)
+aws_partition: aws
+
+# ---- THE ONE THAT DECIDES WHERE TLS IS ASSESSED -----------------------------
+#
+# TLS is validated wherever it actually terminates. Declare that here, or you
+# will read a column of failures for something another layer is doing correctly.
+#   alb   TLS terminates at the load balancer (the common Fargate shape)
+#   task  TLS terminates in the container itself
+#   none  no TLS in this boundary — the TLS controls scope out
+tls_termination: alb
+
+# Accepted ALB SSL negotiation policies when tls_termination is `alb`.
+# EMPTY = the profile's built-in strong-policy list is used. Override only to
+# accept a policy the default list rejects, and treat that as a documented risk
+# acceptance rather than a tuning knob.
+alb_strong_ssl_policies: []
+
+# ---- SCOPING ----------------------------------------------------------------
+
+# Regions to enumerate. EMPTY = every region, discovered dynamically.
+# Pin it to where you deploy: narrowing makes the scan faster and blinder.
+scan_regions: []
+
+# ---- POLICY THRESHOLDS ------------------------------------------------------
+
+# Require container images to be pinned by @sha256 digest rather than a mutable
+# tag. Set false only if your deploy pipeline guarantees immutability some other
+# way — a tag can change underneath a running service.
+require_image_digest_pinning: true
+
+# Highest ECR image-scan finding severity tolerated before the control fails.
+# One of: CRITICAL, HIGH, MEDIUM, LOW, INFORMATIONAL.
+max_image_finding_severity: HIGH
+
+# Days before certificate expiry at which the control starts warning.
+cert_expiry_warning_days: 30
+
+# Minimum CloudWatch Logs retention for task log groups.
+min_log_retention_days: 30
+
+# Linux capabilities a task definition may add. The default permits only
+# NET_BIND_SERVICE, which lets a container bind a low port without root.
+# Every addition here widens container-escape blast radius — add deliberately.
+allowed_added_capabilities: ['NET_BIND_SERVICE']
+
+# ---- ALLOW-LISTS — empty is a real state, not a placeholder ------------------
+
+# Container registries images may come from.
+# EMPTY = the registry-provenance control cannot enforce anything and reports
+# that it has no allow-list to check against.
+#   trusted_image_registries: ['123456789012.dkr.ecr.us-east-1.amazonaws.com']
+trusted_image_registries: []
+
+# ECS services permitted to have ExecuteCommand enabled. ECS Exec is an
+# interactive shell into a running task, so this is an explicit exception list.
+# EMPTY = no service may have it enabled.
+ecs_exec_allowed_services: []
+
+# Tag keys every ECS cluster, service and task definition must carry.
+# EMPTY = at least one non-system tag is required, but no specific key.
+#   required_tag_keys: [Owner, Environment, DataClassification]
+required_tag_keys: []
+
+# ---- ATTESTATION — evidence for what no API can answer ----------------------
+
+# Base URI for leveraged-SYSTEM authorizations (FedRAMP / SOC 2 / ISO) that your
+# boundary inherits from AWS.
+leveraged_evidence_base: ''
+
+# Base URI for policy-PROVIDER documents your boundary leverages.
+policy_provider_base: ''
+
+# Base URI for your boundary's OWN governance documents.
+boundary_docs_base: ''
+
+# Direct URI for inherited-control evidence. EMPTY = those controls skip.
+inherited_evidence_uri: ''
+
+# Staleness windows, in days, for the two evidence classes above.
+leveraged_evidence_max_age_days: 365
+attestation_max_age_days: 365
