@@ -1,5 +1,7 @@
 # rs-aws-ecs-fargate-baseline
 
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=risk-sentinel_aws-ecs-fargate-baseline)](https://sonarcloud.io/summary/new_code?id=risk-sentinel_aws-ecs-fargate-baseline)
+
 InSpec / CINC Auditor profile validating an **AWS ECS Fargate** workload — 58
 controls across task-definition hardening, image provenance, network placement,
 load-balancer TLS, IAM role scoping, logging and tagging.
