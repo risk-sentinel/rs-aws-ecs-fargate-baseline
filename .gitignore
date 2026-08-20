@@ -21,3 +21,4 @@ audit.pre.json
 results-hdfv2.json
 results-heimdall.json
 saf-cli.log
+results.normalized.json

@@ -120,14 +120,25 @@ spec:
       [ "$COUNT" -gt 0 ] || { echo "ERROR: 0 results — the profile assessed nothing"; exit 1; }
 
     # 3 — first gate.
-    - hdf convert results.json -o results.v3.json
+    #
+    # inspec-aws's aws_iam_password_policy returns the whole policy OBJECT as its
+    # resource_id, where InSpec exec-json requires a string, and hdf convert
+    # rejects the entire document over it. One malformed field would otherwise
+    # block all evidence for the run. Coercing it to JSON text leaves results,
+    # statuses and counts untouched. Upstream cause is inspec/inspec-aws.
+    - |
+      set -euo pipefail
+      jq '(.profiles[]?.controls[]?.results[]?.resource_id)
+          |= (if . == null or type == "string" then . else tojson end)' \
+         results.json > results.normalized.json
+      hdf convert results.normalized.json -o results.v3.json
 
     # 4 — the facts that could not exist until the scan had run.
     - |
       set -euo pipefail
-      DIGEST="sha256:$(sha256sum results.json | cut -d' ' -f1)"
+      DIGEST="sha256:$(sha256sum results.normalized.json | cut -d' ' -f1)"
       jq --slurpfile a audit.pre.json --arg digest "$DIGEST" \
-         --arg finished "$(cat .finished_at)" --arg raw results.json \
+         --arg finished "$(cat .finished_at)" --arg raw results.normalized.json \
          --arg key "${BOUNDARY}/latest/${TARGET}/inspec/results.json" '
          ([.baselines[]?.requirements[]?.results[]?.status]
           + [.profiles[]?.controls[]?.results[]?.status]) as $st
@@ -148,7 +159,9 @@ spec:
                                               and .!="skipped"))|length)
                   } end)}
                + {evidence_key: $key})
-           })' results.v3.json > results.audited.json
+           })
+         | .target = ($a[0].target + {scan_type: $a[0].scan.type})' \
+         results.v3.json > results.audited.json
       jq -e '.passthrough.audit.outcome.total > 0' results.audited.json >/dev/null \
         || { echo "ERROR: audit record carries no outcome counts"; exit 1; }
 
@@ -178,12 +191,15 @@ spec:
     - |
       set -euo pipefail
       jq --slurpfile f results.final.json \
-         '.passthrough = ((.passthrough // {}) + {audit: $f[0].passthrough.audit})' \
+         '.passthrough = ((.passthrough // {}) + {audit: $f[0].passthrough.audit})
+          | .target = $f[0].target' \
          results.json > results-heimdall.json
       jq -e '[.profiles[]?.controls[]?.results[]?] | length > 0' results-heimdall.json >/dev/null \
         || { echo "ERROR: Heimdall copy carries no results"; exit 1; }
       jq -e '.passthrough.audit != null' results-heimdall.json >/dev/null \
         || { echo "ERROR: audit record did not carry into the Heimdall copy"; exit 1; }
+      jq -e '.target.id != null' results-heimdall.json >/dev/null \
+        || { echo "ERROR: target element did not carry into the Heimdall copy"; exit 1; }
       echo "Heimdall copy: $(jq '[.profiles[]?.controls[]?.results[]?] | length' results-heimdall.json) results, audit record carried"
 
     # 8 — make the result readable in the job log, not only downloadable.

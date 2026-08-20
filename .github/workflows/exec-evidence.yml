@@ -168,7 +168,21 @@ jobs:
       - name: Convert to HDF v3
         run: |
           set -euo pipefail
-          hdf convert results.json -o results.v3.json
+          # inspec-aws's aws_iam_password_policy returns the whole policy OBJECT
+          # as its resource_id, where InSpec exec-json requires a string. hdf
+          # convert rejects the entire document over it:
+          #
+          #   cannot unmarshal object into Go struct field
+          #   V1Result.profiles.controls.results.resource_id of type string
+          #
+          # One malformed field therefore blocks all evidence for the run. Coerce
+          # any non-string resource_id to its JSON text: results, statuses and
+          # counts are untouched, only the identifier's encoding changes.
+          # Upstream cause is inspec/inspec-aws; remove this once it is fixed.
+          jq '(.profiles[]?.controls[]?.results[]?.resource_id)
+              |= (if . == null or type == "string" then . else tojson end)' \
+             results.json > results.normalized.json
+          hdf convert results.normalized.json -o results.v3.json
 
       # 4 — the facts that could not exist until the scan had run.
       - name: Apply the passthrough audit record
@@ -177,9 +191,9 @@ jobs:
           TARGET: ${{ inputs.target }}
         run: |
           set -euo pipefail
-          DIGEST="sha256:$(sha256sum results.json | cut -d' ' -f1)"
+          DIGEST="sha256:$(sha256sum results.normalized.json | cut -d' ' -f1)"
           jq --slurpfile a audit.pre.json --arg digest "$DIGEST" \
-             --arg finished "${FINISHED_AT}" --arg raw results.json \
+             --arg finished "${FINISHED_AT}" --arg raw results.normalized.json \
              --arg key "${BOUNDARY}/latest/${TARGET}/inspec/results.json" '
              ([.baselines[]?.requirements[]?.results[]?.status]
               + [.profiles[]?.controls[]?.results[]?.status]) as $st
@@ -200,7 +214,13 @@ jobs:
                                                   and .!="skipped"))|length)
                       } end)}
                    + {evidence_key: $key})
-               })' results.v3.json > results.audited.json
+               })
+             # The first-class HDF `target` element, alongside the audit record.
+             # Heimdall RENDERS this block, so it is where "what was assessed"
+             # belongs. The audit record keeps its own copy so it stays
+             # self-contained; both are written here from one source so they
+             # cannot disagree.
+             | .target = ($a[0].target + {scan_type: $a[0].scan.type})'                results.v3.json > results.audited.json
           jq -e '.passthrough.audit.outcome.total > 0' results.audited.json >/dev/null \
             || { echo "::error::audit record carries no outcome counts"; exit 1; }
 
@@ -237,14 +257,19 @@ jobs:
       - name: Produce the Heimdall copy
         run: |
           set -euo pipefail
+          # Carry BOTH the audit record and the target element across. Conversion
+          # strips them, so they are applied after every conversion, never before.
           jq --slurpfile f results.final.json \
-             '.passthrough = ((.passthrough // {}) + {audit: $f[0].passthrough.audit})' \
+             '.passthrough = ((.passthrough // {}) + {audit: $f[0].passthrough.audit})
+              | .target = $f[0].target' \
              results.json > results-heimdall.json
           # An empty document would render in Heimdall as a clean scan.
           jq -e '[.profiles[]?.controls[]?.results[]?] | length > 0' results-heimdall.json >/dev/null \
             || { echo "::error::Heimdall copy carries no results"; exit 1; }
           jq -e '.passthrough.audit != null' results-heimdall.json >/dev/null \
             || { echo "::error::audit record did not carry into the Heimdall copy"; exit 1; }
+          jq -e '.target.id != null' results-heimdall.json >/dev/null \
+            || { echo "::error::target element did not carry into the Heimdall copy"; exit 1; }
           echo "Heimdall copy: $(jq '[.profiles[]?.controls[]?.results[]?] | length' results-heimdall.json) results, audit record carried"
 
       # 8 — make the result readable in the log, not only downloadable.
