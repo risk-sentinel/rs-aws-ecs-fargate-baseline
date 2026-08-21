@@ -87,11 +87,26 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ${{ inputs.image }}
+    # `secrets` is NOT an available context in a step-level `if:` -- only env,
+    # github, inputs, job, matrix, needs, runner, steps, strategy and vars are.
+    # Referencing it there is a SCHEMA error, so GitHub rejected this file at
+    # validation time: every push produced a 0-second, 0-job failed run, on every
+    # repository carrying this workflow, since the day it landed.
+    #
+    # It IS available in a job-level `env:`, and `env` IS available in a step
+    # `if:`, so presence is lifted here as a boolean and the guard tests that.
+    #
+    # A boolean rather than the ARN itself, deliberately: lifting the value would
+    # export AWS_ROLE_ARN into every step in the job, and the AWS SDK reads that
+    # as half of its web-identity credential configuration. It would quietly
+    # change credential resolution in steps that have nothing to do with this one.
+    env:
+      HAS_AWS_ROLE: ${{ secrets.AWS_ROLE_ARN != '' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Configure AWS credentials
-        if: ${{ secrets.AWS_ROLE_ARN != '' }}
+        if: env.HAS_AWS_ROLE == 'true'
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
