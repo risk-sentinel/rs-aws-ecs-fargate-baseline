@@ -112,7 +112,7 @@ inputs:
       (EF-12): 'alb' (the ALB terminates; EF-11 is authoritative), 'proxy'
       (a reverse-proxy sidecar terminates; EF-12.1 enforces proxy + TLS
       material, cipher config validated by cis-nginx), or 'both'.
-  # ---- document_attestation evidence-class bases (sparc-validate#154/#166) ----
+  # ---- document_attestation evidence-class bases ----
   - name: leveraged_evidence_base
     type: string
     value: ''

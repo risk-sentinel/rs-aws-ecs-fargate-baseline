@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# CANONICAL SOURCE — scaffolder-owned (sparc-validate#154).
+# CANONICAL SOURCE — scaffolder-owned.
 #
 # This is the single authoritative copy of the document_attestation resource.
 # It is synced into each profile's libraries/ by tools/attestation/sync.py
@@ -54,8 +54,8 @@
 # AWS creds, so the resource is reusable by any consumer pointing at any
 # evidence store.
 #
-# Design notes: docs/dev/Vendored_Resource_Gaps.md (document-as-evidence),
-# sparc-validate#154 (evidence-class model + multi-provider rollout).
+# Design notes: the evidence-class model (document-as-evidence) and its
+# multi-provider rollout.
 
 # Stdlib deps — always available, cheap to load, so required once up front.
 # (The heavy optional `aws-sdk-s3` gem stays lazy-required inside the s3 code

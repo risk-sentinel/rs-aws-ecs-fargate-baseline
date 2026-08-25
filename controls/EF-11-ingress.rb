@@ -4,7 +4,7 @@
 #
 # The Fargate service's internet ingress is an ALB that TERMINATES TLS. This is
 # the boundary the cis-nginx `nginx_tls_termination: upstream` controls defer to
-# (sparc-validate#172) — so it is validated here with REAL checks rather than a
+# — so it is validated here with REAL checks rather than a
 # human attestation. A consumer whose NGINX terminates TLS instead sets
 # `nginx_tls_termination: nginx` (validated in cis-nginx); both layers are
 # checked where TLS actually lives (distributed-TLS design).
