@@ -6,7 +6,7 @@
 # It is synced into each profile's libraries/ by tools/attestation/sync.py
 # (or `scaffold.py sync-attestation <profile>`). Do NOT hand-edit the per-
 # profile copies — edit here and re-sync, so the N copies never drift
-# (ratified decision #154 §10.2: resource/helper sync is scaffolder-owned).
+# (resource/helper sync is scaffolder-owned).
 #
 # document_attestation — source-agnostic "does this evidence document exist,
 # and is it current?" accessor. Lifts policy / periodic-review controls from

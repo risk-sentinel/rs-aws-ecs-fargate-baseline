@@ -4,11 +4,11 @@
 #
 # Synced into each profile's libraries/ by tools/attestation/sync.py alongside
 # document_attestation.rb. Do NOT hand-edit per-profile copies — edit here and
-# re-sync (ratified #154 §10.2).
+# re-sync.
 #
 # _attestation_helpers — resolves an (evidence-class, logical-name) pair to a
 # full document URI, so controls reference a class + logical name and never a
-# hard-coded location. The three evidence classes were ratified in #154 §10.1:
+# hard-coded location. The three evidence classes are:
 #
 #   :leveraged  leveraged-SYSTEM authorizations the boundary inherits
 #               (AWS FedRAMP, SOC 2, ISO). One doc <- many controls/profiles
@@ -27,13 +27,13 @@
 # github / gitlab / file) by the document_attestation resource — the resolver
 # only composes strings; it does not know or care which provider it is.
 #
-# Resolution contract (#154 §3 + ratified clarification):
+# Resolution contract:
 #   attestation_uri(:boundary, 'C-2.1.3')
 #     -> '' when boundary_docs_base is unset  (=> control SKIPs, stays
 #        SAF-attestable; never a false Pass or Fail)
 #     -> '<boundary_docs_base>/C-2.1.3.md' when the base is set
 #
-# Logical name (#154 §10.6): defaults to the control_id; pass an explicit name
+# Logical name: defaults to the control_id; pass an explicit name
 # for shared/leveraged docs (e.g. 'aws-fedramp-moderate').
 #
 # Loaded into control bodies via `::Inspec::Rule.include` — bare
