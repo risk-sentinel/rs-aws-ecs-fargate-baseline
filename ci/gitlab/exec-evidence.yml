@@ -118,6 +118,12 @@ spec:
     #     at nothing.
     - |
       set -uo pipefail
+      # Checked before the exec, because the exec is `|| true` and a missing
+      # inputs file would otherwise surface as a generic "no results" failure.
+      if [ ! -f "$INPUTS_FILE" ]; then
+        echo "inputs file not found: $INPUTS_FILE -- point inputs_file at a file that exists in the profile, or copy inputs/example.yml and edit it." >&2
+        exit 1
+      fi
       cinc-auditor vendor . --overwrite
       cinc-auditor exec . -t "$TARGET_URI" --input-file "$INPUTS_FILE" \
         --reporter cli json:results.json || true
