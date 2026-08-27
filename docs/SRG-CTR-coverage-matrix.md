@@ -19,7 +19,7 @@ runtime/orchestrator/host layers are AWS-managed, so the 188 rules split:
 | **Inherited** (AWS-managed platform layers) | ~135 | **EF-9** `document_attestation(:leveraged)` against AWS's FedRAMP/DoD authorization — *freshness-checked evidence*, not prose |
 
 So 34 ≠ incomplete — it's the boundary-responsibility subset. What changed in
-#166: the ~135 inherited are no longer *trusted in prose*; **EF-9** surfaces the
+The ~135 inherited are no longer *trusted in prose*; **EF-9** surfaces the
 AWS authorization as first-class HDF evidence, and **EF-10** pulls the
 configurable items that had been mis-filed as "inherited" back into asserted.
 
