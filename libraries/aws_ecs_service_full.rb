@@ -5,7 +5,7 @@
 # deployment circuit breaker, and min-healthy-percent.
 #
 # Instantiation:
-#   aws_ecs_service_full(cluster: 'prod-sparc', service: 'api')
+#   aws_ecs_service_full(cluster: 'prod', service: 'api')
 
 class AwsEcsServiceFull < AwsResourceBase
   name "aws_ecs_service_full"

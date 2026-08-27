@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# CANONICAL SOURCE — scaffolder-owned (sparc-validate#154).
+# CANONICAL SOURCE — scaffolder-owned.
 #
 # Synced into each profile's libraries/ by tools/attestation/sync.py alongside
 # document_attestation.rb. Do NOT hand-edit per-profile copies — edit here and

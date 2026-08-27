@@ -8,7 +8,7 @@
 # ~135 SRG rules are inherited via AWS's FedRAMP/DoD authorization. Previously
 # that inheritance was asserted in README prose only (trusted, not evidenced).
 #
-# These controls convert that trust into HDF evidence (sparc-validate#154,#166):
+# These controls convert that trust into HDF evidence:
 # each AWS-managed SRG domain is checked for EXISTENCE + FRESHNESS of the AWS
 # authorization artifact (FedRAMP/DoD package, pulled into the consumer's
 # leveraged-systems store) via document_attestation against the :leveraged class.

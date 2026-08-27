@@ -7,7 +7,7 @@
 #   - execute_command_configuration logging + KMS (EF-7.2)
 #   - tag_keys (CIS 3.11)
 #
-# Instantiation: `aws_ecs_cluster_full(cluster: 'prod-sparc')` (name or ARN).
+# Instantiation: `aws_ecs_cluster_full(cluster: 'prod')` (name or ARN).
 
 class AwsEcsClusterFull < AwsResourceBase
   name "aws_ecs_cluster_full"

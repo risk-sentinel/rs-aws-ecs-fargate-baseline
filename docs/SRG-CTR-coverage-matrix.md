@@ -1,6 +1,6 @@
 # DISA Container Platform SRG (V2R4) — coverage matrix
 
-The deferred inherited-vs-asserted matrix (sparc-validate#9 / #166). It answers
+The deferred inherited-vs-asserted matrix. It answers
 two questions:
 
 1. **Why does this profile assert ~34 controls when SRG-CTR has 188 rules?**

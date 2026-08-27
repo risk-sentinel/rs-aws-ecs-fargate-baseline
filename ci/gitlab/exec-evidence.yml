@@ -3,7 +3,7 @@
 # Include it (nothing else needs to be copied into your repository):
 #
 #   include:
-#     - project: risk-sentinel/rs-aws-secrets-baseline
+#     - project: <your-org>/rs-aws-secrets-baseline
 #       ref: v0.1.0
 #       file: /ci/gitlab/exec-evidence.yml
 #       inputs:
@@ -25,31 +25,41 @@ spec:
     target:
       description: What is being assessed — account alias, host, resource. Not an ARN.
     target_type:
+      description: repository | host | cloudAccount | cloudResource | database
       default: cloudAccount
     boundary:
+      description: Authorization boundary the evidence is filed under.
       default: sparc
     scan_type:
+      description: Evidence class recorded in the audit record — runtime, sast, dast.
       default: runtime
     target_uri:
       description: InSpec transport — aws://, local://, or ssh://user@host.
       default: "aws://"
     scan_mode:
+      description: What the scanner was told to do — recorded, self-asserted.
       default: "aws:// read-only"
     profile_name:
       description: Value of `name:` in the profile's inspec.yml.
     profile_version:
       description: Value of `version:` in the profile's inspec.yml.
     benchmark:
+      description: Benchmark the profile implements, e.g. CIS AWS Foundations. Empty when none.
       default: ""
     benchmark_version:
+      description: Version of that benchmark, e.g. 7.0.0. Empty when none.
       default: ""
     inputs_file:
+      description: InSpec input file passed to the exec via --input-file.
       default: inputs/example.yml
     aws_region:
+      description: Region for aws:// scans and for any cloud-evidence reads.
       default: us-east-1
     image:
+      description: Pinned auditor image supplying cinc-auditor, hdf, saf and jq.
       default: risksentinel/sparc-auditor:v0.5.0
     job_name:
+      description: Name of the generated job, so a caller can include this template twice.
       default: profile-exec-evidence
 ---
 

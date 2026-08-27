@@ -2,7 +2,7 @@
 # calls. Walks a policy document statement-by-statement and decides
 # whether each statement grants unrestricted access via Principal: "*".
 #
-# Ported verbatim from risk-sentinel/cis-aws-foundations (CIS 2.21, #72).
+# Ported verbatim from the AWS Foundations baseline (CIS 2.21).
 # Each profile stands alone, so this is a focused copy rather than a
 # cross-profile dependency.
 #

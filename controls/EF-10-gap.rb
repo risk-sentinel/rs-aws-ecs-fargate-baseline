@@ -2,7 +2,7 @@
 #
 # EF-10 — coverage gaps: customer-configurable Fargate controls that the SRG
 # shared-responsibility matrix previously folded into "AWS-inherited" but which
-# are in fact consumer-configurable AND API-verifiable (sparc-validate#166).
+# are in fact consumer-configurable AND API-verifiable.
 #
 # exec_validated: false — the GuardDuty (v2 features API) and ECS-account-setting
 # accessors are not yet exec-verified against a live account; see the resource
