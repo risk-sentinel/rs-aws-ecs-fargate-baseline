@@ -23,8 +23,12 @@ spec:
       description: repository | host | cloudAccount | cloudResource | database
       default: cloudAccount
     boundary:
-      description: Authorization boundary the evidence is filed under.
-      default: sparc
+      description: >-
+        Authorization boundary the evidence is filed under. Required and
+        deliberately undefaulted: it labels the evidence and decides where it
+        lands in the evidence store, so a default would file an including
+        project's results under somebody else's boundary. GitLab refuses the
+        include when it is missing, which is the intended behaviour.
     scan_type:
       description: Evidence class recorded in the audit record — runtime, sast, dast.
       default: runtime
@@ -48,8 +52,9 @@ spec:
       description: InSpec input file passed to the exec via --input-file.
       default: inputs/example.yml
     aws_region:
-      description: Region for aws:// scans and for any cloud-evidence reads.
-      default: us-east-1
+      description: >-
+        Region for aws:// scans and for any cloud-evidence reads. Region is environment-specific and deliberately undefaulted: a wrong region does not error, it reads an empty account and reports a clean result.
+        GitLab refuses the include when it is missing.
     image:
       description: Pinned auditor image supplying cinc-auditor, hdf, saf and jq.
       default: risksentinel/sparc-auditor:v0.5.0
@@ -114,6 +119,12 @@ spec:
     #     at nothing.
     - |
       set -uo pipefail
+      # Checked before the exec, because the exec is `|| true` and a missing
+      # inputs file would otherwise surface as a generic "no results" failure.
+      if [ ! -f "$INPUTS_FILE" ]; then
+        echo "inputs file not found: $INPUTS_FILE -- point inputs_file at a file that exists in the profile, or copy inputs/example.yml and edit it." >&2
+        exit 1
+      fi
       cinc-auditor vendor . --overwrite
       cinc-auditor exec . -t "$TARGET_URI" --input-file "$INPUTS_FILE" \
         --reporter cli json:results.json || true

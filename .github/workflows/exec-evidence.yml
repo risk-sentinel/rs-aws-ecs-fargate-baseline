@@ -22,8 +22,13 @@ on:
         type: string
         default: cloudAccount
       boundary:
+        description: >-
+          Authorization boundary the evidence is filed under. Required and
+          deliberately undefaulted: it labels the evidence and decides where it
+          lands in the evidence store, so a default would file a caller's results
+          under somebody else's boundary while reporting success.
         type: string
-        default: sparc
+        required: true
       scan_type:
         type: string
         default: runtime
@@ -53,8 +58,10 @@ on:
         type: string
         default: inputs/example.yml
       aws_region:
+        description: >-
+          Region for `aws://` scans and for any cloud-evidence reads. Region is environment-specific and deliberately undefaulted: a wrong region does not error, it reads an empty account and reports a clean result.
         type: string
-        default: us-east-1
+        required: true
       image:
         description: 'Pinned auditor image supplying cinc-auditor, hdf, saf and jq.'
         type: string
@@ -153,6 +160,13 @@ jobs:
           TARGET_URI: ${{ inputs.target_uri }}
         run: |
           set -uo pipefail
+          # Checked before the exec, because the exec is `|| true` and a missing
+          # inputs file would otherwise surface as a generic "no results"
+          # failure several steps later.
+          if [ ! -f "$INPUTS_FILE" ]; then
+            echo "::error::inputs file not found: $INPUTS_FILE. Point inputs_file at a file that exists in this repository -- copy inputs/example.yml, edit it, and pass that path."
+            exit 1
+          fi
           cinc-auditor vendor . --overwrite
           cinc-auditor exec . -t "$TARGET_URI" --input-file "$INPUTS_FILE" \
             --reporter cli json:results.json || true
