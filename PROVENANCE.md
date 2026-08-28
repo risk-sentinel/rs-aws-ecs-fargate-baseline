@@ -50,4 +50,3 @@ is analogous; CIS is a *supporting* reference, not the basis.
   a reverse-proxy/sidecar — per a per-profile termination input.
 - Keep this doc in sync when controls are added/removed or re-anchored.
 
-_Closes #6._
