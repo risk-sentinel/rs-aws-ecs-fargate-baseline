@@ -74,6 +74,8 @@ control "EF-12.2" do
   tag severity:              "none"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-8"]
+  tag nist_r4:               ["CM-8"]
+  tag cci:                   ["CCI-000398"]
   tag local_number:          "EF-12.2"
   tag srg:                   "SRG-APP-000439-CTR-001070"
   tag applicable_partitions: ["aws", "aws-us-gov"]
