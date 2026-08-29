@@ -10,6 +10,7 @@ control "EF-8.1" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AU-2 a", "AU-12 a"]
+  tag ksi:                   ["KSI-CMT-LMC", "KSI-MLA-LET", "KSI-MLA-OSM", "KSI-MLA-RVL"]
   tag nist_r4:               ["AC-2 f", "AU-2 a"]
   tag cci:                   ["CCI-000011", "CCI-000123"]
   tag local_number:          "EF-8.1"
@@ -40,6 +41,7 @@ control "EF-8.3" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AU-6 (3)"]
+  tag ksi:                   ["KSI-MLA-OSM"]
   tag nist_r4:               ["AU-6 (3)"]
   tag cci:                   ["CCI-000153"]
   tag local_number:          "EF-8.3"
@@ -68,6 +70,7 @@ control "EF-8.4" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-8 a 1"]
+  tag ksi:                   ["KSI-PIY-GIV"]
   tag nist_r4:               ["CM-8 a 1"]
   tag cci:                   ["CCI-000389"]
   tag local_number:          "EF-8.4"
@@ -147,6 +150,7 @@ control "EF-8.6" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AU-4", "AU-9 (2)"]
+  tag ksi:                   ["KSI-MLA-OSM"]
   tag nist_r4:               ["AU-4 (1)"]
   tag cci:                   ["CCI-001851"]
   tag local_number:          "EF-8.6"
@@ -178,6 +182,7 @@ control "EF-8.7" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["AU-4", "AU-11"]
+  tag ksi:                   ["KSI-MLA-OSM"]
   tag nist_r4:               ["AU-4"]
   tag cci:                   ["CCI-001849"]
   tag local_number:          "EF-8.7"

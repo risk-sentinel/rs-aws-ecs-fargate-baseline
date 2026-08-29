@@ -11,6 +11,7 @@ control "EF-4.1" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-5", "AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-PIY-RIS", "KSI-PIY-RSD"]
   tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-4.1"
@@ -44,6 +45,7 @@ control "EF-4.2" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
   tag nist_r4:               ["AC-6"]
   tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-4.2"
@@ -73,6 +75,7 @@ control "EF-4.3" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
   tag nist_r4:               ["AC-6"]
   tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-4.3"
@@ -101,6 +104,7 @@ control "EF-4.4" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-28", "AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-SVC-SIN"]
   tag nist_r4:               ["AC-6", "SC-28"]
   tag cci:                   ["CCI-001199", "CCI-000225"]
   tag local_number:          "EF-4.4"

@@ -22,6 +22,7 @@ control "EF-11.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-8", "SC-8 (1)"]
+  tag ksi:                   ["KSI-CNA-MAT", "KSI-CNA-ULN", "KSI-SVC-SIN"]
   tag nist_r4:               ["SC-8", "SC-8 (1)"]
   tag cci:                   ["CCI-002418", "CCI-002421"]
   tag local_number:          "EF-11.1"
@@ -53,6 +54,7 @@ control "EF-11.2" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-13", "SC-8 (1)"]
+  tag ksi:                   ["KSI-SVC-SIN", "KSI-SVC-VRI"]
   tag nist_r4:               ["SC-13", "SC-8 (1)"]
   tag cci:                   ["CCI-002450", "CCI-002421"]
   tag local_number:          "EF-11.2"
@@ -87,6 +89,7 @@ control "EF-11.3" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SC-8", "AC-17 (2)"]
+  tag ksi:                   ["KSI-CNA-MAT", "KSI-CNA-ULN", "KSI-IAM-ELP", "KSI-SVC-ASM", "KSI-SVC-SIN"]
   tag nist_r4:               ["SC-8"]
   tag cci:                   ["CCI-002418"]
   tag local_number:          "EF-11.3"
@@ -126,6 +129,7 @@ control "EF-11.4" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SI-10"]
+  tag ksi:                   ["KSI-CNA-MAT", "KSI-PIY-RSD"]
   tag nist_r4:               ["SI-10"]
   tag cci:                   ["CCI-001310"]
   tag local_number:          "EF-11.4"
@@ -154,6 +158,7 @@ control "EF-11.5" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AU-2 a", "AU-12 a"]
+  tag ksi:                   ["KSI-CMT-LMC", "KSI-MLA-LET", "KSI-MLA-OSM", "KSI-MLA-RVL"]
   tag nist_r4:               ["AU-12 a", "AU-3"]
   tag cci:                   ["CCI-000130", "CCI-000169"]
   tag local_number:          "EF-11.5"
@@ -183,6 +188,7 @@ control "EF-11.6" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CP-10"]
+  tag ksi:                   ["KSI-RPL-ABO", "KSI-RPL-ARP", "KSI-RPL-RRO", "KSI-RPL-TRC"]
   tag cci:                   ["CCI-004028"]
   tag local_number:          "EF-11.6"
   tag srg:                   "SRG-APP-000516-CTR-001325"
@@ -213,6 +219,7 @@ control "EF-11.7" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-12", "SC-17", "SC-8 (1)"]
+  tag ksi:                   ["KSI-SVC-ASM", "KSI-SVC-SIN"]
   tag nist_r4:               ["SC-12", "SC-17", "SC-8 (1)"]
   tag cci:                   ["CCI-001159", "CCI-002421", "CCI-002428"]
   tag local_number:          "EF-11.7"

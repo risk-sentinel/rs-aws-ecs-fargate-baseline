@@ -10,6 +10,7 @@ control "EF-1.1" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["CM-2 (2)", "CM-8 a 1"]
+  tag ksi:                   ["KSI-PIY-GIV", "KSI-SVC-ACM", "KSI-SVC-VRI"]
   tag nist_r4:               ["CM-2 (2)"]
   tag cci:                   ["CCI-000302"]
   tag local_number:          "EF-1.1"
@@ -41,6 +42,7 @@ control "EF-1.2" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-7 a", "SI-7 a"]
+  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-JIT", "KSI-SVC-VRI"]
   tag nist_r4:               ["CM-7 a", "MA-3"]
   tag cci:                   ["CCI-000381", "CCI-000865"]
   tag local_number:          "EF-1.2"
@@ -71,6 +73,7 @@ control "EF-1.3" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["RA-5 a"]
+  tag ksi:                   ["KSI-SCR-MON"]
   tag nist_r4:               ["RA-5 a"]
   tag cci:                   ["CCI-001054"]
   tag local_number:          "EF-1.3"
@@ -99,6 +102,7 @@ control "EF-1.4" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["CM-5 (6)", "SI-7 a"]
+  tag ksi:                   ["KSI-SVC-VRI"]
   tag nist_r4:               ["CM-5 (3)"]
   tag cci:                   ["CCI-001749"]
   tag local_number:          "EF-1.4"
@@ -126,6 +130,7 @@ control "EF-1.7" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["RA-5 a", "SI-2 a"]
+  tag ksi:                   ["KSI-CMT-VTD", "KSI-SCR-MON"]
   tag nist_r4:               ["RA-5 a", "SI-2 a"]
   tag cci:                   ["CCI-001054", "CCI-001225"]
   tag local_number:          "EF-1.7"
@@ -164,6 +169,7 @@ control "EF-1.5" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-5 (6)", "SI-7 a"]
+  tag ksi:                   ["KSI-SVC-VRI"]
   tag nist_r4:               ["CM-5 (6)", "SI-7"]
   tag cci:                   ["CCI-001499", "CCI-002703"]
   tag local_number:          "EF-1.5"
@@ -192,6 +198,7 @@ control "EF-1.6" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SI-7 a", "RA-5 a"]
+  tag ksi:                   ["KSI-SCR-MON", "KSI-SVC-VRI"]
   tag nist_r4:               ["RA-5 a", "SI-7"]
   tag cci:                   ["CCI-001054", "CCI-002703"]
   tag local_number:          "EF-1.6"

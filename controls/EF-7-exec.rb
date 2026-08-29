@@ -10,6 +10,7 @@ control "EF-7.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-17 (2)", "AC-6 (9)"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-MLA-LET", "KSI-MLA-RVL", "KSI-SVC-ASM", "KSI-SVC-SIN"]
   tag nist_r4:               ["AC-17 (1)", "AC-6 (8)"]
   tag cci:                   ["CCI-000067", "CCI-002233"]
   tag local_number:          "EF-7.1"
@@ -44,6 +45,7 @@ control "EF-7.2" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AU-12 a", "SC-28"]
+  tag ksi:                   ["KSI-MLA-LET", "KSI-SVC-SIN"]
   tag nist_r4:               ["AU-12 c"]
   tag cci:                   ["CCI-000172"]
   tag local_number:          "EF-7.2"

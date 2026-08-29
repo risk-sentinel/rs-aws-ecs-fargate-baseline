@@ -10,6 +10,7 @@ control "EF-2.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
   tag nist_r4:               ["AC-6"]
   tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-2.1"
@@ -40,6 +41,7 @@ control "EF-2.2" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
   tag nist_r4:               ["AC-6"]
   tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-2.2"
@@ -69,6 +71,7 @@ control "EF-2.3" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-6", "CM-7 a"]
+  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-ELP", "KSI-IAM-JIT"]
   tag nist_r4:               ["AC-6", "CM-7 b"]
   tag cci:                   ["CCI-000225", "CCI-000380"]
   tag local_number:          "EF-2.3"
@@ -99,6 +102,7 @@ control "EF-2.4" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-6", "CM-7 a"]
+  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-ELP", "KSI-IAM-JIT"]
   tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-2.4"
@@ -133,6 +137,7 @@ control "EF-2.5" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
   tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-2.5"
@@ -243,6 +248,7 @@ control "EF-2.10" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-7 a"]
+  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-JIT"]
   tag nist_r4:               ["CM-7 b"]
   tag cci:                   ["CCI-000382"]
   tag local_number:          "EF-2.10"
