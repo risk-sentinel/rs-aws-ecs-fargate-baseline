@@ -41,6 +41,7 @@ control "EF-7.2" do
        "(logging=OVERRIDE with a destination) and encrypt them with a KMS key "\
        "(AU-12/SC-28)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AU-12 a", "SC-28"]
   tag cci:                   ["CCI-000172"]
   tag local_number:          "EF-7.2"

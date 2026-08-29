@@ -11,8 +11,8 @@ control "EF-3.1" do
        "instead (CM-2/IA-5)."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["IA-5 (1) (e)", "CM-6 b"]
-  tag cci:                   ["CCI-000389", "CCI-001045", "CCI-001315"]
+  tag nist:                  ["SC-28", "CM-6 b"]
+  tag cci:                   ["CCI-001199", "CCI-000366"]
   tag local_number:          "EF-3.1"
   tag srg:                   "SRG-APP-000038-CTR-000105"
   tag fsbp:                  "ECS.8"
@@ -39,8 +39,9 @@ control "EF-3.2" do
   desc "Every secrets[].valueFrom must be an ARN (Secrets Manager or SSM "\
        "Parameter Store), not an inline/plaintext value (IA-5(7)/SC-28)."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["IA-5 (7)", "SC-28"]
-  tag cci:                   ["CCI-001368"]
+  tag cci:                   ["CCI-001199", "CCI-004069"]
   tag local_number:          "EF-3.2"
   tag srg:                   "SRG-APP-000038-CTR-000105"
   tag nist_800_190:          "3.4"

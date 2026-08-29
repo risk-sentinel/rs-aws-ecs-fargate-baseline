@@ -37,8 +37,9 @@ control "EF-6.2" do
   desc "pidMode must not be 'host'; sharing the host PID namespace breaks "\
        "process isolation (CM-7/SC-39)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["CM-7 a", "SC-39"]
-  tag cci:                   ["CCI-000364", "CCI-002110"]
+  tag cci:                   ["CCI-000380", "CCI-002530"]
   tag local_number:          "EF-6.2"
   tag srg:                   "SRG-APP-000431-CTR-001065"
   tag fsbp:                  "ECS.3"
@@ -65,8 +66,9 @@ control "EF-6.3" do
   desc "platform_version should be LATEST so security patches apply "\
        "automatically (SI-2). A pinned numeric version drifts behind."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SI-2 a"]
-  tag cci:                   ["CCI-000865"]
+  tag cci:                   ["CCI-001225"]
   tag local_number:          "EF-6.3"
   tag srg:                   "SRG-APP-000456-CTR-001125"
   tag fsbp:                  "ECS.10"
@@ -95,6 +97,7 @@ control "EF-6.5" do
   desc "Fargate ephemeral storage should be encrypted with a customer-managed "\
        "KMS key via the cluster's managed storage configuration (SC-28)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SC-28"]
   tag cci:                   ["CCI-000051", "CCI-001199"]
   tag local_number:          "EF-6.5"
@@ -124,6 +127,7 @@ control "EF-6.6" do
        "task's east-west storage transit, distinct from the north-south ALB/proxy "\
        "TLS covered by EF-11/EF-12. Scoped to task defs that declare EFS volumes."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-8", "SC-8 (1)", "SC-28"]
   tag cci:                   ["CCI-002418", "CCI-002421"]
   tag local_number:          "EF-6.6"

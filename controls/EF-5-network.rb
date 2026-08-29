@@ -35,6 +35,7 @@ control "EF-5.2" do
   desc "assignPublicIp must be DISABLED so tasks are not directly reachable "\
        "from the internet (SC-7)."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a", "AC-3"]
   tag cci:                   ["CCI-000051", "CCI-000213"]
   tag local_number:          "EF-5.2"
@@ -66,6 +67,7 @@ control "EF-5.4" do
        "route to an internet gateway), keeping tasks off the public internet "\
        "(SC-7). Deep check resolves the subnet route tables."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.4"
@@ -99,6 +101,7 @@ control "EF-5.5" do
        "unrestricted inbound access from the internet (SC-7(3)). Deep check "\
        "resolves each SG's ingress rules."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.5"

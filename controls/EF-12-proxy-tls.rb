@@ -71,6 +71,7 @@ control "EF-12.2" do
        "configuration can be validated with cis-nginx. Informational — no "\
        "pass/fail (impact 0.0)."
   tag severity:              "none"
+  tag severity_source:       "assessed"
   tag nist:                  ["CM-8"]
   tag local_number:          "EF-12.2"
   tag srg:                   "SRG-APP-000439-CTR-001070"

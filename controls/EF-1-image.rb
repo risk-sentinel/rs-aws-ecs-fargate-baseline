@@ -38,6 +38,7 @@ control "EF-1.2" do
   desc "Only images from approved registries (private ECR or vetted sources) "\
        "may be deployed. Fails closed when trusted_image_registries is empty."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["CM-7 a", "SI-7 a"]
   tag cci:                   ["CCI-000381", "CCI-000865"]
   tag local_number:          "EF-1.2"
@@ -66,8 +67,9 @@ control "EF-1.3" do
   desc "Image vulnerability scanning must run automatically on push so newly "\
        "introduced CVEs are detected (RA-5)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["RA-5 a"]
-  tag cci:                   ["CCI-001312", "CCI-002605"]
+  tag cci:                   ["CCI-001054"]
   tag local_number:          "EF-1.3"
   tag srg:                   "SRG-APP-000456-CTR-001125"
   tag fsbp:                  "ECR.1"
@@ -92,6 +94,7 @@ control "EF-1.4" do
   desc "Immutable tags prevent an existing tag from being overwritten with a "\
        "different image, preserving supply-chain integrity (CM-5(6)/SI-7)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["CM-5 (6)", "SI-7 a"]
   tag cci:                   ["CCI-001749"]
   tag local_number:          "EF-1.4"
@@ -117,8 +120,9 @@ control "EF-1.7" do
        "must not be deployed (RA-5/SI-2). Requires ECR scan results to exist "\
        "(see EF-1.3)."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["RA-5 a", "SI-2 a"]
-  tag cci:                   ["CCI-001312"]
+  tag cci:                   ["CCI-001054", "CCI-001225"]
   tag local_number:          "EF-1.7"
   tag srg:                   "SRG-APP-000414-CTR-001010"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -153,8 +157,9 @@ control "EF-1.5" do
        "their provenance and integrity can be attested before deployment (CM-5(6)/SI-7). "\
        "Evaluated for digest-pinned task images; tag-only references are caught by EF-1.1."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["CM-5 (6)", "SI-7 a"]
-  tag cci:                   ["CCI-003992"]
+  tag cci:                   ["CCI-001499", "CCI-002703"]
   tag local_number:          "EF-1.5"
   tag srg:                   "SRG-APP-000131-CTR-000285"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -179,8 +184,9 @@ control "EF-1.6" do
        "an OCI referrer, so its components are inventoried for vulnerability and "\
        "supply-chain analysis (SI-7/RA-5). Evaluated for digest-pinned task images."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SI-7 a", "RA-5 a"]
-  tag cci:                   ["CCI-003992"]
+  tag cci:                   ["CCI-001054", "CCI-002703"]
   tag local_number:          "EF-1.6"
   tag srg:                   "SRG-APP-000131-CTR-000285"
   tag applicable_partitions: ["aws", "aws-us-gov"]

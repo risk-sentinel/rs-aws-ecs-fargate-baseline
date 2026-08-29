@@ -50,6 +50,7 @@ control "EF-11.2" do
        "sets) permit deprecated protocols. The approved set is the "\
        "`alb_strong_ssl_policies` input."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-13", "SC-8 (1)"]
   tag cci:                   ["CCI-002450", "CCI-002421"]
   tag local_number:          "EF-11.2"
@@ -82,6 +83,7 @@ control "EF-11.3" do
        "HTTPS (default action type=redirect, protocol HTTPS) so clients are "\
        "moved onto TLS rather than served over plaintext (SC-8 / FSBP ELB.1)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SC-8", "AC-17 (2)"]
   tag cci:                   ["CCI-002418"]
   tag local_number:          "EF-11.3"
@@ -119,6 +121,7 @@ control "EF-11.4" do
        "strips malformed headers before forwarding to the Fargate tasks "\
        "(request-smuggling / header-injection hardening — FSBP ELB.4 / SI-10)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SI-10"]
   tag cci:                   ["CCI-001310"]
   tag local_number:          "EF-11.4"
@@ -145,6 +148,7 @@ control "EF-11.5" do
   desc "access_logs.s3.enabled must be true so ingress request records are "\
        "captured for audit + incident response (AU-2 / FSBP ELB.5)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AU-2 a", "AU-12 a"]
   tag cci:                   ["CCI-000130", "CCI-000169"]
   tag local_number:          "EF-11.5"
@@ -172,8 +176,9 @@ control "EF-11.6" do
        "removed accidentally or maliciously, an availability safeguard "\
        "(CP-10 / FSBP ELB.6)."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["CP-10"]
-  tag cci:                   ["CCI-000366"]
+  tag cci:                   ["CCI-004028"]
   tag local_number:          "EF-11.6"
   tag srg:                   "SRG-APP-000516-CTR-001325"
   tag fsbp:                  "ELB.6"
@@ -201,8 +206,9 @@ control "EF-11.7" do
        "SC-17 / SC-8(1)). A strong SSL policy (EF-11.2) on an expired cert still "\
        "breaks TLS — this control closes that gap."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-12", "SC-17", "SC-8 (1)"]
-  tag cci:                   ["CCI-002450"]
+  tag cci:                   ["CCI-001159", "CCI-002421", "CCI-002428"]
   tag local_number:          "EF-11.7"
   tag srg:                   "SRG-APP-000516-CTR-001335"
   tag fsbp:                  "ACM.1"

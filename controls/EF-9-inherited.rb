@@ -58,8 +58,9 @@ control "EF-9.2" do
   desc  "The container runtime engine on Fargate is AWS-managed; runtime isolation "\
         "and integrity are inherited via AWS authorization (SRG-CTR runtime domain)."
   tag severity: "medium"
+  tag severity_source: "unassessed"
   tag nist: ["SC-39", "SI-7"]
-  tag cci: ["CCI-001084", "CCI-002696"]
+  tag cci: ["CCI-002530", "CCI-002703"]
   tag local_number: "EF-9.2"
   tag srg_source: "DISA Container Platform SRG V2R4 (runtime domain, AWS-inherited)"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -92,6 +93,7 @@ control "EF-9.3" do
   desc  "The ECS control plane (scheduling, API, state) is AWS-managed and inherited "\
         "via AWS authorization (SRG-CTR orchestrator domain)."
   tag severity: "medium"
+  tag severity_source: "unassessed"
   tag nist: ["AC-3", "CM-5"]
   tag cci: ["CCI-000213", "CCI-001813"]
   tag local_number: "EF-9.3"
@@ -127,6 +129,7 @@ control "EF-9.4" do
         "roles is AWS-managed and inherited (SRG-CTR keystore/identity domain). The "\
         "consumer's USE of it (role scoping) is asserted by EF-4."
   tag severity: "medium"
+  tag severity_source: "unassessed"
   tag nist: ["IA-2", "IA-5"]
   tag cci: ["CCI-000764", "CCI-000196"]
   tag local_number: "EF-9.4"
@@ -162,6 +165,7 @@ control "EF-9.5" do
         "AWS-managed and inherited (SRG-CTR audit domain). The consumer's task-level "\
         "logging is asserted by EF-8."
   tag severity: "medium"
+  tag severity_source: "unassessed"
   tag nist: ["AU-2", "AU-12"]
   tag cci: ["CCI-000169", "CCI-000172"]
   tag local_number: "EF-9.5"
@@ -196,6 +200,7 @@ control "EF-9.6" do
   desc  "The cryptographic modules underpinning Fargate / AWS service endpoints are "\
         "FIPS-validated by AWS and inherited (SRG-CTR crypto domain)."
   tag severity: "medium"
+  tag severity_source: "unassessed"
   tag nist: ["SC-13", "IA-7"]
   tag cci: ["CCI-002450", "CCI-000803"]
   tag local_number: "EF-9.6"
