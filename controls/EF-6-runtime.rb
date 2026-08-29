@@ -11,7 +11,7 @@ control "EF-6.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
-  tag cci:                   ["CCI-000056", "CCI-002113"]
+  tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-6.1"
   tag srg:                   "SRG-APP-000243-CTR-000595"
   tag cis_source:            "CIS AWS Compute v1.1.0 C-3.1"

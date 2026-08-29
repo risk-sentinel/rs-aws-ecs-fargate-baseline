@@ -10,7 +10,7 @@ control "EF-2.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
-  tag cci:                   ["CCI-000056", "CCI-002113"]
+  tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-2.1"
   tag srg:                   "SRG-APP-000243-CTR-000595"
   tag fsbp:                  "ECS.4"

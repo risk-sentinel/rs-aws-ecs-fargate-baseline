@@ -10,7 +10,7 @@ control "EF-1.1" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["CM-2 (2)", "CM-8 a 1"]
-  tag cci:                   ["CCI-000366"]
+  tag cci:                   ["CCI-000302"]
   tag local_number:          "EF-1.1"
   tag srg:                   "SRG-APP-000131-CTR-000285"
   tag nist_800_190:          "4.1"
