@@ -188,6 +188,7 @@ control "EF-11.6" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CP-10"]
+  tag nist_r4:               ["CP-10"]
   tag ksi:                   ["KSI-RPL-ABO", "KSI-RPL-ARP", "KSI-RPL-RRO", "KSI-RPL-TRC"]
   tag cci:                   ["CCI-004028"]
   tag local_number:          "EF-11.6"
