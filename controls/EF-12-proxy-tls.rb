@@ -33,6 +33,7 @@ control "EF-12.1" do
        "proxy's cipher/protocol configuration is validated inside the container "\
        "by cis-nginx (nginx_tls_termination). SC-8 / SC-8(1) / SC-13."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-8", "SC-8 (1)", "SC-13"]
   tag cci:                   ["CCI-002418", "CCI-002421"]
   tag local_number:          "EF-12.1"

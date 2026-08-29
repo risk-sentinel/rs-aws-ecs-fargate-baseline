@@ -8,6 +8,7 @@ control "EF-7.1" do
        "(AC-17/AC-6(9)). It must be false unless the service is listed in "\
        "ecs_exec_allowed_services."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-17 (2)", "AC-6 (9)"]
   tag cci:                   ["CCI-000067", "CCI-002233"]
   tag local_number:          "EF-7.1"

@@ -10,6 +10,7 @@ control "EF-3.1" do
        "task definition. Use the secrets[] block with Secrets Manager / SSM "\
        "instead (CM-2/IA-5)."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["IA-5 (1) (e)", "CM-6 b"]
   tag cci:                   ["CCI-000389", "CCI-001045", "CCI-001315"]
   tag local_number:          "EF-3.1"

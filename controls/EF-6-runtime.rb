@@ -9,6 +9,7 @@ control "EF-6.1" do
        "privileged or run as root (defense in depth; Fargate forbids host "\
        "mode but the assertion keeps the profile portable)."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
   tag cci:                   ["CCI-000056", "CCI-002113"]
   tag local_number:          "EF-6.1"

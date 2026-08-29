@@ -23,6 +23,7 @@ control "EF-9.1" do
         "and inherited via AWS's FedRAMP/DoD authorization. The consumer cannot "\
         "configure or query the host; evidence is the AWS authorization package."
   tag severity: "medium"
+  tag severity_source: "unassessed"
   tag nist: ["CM-6 b", "SI-2 c"]
   tag cci: ["CCI-000366", "CCI-002605"]
   tag local_number: "EF-9.1"

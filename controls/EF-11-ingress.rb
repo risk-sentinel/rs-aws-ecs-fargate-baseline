@@ -20,6 +20,7 @@ control "EF-11.1" do
        "(SC-8). An HTTP-only internet-facing ALB exposes plaintext to the "\
        "internet."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-8", "SC-8 (1)"]
   tag cci:                   ["CCI-002418", "CCI-002421"]
   tag local_number:          "EF-11.1"

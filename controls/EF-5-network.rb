@@ -8,6 +8,7 @@ control "EF-5.1" do
   desc "Fargate requires awsvpc; asserting it here keeps task-level network "\
        "isolation explicit and portable to non-Fargate consumers (SC-7)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.1"

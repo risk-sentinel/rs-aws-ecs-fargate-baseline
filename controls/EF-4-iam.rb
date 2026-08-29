@@ -9,6 +9,7 @@ control "EF-4.1" do
        "role (application AWS permissions) must be separate so the application "\
        "does not inherit infrastructure permissions (AC-5/AC-6, 800-190 §4.5)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AC-5", "AC-6"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-4.1"

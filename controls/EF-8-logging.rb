@@ -8,6 +8,7 @@ control "EF-8.1" do
   desc "logConfiguration must be set on each container so task output is "\
        "captured for audit (AU-2/AU-12)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AU-2 a", "AU-12 a"]
   tag cci:                   ["CCI-000011", "CCI-000123"]
   tag local_number:          "EF-8.1"

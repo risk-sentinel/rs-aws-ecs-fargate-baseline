@@ -8,6 +8,7 @@ control "EF-2.1" do
   desc "A privileged container has near-host-level access, defeating container "\
        "isolation. No container definition may set privileged=true."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
   tag cci:                   ["CCI-000056", "CCI-002113"]
   tag local_number:          "EF-2.1"

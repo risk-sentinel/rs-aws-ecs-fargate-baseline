@@ -8,6 +8,7 @@ control "EF-1.1" do
   desc "Images referenced by mutable tag (or :latest) can change underneath a "\
        "deployment. Pin by @sha256 digest for immutable, verifiable provenance."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["CM-2 (2)", "CM-8 a 1"]
   tag cci:                   ["CCI-000366"]
   tag local_number:          "EF-1.1"

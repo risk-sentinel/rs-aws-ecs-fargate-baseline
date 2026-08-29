@@ -14,6 +14,7 @@ control "EF-10.1" do
         "Fargate tasks. It is consumer-configurable (not AWS-inherited) and must "\
         "be enabled where ECS is in use (SI-4 / AU-6)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SI-4 a", "SI-4 (2)"]
   tag cci:                   ["CCI-001253", "CCI-002661"]
   tag local_number:          "EF-10.1"
