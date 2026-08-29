@@ -8,7 +8,10 @@ control "EF-5.1" do
   desc "Fargate requires awsvpc; asserting it here keeps task-level network "\
        "isolation explicit and portable to non-Fargate consumers (SC-7)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SC-7 a"]
+  tag ksi:                   ["KSI-CNA-ULN", "KSI-SVC-EIS"]
+  tag nist_r4:               ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.1"
   tag srg:                   "SRG-APP-000039-CTR-000110"
@@ -34,7 +37,10 @@ control "EF-5.2" do
   desc "assignPublicIp must be DISABLED so tasks are not directly reachable "\
        "from the internet (SC-7)."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a", "AC-3"]
+  tag ksi:                   ["KSI-CNA-ULN", "KSI-IAM-APM", "KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-SVC-EIS"]
+  tag nist_r4:               ["AC-3"]
   tag cci:                   ["CCI-000051", "CCI-000213"]
   tag local_number:          "EF-5.2"
   tag srg:                   "SRG-APP-000039-CTR-000110"
@@ -65,7 +71,10 @@ control "EF-5.4" do
        "route to an internet gateway), keeping tasks off the public internet "\
        "(SC-7). Deep check resolves the subnet route tables."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]
+  tag ksi:                   ["KSI-CNA-ULN", "KSI-SVC-EIS"]
+  tag nist_r4:               ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.4"
   tag srg:                   "SRG-APP-000039-CTR-000110"
@@ -98,7 +107,10 @@ control "EF-5.5" do
        "unrestricted inbound access from the internet (SC-7(3)). Deep check "\
        "resolves each SG's ingress rules."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]
+  tag ksi:                   ["KSI-CNA-ULN", "KSI-SVC-EIS"]
+  tag nist_r4:               ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.5"
   tag srg:                   "SRG-APP-000142-CTR-000325"

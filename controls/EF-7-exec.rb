@@ -8,7 +8,10 @@ control "EF-7.1" do
        "(AC-17/AC-6(9)). It must be false unless the service is listed in "\
        "ecs_exec_allowed_services."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-17 (2)", "AC-6 (9)"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-MLA-LET", "KSI-MLA-RVL", "KSI-SVC-ASM", "KSI-SVC-SIN"]
+  tag nist_r4:               ["AC-17 (1)", "AC-6 (8)"]
   tag cci:                   ["CCI-000067", "CCI-002233"]
   tag local_number:          "EF-7.1"
   tag srg:                   "SRG-APP-000033-CTR-000095"
@@ -40,7 +43,10 @@ control "EF-7.2" do
        "(logging=OVERRIDE with a destination) and encrypt them with a KMS key "\
        "(AU-12/SC-28)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AU-12 a", "SC-28"]
+  tag ksi:                   ["KSI-MLA-LET", "KSI-SVC-SIN"]
+  tag nist_r4:               ["AU-12 c"]
   tag cci:                   ["CCI-000172"]
   tag local_number:          "EF-7.2"
   tag srg:                   "SRG-APP-000092-CTR-000165"

@@ -8,8 +8,11 @@ control "EF-2.1" do
   desc "A privileged container has near-host-level access, defeating container "\
        "isolation. No container definition may set privileged=true."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
-  tag cci:                   ["CCI-000056", "CCI-002113"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
+  tag nist_r4:               ["AC-6"]
+  tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-2.1"
   tag srg:                   "SRG-APP-000243-CTR-000595"
   tag fsbp:                  "ECS.4"
@@ -36,8 +39,11 @@ control "EF-2.2" do
   desc "Each container definition must set a non-root user. Running as root "\
        "(or leaving user unset) increases container-escape blast radius."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AC-6"]
-  tag cci:                   ["CCI-001499"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
+  tag nist_r4:               ["AC-6"]
+  tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-2.2"
   tag srg:                   "SRG-APP-000133-CTR-000290"
   tag fsbp:                  "ECS.20"
@@ -63,8 +69,11 @@ control "EF-2.3" do
   desc "readonlyRootFilesystem=true prevents tampering with the container "\
        "filesystem at runtime (AC-6/CM-7)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AC-6", "CM-7 a"]
-  tag cci:                   ["CCI-000364", "CCI-002110"]
+  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-ELP", "KSI-IAM-JIT"]
+  tag nist_r4:               ["AC-6", "CM-7 b"]
+  tag cci:                   ["CCI-000225", "CCI-000380"]
   tag local_number:          "EF-2.3"
   tag srg:                   "SRG-APP-000133-CTR-000295"
   tag fsbp:                  "ECS.5"
@@ -91,7 +100,10 @@ control "EF-2.4" do
   desc "linuxParameters.capabilities.drop must include ALL; any added "\
        "capability must be in allowed_added_capabilities (least privilege)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AC-6", "CM-7 a"]
+  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-ELP", "KSI-IAM-JIT"]
+  tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-2.4"
   tag srg:                   "SRG-APP-000342-CTR-000775"
@@ -123,7 +135,10 @@ control "EF-2.5" do
   desc "Containers must not add SYS_ADMIN/SYS_PTRACE/ALL, which enable "\
        "privilege escalation and host introspection (AC-6)."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
+  tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-2.5"
   tag srg:                   "SRG-APP-000342-CTR-000775"
@@ -149,8 +164,10 @@ control "EF-2.6" do
   desc "Per-container cpu and memory (or memoryReservation) bound resource use, "\
        "limiting the blast radius of a noisy/compromised container (SC-6)."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-6"]
-  tag cci:                   ["CCI-002385"]
+  tag nist_r4:               ["SC-6"]
+  tag cci:                   ["CCI-002392"]
   tag local_number:          "EF-2.6"
   tag srg:                   "SRG-APP-000435-CTR-001070"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -174,8 +191,10 @@ control "EF-2.7" do
   title "Containers should set ulimits"
   desc "ulimits (e.g. nofile) bound per-process resource consumption (SC-6)."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["SC-6"]
-  tag cci:                   ["CCI-002385"]
+  tag nist_r4:               ["SC-6"]
+  tag cci:                   ["CCI-002392"]
   tag local_number:          "EF-2.7"
   tag srg:                   "SRG-APP-000435-CTR-001070"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -200,8 +219,10 @@ control "EF-2.8" do
   desc "A healthCheck lets ECS detect and replace unhealthy tasks, supporting "\
        "availability (SI-13/CP-10)."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["SI-13"]
-  tag cci:                   ["CCI-002385"]
+  tag nist_r4:               ["SI-13 b"]
+  tag cci:                   ["CCI-001318"]
   tag local_number:          "EF-2.8"
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
@@ -225,7 +246,10 @@ control "EF-2.10" do
   desc "Container ports below 1024 require elevated privilege historically and "\
        "are disallowed by SRG-CTR; bind unprivileged ports instead (CM-7)."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["CM-7 a"]
+  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-JIT"]
+  tag nist_r4:               ["CM-7 b"]
   tag cci:                   ["CCI-000382"]
   tag local_number:          "EF-2.10"
   tag srg:                   "SRG-APP-000142-CTR-000330"

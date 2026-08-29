@@ -9,7 +9,10 @@ control "EF-4.1" do
        "role (application AWS permissions) must be separate so the application "\
        "does not inherit infrastructure permissions (AC-5/AC-6, 800-190 §4.5)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AC-5", "AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-PIY-RIS", "KSI-PIY-RSD"]
+  tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-4.1"
   tag srg:                   "SRG-APP-000342-CTR-000775"
@@ -40,8 +43,11 @@ control "EF-4.2" do
        "wildcard Action with a wildcard Resource (over-broad grant, AC-6). "\
        "Deep check parses inline + attached managed policy documents."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
-  tag cci:                   ["CCI-000366"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
+  tag nist_r4:               ["AC-6"]
+  tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-4.2"
   tag srg:                   "SRG-APP-000033-CTR-000095"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -67,8 +73,11 @@ control "EF-4.3" do
        "CloudWatch Logs actions and resources; it must not grant any wildcard "\
        "Action (AC-6). Deep check parses the role's policy documents."
   tag severity:              "high"
+  tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
-  tag cci:                   ["CCI-000366"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
+  tag nist_r4:               ["AC-6"]
+  tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-4.3"
   tag srg:                   "SRG-APP-000033-CTR-000095"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -93,8 +102,11 @@ control "EF-4.4" do
   desc "Static AWS access keys must never be passed via environment variables; "\
        "use the task role for AWS access instead (IA-5/AC-6)."
   tag severity:              "high"
-  tag nist:                  ["IA-5 (1) (e)", "AC-6"]
-  tag cci:                   ["CCI-000389"]
+  tag severity_source:       "assessed"
+  tag nist:                  ["SC-28", "AC-6"]
+  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-SVC-SIN"]
+  tag nist_r4:               ["AC-6", "SC-28"]
+  tag cci:                   ["CCI-001199", "CCI-000225"]
   tag local_number:          "EF-4.4"
   tag fsbp:                  "ECS.8"
   tag applicable_partitions: ["aws", "aws-us-gov"]

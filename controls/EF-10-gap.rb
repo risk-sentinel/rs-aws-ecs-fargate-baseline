@@ -14,7 +14,10 @@ control "EF-10.1" do
         "Fargate tasks. It is consumer-configurable (not AWS-inherited) and must "\
         "be enabled where ECS is in use (SI-4 / AU-6)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SI-4 a", "SI-4 (2)"]
+  tag ksi:                   ["KSI-MLA-OSM", "KSI-MLA-RVL", "KSI-SVC-EIS"]
+  tag nist_r4:               ["SI-4 (4)", "SI-4 a 1"]
   tag cci:                   ["CCI-001253", "CCI-002661"]
   tag local_number:          "EF-10.1"
   tag srg_source:            "DISA Container Platform SRG V2R4 (runtime monitoring)"
@@ -38,8 +41,11 @@ control "EF-10.2" do
         "ensures new clusters get monitoring even if a per-cluster setting is "\
         "missed (AU-6(3)/CA-7). Consumer-configurable, not AWS-inherited."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["AU-6 (3)", "CA-7"]
-  tag cci:                   ["CCI-000130"]
+  tag ksi:                   ["KSI-MLA-EVC", "KSI-MLA-OSM"]
+  tag nist_r4:               ["AU-6 (3)", "CA-7"]
+  tag cci:                   ["CCI-000153", "CCI-000274"]
   tag local_number:          "EF-10.2"
   tag srg_source:            "DISA Container Platform SRG V2R4 (orchestrator config)"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -63,7 +69,10 @@ control "EF-10.3" do
         "runtime/image expectation is deterministic across deploys (CM-6 b). "\
         "Consumer-configurable on the task definition."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["CM-6 b"]
+  tag ksi:                   ["KSI-CMT-LMC", "KSI-CMT-RMV", "KSI-MLA-EVC", "KSI-SVC-ACM"]
+  tag nist_r4:               ["CM-6 b"]
   tag cci:                   ["CCI-000366"]
   tag local_number:          "EF-10.3"
   tag srg_source:            "DISA Container Platform SRG V2R4 (image/runtime config)"
@@ -92,7 +101,10 @@ control "EF-10.4" do
         "boundary's image-build / SBOM-currency record (SI-2). EF-1.7 (scan "\
         "findings) provides detective coverage of known-vulnerable packages."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["SI-2 c"]
+  tag ksi:                   ["KSI-CMT-VTD"]
+  tag nist_r4:               ["SI-2 c"]
   tag cci:                   ["CCI-002605"]
   tag local_number:          "EF-10.4"
   tag srg_source:            "DISA Container Platform SRG V2R4 (image currency)"

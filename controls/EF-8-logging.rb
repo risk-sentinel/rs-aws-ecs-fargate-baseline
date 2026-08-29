@@ -8,7 +8,10 @@ control "EF-8.1" do
   desc "logConfiguration must be set on each container so task output is "\
        "captured for audit (AU-2/AU-12)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AU-2 a", "AU-12 a"]
+  tag ksi:                   ["KSI-CMT-LMC", "KSI-MLA-LET", "KSI-MLA-OSM", "KSI-MLA-RVL"]
+  tag nist_r4:               ["AC-2 f", "AU-2 a"]
   tag cci:                   ["CCI-000011", "CCI-000123"]
   tag local_number:          "EF-8.1"
   tag srg:                   "SRG-APP-000510-CTR-001330"
@@ -36,8 +39,11 @@ control "EF-8.3" do
   desc "Container Insights collects metrics/logs needed for monitoring and "\
        "incident response (AU-6(3)/CA-7)."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AU-6 (3)"]
-  tag cci:                   ["CCI-000130", "CCI-000766"]
+  tag ksi:                   ["KSI-MLA-OSM"]
+  tag nist_r4:               ["AU-6 (3)"]
+  tag cci:                   ["CCI-000153"]
   tag local_number:          "EF-8.3"
   tag fsbp:                  "ECS.12"
   tag cis_source:            "CIS AWS Compute v1.1.0 C-3.9"
@@ -62,7 +68,10 @@ control "EF-8.4" do
   desc "Required governance tags (required_tag_keys) must be present for "\
        "inventory and ABAC (CM-8). Empty input = require at least one tag."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["CM-8 a 1"]
+  tag ksi:                   ["KSI-PIY-GIV"]
+  tag nist_r4:               ["CM-8 a 1"]
   tag cci:                   ["CCI-000389"]
   tag local_number:          "EF-8.4"
   tag fsbp:                  "ECS.13/14/15"
@@ -106,8 +115,10 @@ control "EF-8.5" do
   desc "The deployment circuit breaker auto-rolls-back failed deployments, "\
        "supporting availability (SI-13/CP-10)."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["SI-13"]
-  tag cci:                   ["CCI-002385"]
+  tag nist_r4:               ["SI-13 b"]
+  tag cci:                   ["CCI-001318"]
   tag local_number:          "EF-8.5"
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
@@ -137,7 +148,10 @@ control "EF-8.6" do
        "(AU-4 / AU-9(2) — secondary/central audit storage). EF-8.1 asserts a "\
        "logConfiguration exists; this asserts it off-loads the records."
   tag severity:              "medium"
+  tag severity_source:       "unassessed"
   tag nist:                  ["AU-4", "AU-9 (2)"]
+  tag ksi:                   ["KSI-MLA-OSM"]
+  tag nist_r4:               ["AU-4 (1)"]
   tag cci:                   ["CCI-001851"]
   tag local_number:          "EF-8.6"
   tag srg:                   "SRG-APP-000358-CTR-000805"
@@ -166,7 +180,10 @@ control "EF-8.7" do
        "allocated and bounded rather than left to never-expire (AU-4 — allocate "\
        "audit-record storage capacity). A never-expire (unset) group fails."
   tag severity:              "low"
+  tag severity_source:       "assessed"
   tag nist:                  ["AU-4", "AU-11"]
+  tag ksi:                   ["KSI-MLA-OSM"]
+  tag nist_r4:               ["AU-4"]
   tag cci:                   ["CCI-001849"]
   tag local_number:          "EF-8.7"
   tag srg:                   "SRG-APP-000357-CTR-000800"
