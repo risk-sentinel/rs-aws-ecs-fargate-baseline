@@ -12,6 +12,7 @@ control "EF-3.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-28", "CM-6 b"]
+  tag nist_r4:               ["CM-6 b", "SC-28"]
   tag cci:                   ["CCI-001199", "CCI-000366"]
   tag local_number:          "EF-3.1"
   tag srg:                   "SRG-APP-000038-CTR-000105"
@@ -41,6 +42,7 @@ control "EF-3.2" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["IA-5 (7)", "SC-28"]
+  tag nist_r4:               ["SC-28"]
   tag cci:                   ["CCI-001199", "CCI-004069"]
   tag local_number:          "EF-3.2"
   tag srg:                   "SRG-APP-000038-CTR-000105"

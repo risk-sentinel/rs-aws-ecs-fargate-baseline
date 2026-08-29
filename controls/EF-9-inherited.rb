@@ -25,6 +25,7 @@ control "EF-9.1" do
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["CM-6 b", "SI-2 c"]
+  tag nist_r4: ["CM-6 b", "SI-2 c"]
   tag cci: ["CCI-000366", "CCI-002605"]
   tag local_number: "EF-9.1"
   tag srg_source: "DISA Container Platform SRG V2R4 (host/runtime domain, AWS-inherited)"
@@ -60,6 +61,7 @@ control "EF-9.2" do
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["SC-39", "SI-7"]
+  tag nist_r4: ["SC-39", "SI-7"]
   tag cci: ["CCI-002530", "CCI-002703"]
   tag local_number: "EF-9.2"
   tag srg_source: "DISA Container Platform SRG V2R4 (runtime domain, AWS-inherited)"
@@ -95,6 +97,7 @@ control "EF-9.3" do
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["AC-3", "CM-5"]
+  tag nist_r4: ["AC-3", "CM-5 (1)"]
   tag cci: ["CCI-000213", "CCI-001813"]
   tag local_number: "EF-9.3"
   tag srg_source: "DISA Container Platform SRG V2R4 (orchestrator domain, AWS-inherited)"
@@ -131,6 +134,7 @@ control "EF-9.4" do
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["IA-2", "IA-5"]
+  tag nist_r4: ["IA-2", "IA-5 (1) (c)"]
   tag cci: ["CCI-000764", "CCI-000196"]
   tag local_number: "EF-9.4"
   tag srg_source: "DISA Container Platform SRG V2R4 (keystore/identity domain, AWS-inherited)"
@@ -167,6 +171,7 @@ control "EF-9.5" do
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["AU-2", "AU-12"]
+  tag nist_r4: ["AU-12 a", "AU-12 c"]
   tag cci: ["CCI-000169", "CCI-000172"]
   tag local_number: "EF-9.5"
   tag srg_source: "DISA Container Platform SRG V2R4 (audit domain, AWS-inherited)"
@@ -202,6 +207,7 @@ control "EF-9.6" do
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["SC-13", "IA-7"]
+  tag nist_r4: ["IA-7", "SC-13"]
   tag cci: ["CCI-002450", "CCI-000803"]
   tag local_number: "EF-9.6"
   tag srg_source: "DISA Container Platform SRG V2R4 (crypto domain, AWS-inherited)"

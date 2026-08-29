@@ -10,6 +10,7 @@ control "EF-2.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag nist_r4:               ["AC-6"]
   tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-2.1"
   tag srg:                   "SRG-APP-000243-CTR-000595"
@@ -39,6 +40,7 @@ control "EF-2.2" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-6"]
+  tag nist_r4:               ["AC-6"]
   tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-2.2"
   tag srg:                   "SRG-APP-000133-CTR-000290"
@@ -67,6 +69,7 @@ control "EF-2.3" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-6", "CM-7 a"]
+  tag nist_r4:               ["AC-6", "CM-7 b"]
   tag cci:                   ["CCI-000225", "CCI-000380"]
   tag local_number:          "EF-2.3"
   tag srg:                   "SRG-APP-000133-CTR-000295"
@@ -96,6 +99,7 @@ control "EF-2.4" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-6", "CM-7 a"]
+  tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-2.4"
   tag srg:                   "SRG-APP-000342-CTR-000775"
@@ -129,6 +133,7 @@ control "EF-2.5" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag nist_r4:               ["AC-6 (8)"]
   tag cci:                   ["CCI-002233"]
   tag local_number:          "EF-2.5"
   tag srg:                   "SRG-APP-000342-CTR-000775"
@@ -156,6 +161,7 @@ control "EF-2.6" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-6"]
+  tag nist_r4:               ["SC-6"]
   tag cci:                   ["CCI-002392"]
   tag local_number:          "EF-2.6"
   tag srg:                   "SRG-APP-000435-CTR-001070"
@@ -182,6 +188,7 @@ control "EF-2.7" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-6"]
+  tag nist_r4:               ["SC-6"]
   tag cci:                   ["CCI-002392"]
   tag local_number:          "EF-2.7"
   tag srg:                   "SRG-APP-000435-CTR-001070"
@@ -209,6 +216,7 @@ control "EF-2.8" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["SI-13"]
+  tag nist_r4:               ["SI-13 b"]
   tag cci:                   ["CCI-001318"]
   tag local_number:          "EF-2.8"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -235,6 +243,7 @@ control "EF-2.10" do
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-7 a"]
+  tag nist_r4:               ["CM-7 b"]
   tag cci:                   ["CCI-000382"]
   tag local_number:          "EF-2.10"
   tag srg:                   "SRG-APP-000142-CTR-000330"

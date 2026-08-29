@@ -35,6 +35,7 @@ control "EF-12.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-8", "SC-8 (1)", "SC-13"]
+  tag nist_r4:               ["SC-8", "SC-8 (1)"]
   tag cci:                   ["CCI-002418", "CCI-002421"]
   tag local_number:          "EF-12.1"
   tag srg:                   "SRG-APP-000439-CTR-001070"

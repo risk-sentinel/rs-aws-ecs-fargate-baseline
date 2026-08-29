@@ -10,6 +10,7 @@ control "EF-5.1" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SC-7 a"]
+  tag nist_r4:               ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.1"
   tag srg:                   "SRG-APP-000039-CTR-000110"
@@ -37,6 +38,7 @@ control "EF-5.2" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a", "AC-3"]
+  tag nist_r4:               ["AC-3"]
   tag cci:                   ["CCI-000051", "CCI-000213"]
   tag local_number:          "EF-5.2"
   tag srg:                   "SRG-APP-000039-CTR-000110"
@@ -69,6 +71,7 @@ control "EF-5.4" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]
+  tag nist_r4:               ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.4"
   tag srg:                   "SRG-APP-000039-CTR-000110"
@@ -103,6 +106,7 @@ control "EF-5.5" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]
+  tag nist_r4:               ["SC-7 a"]
   tag cci:                   ["CCI-001097"]
   tag local_number:          "EF-5.5"
   tag srg:                   "SRG-APP-000142-CTR-000325"

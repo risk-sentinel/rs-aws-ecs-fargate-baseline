@@ -11,6 +11,7 @@ control "EF-6.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]
+  tag nist_r4:               ["AC-6"]
   tag cci:                   ["CCI-000225"]
   tag local_number:          "EF-6.1"
   tag srg:                   "SRG-APP-000243-CTR-000595"
@@ -39,6 +40,7 @@ control "EF-6.2" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["CM-7 a", "SC-39"]
+  tag nist_r4:               ["CM-7 b", "SC-39"]
   tag cci:                   ["CCI-000380", "CCI-002530"]
   tag local_number:          "EF-6.2"
   tag srg:                   "SRG-APP-000431-CTR-001065"
@@ -68,6 +70,7 @@ control "EF-6.3" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SI-2 a"]
+  tag nist_r4:               ["SI-2 a"]
   tag cci:                   ["CCI-001225"]
   tag local_number:          "EF-6.3"
   tag srg:                   "SRG-APP-000456-CTR-001125"
@@ -99,6 +102,7 @@ control "EF-6.5" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SC-28"]
+  tag nist_r4:               ["SC-28"]
   tag cci:                   ["CCI-000051", "CCI-001199"]
   tag local_number:          "EF-6.5"
   tag cis_source:            "CIS AWS Compute v1.1.0 C-11.1"
@@ -129,6 +133,7 @@ control "EF-6.6" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-8", "SC-8 (1)", "SC-28"]
+  tag nist_r4:               ["SC-8", "SC-8 (1)"]
   tag cci:                   ["CCI-002418", "CCI-002421"]
   tag local_number:          "EF-6.6"
   tag srg:                   "SRG-APP-000439-CTR-001080"

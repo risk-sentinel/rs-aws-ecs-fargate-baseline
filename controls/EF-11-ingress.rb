@@ -22,6 +22,7 @@ control "EF-11.1" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-8", "SC-8 (1)"]
+  tag nist_r4:               ["SC-8", "SC-8 (1)"]
   tag cci:                   ["CCI-002418", "CCI-002421"]
   tag local_number:          "EF-11.1"
   tag srg:                   "SRG-APP-000439-CTR-001070"
@@ -52,6 +53,7 @@ control "EF-11.2" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-13", "SC-8 (1)"]
+  tag nist_r4:               ["SC-13", "SC-8 (1)"]
   tag cci:                   ["CCI-002450", "CCI-002421"]
   tag local_number:          "EF-11.2"
   tag srg:                   "SRG-APP-000439-CTR-001070"
@@ -85,6 +87,7 @@ control "EF-11.3" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SC-8", "AC-17 (2)"]
+  tag nist_r4:               ["SC-8"]
   tag cci:                   ["CCI-002418"]
   tag local_number:          "EF-11.3"
   tag srg:                   "SRG-APP-000439-CTR-001070"
@@ -123,6 +126,7 @@ control "EF-11.4" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SI-10"]
+  tag nist_r4:               ["SI-10"]
   tag cci:                   ["CCI-001310"]
   tag local_number:          "EF-11.4"
   tag srg:                   "SRG-APP-000251-CTR-000600"
@@ -150,6 +154,7 @@ control "EF-11.5" do
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AU-2 a", "AU-12 a"]
+  tag nist_r4:               ["AU-12 a", "AU-3"]
   tag cci:                   ["CCI-000130", "CCI-000169"]
   tag local_number:          "EF-11.5"
   tag srg:                   "SRG-APP-000092-CTR-000165"
@@ -208,6 +213,7 @@ control "EF-11.7" do
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-12", "SC-17", "SC-8 (1)"]
+  tag nist_r4:               ["SC-12", "SC-17", "SC-8 (1)"]
   tag cci:                   ["CCI-001159", "CCI-002421", "CCI-002428"]
   tag local_number:          "EF-11.7"
   tag srg:                   "SRG-APP-000516-CTR-001335"
