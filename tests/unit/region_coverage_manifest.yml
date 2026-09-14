@@ -51,6 +51,10 @@ resources:
 
   - resource: aws_subnet_routing
     klass: AwsSubnetRouting
+    # Requires subnet_id: it answers a question about one subnet, so it cannot be
+    # constructed bare. A fixture id is enough — the stub answers regardless, and
+    # what is being measured is which regions it asks.
+    args: { subnet_id: "subnet-00000000000000000" }
     watch:
       service: ec2
       operation: describe_subnets
