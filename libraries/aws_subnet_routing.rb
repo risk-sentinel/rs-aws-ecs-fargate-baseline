@@ -1,3 +1,10 @@
+# NOTE on the client accessor: EC2's is `compute_client`, NOT `ec2_client`.
+# AwsConnection defines roughly sixty explicit <service>_client methods and has
+# no method_missing -- the ones in this resource pack are on AwsResourceBase,
+# AwsResourceProbe and NullResponse, none of which are in the lookup path for
+# `@aws.<something>`. `@aws.ec2_client` therefore raises NoMethodError, and
+# neither `cinc-auditor check` nor `json` can see it: both only LOAD the
+# resource, and the call sits inside fetch-time code.
 require "aws_backend"
 
 # aws_subnet_routing — resolves the EFFECTIVE route table for a subnet and
@@ -51,7 +58,7 @@ class AwsSubnetRouting < AwsResourceBase
   private
 
   def resolve_vpc
-    resp = @aws.ec2_client.describe_subnets(subnet_ids: [@subnet_id])
+    resp = @aws.compute_client.describe_subnets(subnet_ids: [@subnet_id])
     subnet = resp.subnets.first
     return if subnet.nil?
     @vpc_id = subnet.vpc_id
@@ -61,7 +68,7 @@ class AwsSubnetRouting < AwsResourceBase
   def resolve_route_table
     return if @vpc_id.nil?
 
-    explicit = @aws.ec2_client.describe_route_tables(
+    explicit = @aws.compute_client.describe_route_tables(
       filters: [{ name: "association.subnet-id", values: [@subnet_id] }],
     ).route_tables.first
 
@@ -79,7 +86,7 @@ class AwsSubnetRouting < AwsResourceBase
   end
 
   def main_route_table
-    @aws.ec2_client.describe_route_tables(
+    @aws.compute_client.describe_route_tables(
       filters: [
         { name: "vpc-id", values: [@vpc_id] },
         { name: "association.main", values: ["true"] },
