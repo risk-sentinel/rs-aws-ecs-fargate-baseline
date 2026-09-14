@@ -1,0 +1,58 @@
+# Which custom resources must enumerate every enabled region, and how the
+# harness should construct and observe each one.
+#
+#   status - `enforced` must query every region and fails the build if it
+#            regresses. `known_blind` is reported without failing, so the harness
+#            can land before the fixes. `unobservable` and `target_derived` each
+#            require a stated `reason` and are NOT defects.
+#   watch  - NEVER watch describe_regions: it is the one-off discovery call and
+#            proves nothing about the walk. For a resource that RESOLVES a region
+#            rather than sweeping, watch the call that does the searching, not
+#            the one that runs afterwards.
+#   payload- REQUIRED for any paginated operation: without one the SDK returns a
+#            placeholder next_token forever and the run hangs.
+#
+# DELIBERATELY NOT LISTED — global services, where region enumeration is
+# meaningless and a future sweep must not "fix" them:
+#   aws_iam_role_policy_analysis - @aws.iam_client; IAM is global.
+#
+# This repository declared scan_regions and never read it. An input that implies
+# a scope control which does not exist is its own trust problem: a consumer
+# setting it would believe they had narrowed the scan when nothing consulted the
+# value. It is now honoured, and the resources below are the migration backlog —
+# visible and measured rather than silently single-region.
+
+regions: [us-east-1, us-west-2, eu-west-1]
+
+resources:
+  - resource: aws_ecs_inventory
+    klass: AwsEcsInventory
+    watch:
+      service: ecs
+      operation: list_clusters
+      payload: { cluster_arns: [] }
+    status: enforced
+
+  - resource: aws_ecs_account_settings
+    klass: AwsEcsAccountSettings
+    watch:
+      service: ecs
+      operation: list_account_settings
+      payload: { settings: [] }
+    status: known_blind
+
+  - resource: aws_elbv2_inventory
+    klass: AwsElbv2Inventory
+    watch:
+      service: elasticloadbalancingv2
+      operation: describe_load_balancers
+      payload: { load_balancers: [] }
+    status: known_blind
+
+  - resource: aws_subnet_routing
+    klass: AwsSubnetRouting
+    watch:
+      service: ec2
+      operation: describe_subnets
+      payload: { subnets: [] }
+    status: known_blind
