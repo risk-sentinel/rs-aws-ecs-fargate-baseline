@@ -90,6 +90,11 @@ inputs:
     description: Linux capabilities permitted in linuxParameters.capabilities.add.
   - name: scan_regions
     type: array
+    value: []                  # REQUIRED. ECS, ECR, EC2 and ELB are all regional:
+                               # a task, image, subnet or load balancer in another
+                               # region is never seen and the control passes having
+                               # found nothing. IAM is global and is not swept.
+                               # Empty is an ERROR. Use ["*"] to sweep the partition.
     value: []
     description: Region allowlist for region-scoped checks; empty = current region.
   - name: cert_expiry_warning_days
