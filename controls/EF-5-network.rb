@@ -91,10 +91,16 @@ control "EF-5.4" do
     next unless svc.fargate?
 
     svc.subnets.each do |subnet_id|
+      # Resolved at CONTROL scope, once per subnet, and closed over. A helper
+      # mixed into Inspec::Rule is not in scope inside describe/subject, so
+      # calling it there raises NameError at exec -- and resolving it twice
+      # (subject and expectation) would also search the regions twice.
+      routing = subnet_routing(subnet_id)
+      has_igw_route = routing.internet_gateway_route?
       describe "Subnet #{subnet_id} (service #{svc.service_name}) routing" do
-        subject { subnet_routing(subnet_id) }
+        subject { routing }
         it "must not have a default route to an internet gateway" do
-          expect(subnet_routing(subnet_id).internet_gateway_route?).to eq(false)
+          expect(has_igw_route).to eq(false)
         end
       end
     end
