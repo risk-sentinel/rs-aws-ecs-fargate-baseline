@@ -92,9 +92,9 @@ control "EF-5.4" do
 
     svc.subnets.each do |subnet_id|
       describe "Subnet #{subnet_id} (service #{svc.service_name}) routing" do
-        subject { aws_subnet_routing(subnet_id: subnet_id) }
+        subject { subnet_routing(subnet_id) }
         it "must not have a default route to an internet gateway" do
-          expect(aws_subnet_routing(subnet_id: subnet_id).internet_gateway_route?).to eq(false)
+          expect(subnet_routing(subnet_id).internet_gateway_route?).to eq(false)
         end
       end
     end

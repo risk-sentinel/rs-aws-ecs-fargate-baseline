@@ -39,7 +39,7 @@ resources:
       service: ecs
       operation: list_account_settings
       payload: { settings: [] }
-    status: known_blind
+    status: enforced
 
   - resource: aws_elbv2_inventory
     klass: AwsElbv2Inventory
@@ -47,16 +47,22 @@ resources:
       service: elasticloadbalancingv2
       operation: describe_load_balancers
       payload: { load_balancers: [] }
-    status: known_blind
+    status: enforced
 
   - resource: aws_subnet_routing
     klass: AwsSubnetRouting
     # Requires subnet_id: it answers a question about one subnet, so it cannot be
     # constructed bare. A fixture id is enough — the stub answers regardless, and
     # what is being measured is which regions it asks.
+    #
+    # This resource RESOLVES rather than sweeps: in real use it stops at the
+    # region where the subnet is found. Enforcement holds here because the stub
+    # payload is empty, so the subnet is never found and every region is asked.
+    # What that proves is that the SEARCH covers the scope — not that a live
+    # lookup visits every region, which it should not.
     args: { subnet_id: "subnet-00000000000000000" }
     watch:
       service: ec2
       operation: describe_subnets
       payload: { subnets: [] }
-    status: known_blind
+    status: enforced

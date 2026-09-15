@@ -58,7 +58,7 @@ control "EF-10.2" do
   only_if("No ECS clusters in scope") { !clusters.empty? }
 
   describe "ECS account setting containerInsights" do
-    subject { aws_ecs_account_settings.value_for("containerInsights") }
+    subject { ecs_account_settings.value_for("containerInsights") }
     it { should cmp "enabled" }
   end
 end

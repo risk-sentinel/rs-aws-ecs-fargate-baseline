@@ -12,26 +12,95 @@
 # their host-level concerns are out of scope for a Fargate baseline (those
 # belong to cis-aws-compute / host-OS profiles).
 module EcsScopeHelpers
+  # Raised when the profile was given no region scope. NOT rescued by the
+  # helpers below, deliberately -- see the note on the rescues.
+  class ScopeNotSupplied < StandardError; end
+
+  # The regions the consumer put in scope.
+  #
+  # An InSpec RESOURCE cannot read inputs -- `input()` raises in resource scope.
+  # These helpers are mixed into the control-eval context, which can, so the
+  # region scope has to be threaded from here into every regional resource.
+  # Nothing did that before: aws_ecs_inventory was constructed with no `regions:`
+  # at all, so its fail-closed check tripped on every real exec.
+  def scan_regions_in_scope
+    Array(input("scan_regions")).map(&:to_s).map(&:strip).reject(&:empty?)
+  end
+
+  def ecs_scope_regions!
+    regions = scan_regions_in_scope
+    return regions unless regions.empty?
+
+    raise ScopeNotSupplied,
+          "no scan_regions supplied -- refusing to report an empty ECS scope " \
+          "that cannot be distinguished from an account with no clusters. Set " \
+          "scan_regions to the regions in scope, or to [\"*\"] to sweep the partition."
+  end
+
+  # The rescues below return [] for a genuinely empty account, which is a real
+  # and expected state. They must NOT swallow ScopeNotSupplied: "we looked in
+  # the right regions and found no clusters" and "nobody told us which regions
+  # to look in" both produced [] before, and [] makes every dependent control
+  # go Not Applicable with the message "No ECS clusters in scope". That reads as
+  # a clean result and is the failure this profile exists to catch.
   def ecs_cluster_arns
-    @ecs_cluster_arns ||= aws_ecs_inventory.cluster_arns
+    @ecs_cluster_arns ||= aws_ecs_inventory(regions: ecs_scope_regions!).cluster_arns
+  rescue ScopeNotSupplied
+    raise
   rescue StandardError
     []
   end
 
   def ecs_service_keys
-    @ecs_service_keys ||= aws_ecs_inventory.service_keys
+    @ecs_service_keys ||= aws_ecs_inventory(regions: ecs_scope_regions!).service_keys
+  rescue ScopeNotSupplied
+    raise
   rescue StandardError
     []
   end
 
   def fargate_task_definition_arns
     @fargate_task_definition_arns ||= begin
-      aws_ecs_inventory.latest_active_task_definition_arns.select do |arn|
+      aws_ecs_inventory(regions: ecs_scope_regions!).latest_active_task_definition_arns.select do |arn|
         aws_ecs_task_definition_full(task_definition: arn).fargate?
       end
+    rescue ScopeNotSupplied
+      raise
     rescue StandardError
       []
     end
+  end
+
+  # --- regional resources, region scope threaded once ------------------------
+  #
+  # Every one of these was previously constructed bare in the controls, so each
+  # got whatever single region the client defaulted to. Wrapping them here means
+  # the scope is threaded in exactly one place, and memoised: EF-11 asked for
+  # aws_elbv2_inventory seven times, which is now seven region sweeps rather
+  # than seven cheap reads of a single region.
+  #
+  # No blanket rescue on these. A regional resource that cannot resolve its
+  # scope must fail the control, not hand back an empty set that reads as
+  # "nothing to assess here".
+
+  def elbv2_inventory
+    @elbv2_inventory ||= aws_elbv2_inventory(regions: ecs_scope_regions!)
+  end
+
+  def elbv2_internet_facing
+    @elbv2_internet_facing ||= elbv2_inventory.internet_facing
+  end
+
+  def ecs_account_settings
+    @ecs_account_settings ||= aws_ecs_account_settings(regions: ecs_scope_regions!)
+  end
+
+  # Not memoised on subnet_id alone by accident: keyed per subnet, since each
+  # call resolves a different one.
+  def subnet_routing(subnet_id)
+    @subnet_routing ||= {}
+    @subnet_routing[subnet_id] ||=
+      aws_subnet_routing(subnet_id: subnet_id, regions: ecs_scope_regions!)
   end
 
   def role_name_from_arn(arn)
@@ -51,6 +120,8 @@ module EcsScopeHelpers
         end
       end
       refs.uniq { |r| r[:raw] }
+    rescue ScopeNotSupplied
+      raise
     rescue StandardError
       []
     end
@@ -80,6 +151,8 @@ module EcsScopeHelpers
         end
       end
       out
+    rescue ScopeNotSupplied
+      raise
     rescue StandardError
       []
     end
