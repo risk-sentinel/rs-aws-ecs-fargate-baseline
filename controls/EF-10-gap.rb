@@ -57,8 +57,13 @@ control "EF-10.2" do
   impact 0.0 if clusters.empty?
   only_if("No ECS clusters in scope") { !clusters.empty? }
 
+  # Resolved at CONTROL scope and closed over. A helper mixed into Inspec::Rule
+  # is not in scope inside a describe/subject block — the example is not the
+  # control — so calling it there raises NameError at exec, which `check` and
+  # `json` cannot see because neither evaluates control bodies.
+  container_insights = ecs_account_settings.value_for("containerInsights")
   describe "ECS account setting containerInsights" do
-    subject { aws_ecs_account_settings.value_for("containerInsights") }
+    subject { container_insights }
     it { should cmp "enabled" }
   end
 end

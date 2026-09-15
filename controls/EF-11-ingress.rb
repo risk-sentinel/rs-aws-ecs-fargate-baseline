@@ -31,7 +31,7 @@ control "EF-11.1" do
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
 
-  albs = aws_elbv2_inventory.internet_facing
+  albs = elbv2_internet_facing
   impact 0.8
   impact 0.0 if albs.empty?
   only_if("No internet-facing Application Load Balancers in scope") { !albs.empty? }
@@ -63,7 +63,7 @@ control "EF-11.2" do
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
 
-  albs     = aws_elbv2_inventory.internet_facing
+  albs     = elbv2_internet_facing
   approved = input("alb_strong_ssl_policies")
   impact 0.8
   impact 0.0 if albs.empty?
@@ -98,7 +98,7 @@ control "EF-11.3" do
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
 
-  albs = aws_elbv2_inventory.internet_facing
+  albs = elbv2_internet_facing
   impact 0.5
   impact 0.0 if albs.empty?
   only_if("No internet-facing Application Load Balancers in scope") { !albs.empty? }
@@ -138,7 +138,7 @@ control "EF-11.4" do
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
 
-  albs = aws_elbv2_inventory.internet_facing
+  albs = elbv2_internet_facing
   impact 0.4
   impact 0.0 if albs.empty?
   only_if("No internet-facing Application Load Balancers in scope") { !albs.empty? }
@@ -167,7 +167,7 @@ control "EF-11.5" do
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
 
-  albs = aws_elbv2_inventory.internet_facing
+  albs = elbv2_internet_facing
   impact 0.4
   impact 0.0 if albs.empty?
   only_if("No internet-facing Application Load Balancers in scope") { !albs.empty? }
@@ -197,7 +197,7 @@ control "EF-11.6" do
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
 
-  albs = aws_elbv2_inventory.internet_facing
+  albs = elbv2_internet_facing
   impact 0.3
   impact 0.0 if albs.empty?
   only_if("No internet-facing Application Load Balancers in scope") { !albs.empty? }
@@ -229,7 +229,7 @@ control "EF-11.7" do
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
 
-  albs  = aws_elbv2_inventory.internet_facing
+  albs  = elbv2_internet_facing
   grace = input("cert_expiry_warning_days", value: 30)
   impact 0.7
   impact 0.0 if albs.empty?
