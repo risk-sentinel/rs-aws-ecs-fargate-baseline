@@ -5,7 +5,7 @@
 #   include:
 #     - project: <your-org>/rs-aws-ecs-fargate-baseline
 #       ref: v0.1.7
-#       file: /ci/gitlab/exec-evidence.yml
+#       file: /ci/jobs/exec-evidence.yml
 #       inputs:
 #         target: my-account
 #         profile_name: rs-aws-ecs-fargate-v1r1
