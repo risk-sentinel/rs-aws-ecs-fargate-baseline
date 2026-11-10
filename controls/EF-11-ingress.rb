@@ -53,10 +53,10 @@ control "EF-11.2" do
        "`alb_strong_ssl_policies` input."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["SC-13", "SC-8 (1)"]
-  tag ksi:                   ["KSI-SVC-SIN", "KSI-SVC-VRI"]
-  tag nist_r4:               ["SC-13", "SC-8 (1)"]
-  tag cci:                   ["CCI-002450", "CCI-002421"]
+  tag nist:                  ['SC-13 b', 'SC-8 (1)']
+  tag ksi:                   ['KSI-SVC-SIN', 'KSI-SVC-VRI']
+  tag nist_r4:               ['SC-13', 'SC-8 (1)']
+  tag cci:                   ['CCI-002450', 'CCI-002421']
   tag local_number:          "EF-11.2"
   tag srg:                   "SRG-APP-000439-CTR-001070"
   tag fsbp:                  "ELB.17"
@@ -88,10 +88,10 @@ control "EF-11.3" do
        "moved onto TLS rather than served over plaintext (SC-8 / FSBP ELB.1)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["SC-8", "AC-17 (2)"]
-  tag ksi:                   ["KSI-CNA-MAT", "KSI-CNA-ULN", "KSI-IAM-ELP", "KSI-SVC-ASM", "KSI-SVC-SIN"]
-  tag nist_r4:               ["SC-8"]
-  tag cci:                   ["CCI-002418"]
+  tag nist:                  ['SC-8', 'SC-8 (1)']
+  tag ksi:                   ['KSI-CNA-MAT', 'KSI-CNA-ULN', 'KSI-SVC-SIN']
+  tag nist_r4:               ['SC-8', 'SC-8 (1)']
+  tag cci:                   ['CCI-002418', 'CCI-002421']
   tag local_number:          "EF-11.3"
   tag srg:                   "SRG-APP-000439-CTR-001070"
   tag fsbp:                  "ELB.1"
@@ -157,10 +157,10 @@ control "EF-11.5" do
        "captured for audit + incident response (AU-2 / FSBP ELB.5)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["AU-2 a", "AU-12 a"]
-  tag ksi:                   ["KSI-CMT-LMC", "KSI-MLA-LET", "KSI-MLA-OSM", "KSI-MLA-RVL"]
-  tag nist_r4:               ["AU-12 a", "AU-3"]
-  tag cci:                   ["CCI-000130", "CCI-000169"]
+  tag nist:                  ['AU-12 a', 'AU-12 c']
+  tag ksi:                   ['KSI-MLA-LET']
+  tag nist_r4:               ['AU-12 a', 'AU-12 c']
+  tag cci:                   ['CCI-000169', 'CCI-000172']
   tag local_number:          "EF-11.5"
   tag srg:                   "SRG-APP-000092-CTR-000165"
   tag fsbp:                  "ELB.5"
@@ -219,10 +219,10 @@ control "EF-11.7" do
        "breaks TLS — this control closes that gap."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["SC-12", "SC-17", "SC-8 (1)"]
-  tag ksi:                   ["KSI-SVC-ASM", "KSI-SVC-SIN"]
-  tag nist_r4:               ["SC-12", "SC-17", "SC-8 (1)"]
-  tag cci:                   ["CCI-001159", "CCI-002421", "CCI-002428"]
+  tag nist:                  ['SC-17 a', 'SC-12', 'SC-8 (1)']
+  tag ksi:                   ['KSI-SVC-ASM', 'KSI-SVC-SIN']
+  tag nist_r4:               ['SC-17', 'SC-8 (1)']
+  tag cci:                   ['CCI-001159', 'CCI-001138', 'CCI-002421']
   tag local_number:          "EF-11.7"
   tag srg:                   "SRG-APP-000516-CTR-001335"
   tag fsbp:                  "ACM.1"

@@ -9,10 +9,10 @@ control "EF-8.1" do
        "captured for audit (AU-2/AU-12)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["AU-2 a", "AU-12 a"]
-  tag ksi:                   ["KSI-CMT-LMC", "KSI-MLA-LET", "KSI-MLA-OSM", "KSI-MLA-RVL"]
-  tag nist_r4:               ["AC-2 f", "AU-2 a"]
-  tag cci:                   ["CCI-000011", "CCI-000123"]
+  tag nist:                  ['AU-12 a', 'AU-12 c']
+  tag ksi:                   ['KSI-MLA-LET']
+  tag nist_r4:               ['AU-12 a', 'AU-12 c']
+  tag cci:                   ['CCI-000169', 'CCI-000172']
   tag local_number:          "EF-8.1"
   tag srg:                   "SRG-APP-000510-CTR-001330"
   tag fsbp:                  "ECS.9"
@@ -116,9 +116,10 @@ control "EF-8.5" do
        "supporting availability (SI-13/CP-10)."
   tag severity:              "low"
   tag severity_source:       "assessed"
-  tag nist:                  ["SI-13"]
-  tag nist_r4:               ["SI-13 b"]
-  tag cci:                   ["CCI-001318"]
+  tag nist:                  ['CP-10']
+  tag ksi:                   ['KSI-RPL-ABO', 'KSI-RPL-ARP', 'KSI-RPL-RRO', 'KSI-RPL-TRC']
+  tag nist_r4:               ['CP-10']
+  tag cci:                   ['CCI-000552']
   tag local_number:          "EF-8.5"
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
@@ -149,10 +150,9 @@ control "EF-8.6" do
        "logConfiguration exists; this asserts it off-loads the records."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["AU-4", "AU-9 (2)"]
-  tag ksi:                   ["KSI-MLA-OSM"]
-  tag nist_r4:               ["AU-4 (1)"]
-  tag cci:                   ["CCI-001851"]
+  tag nist:                  ['AU-4 (1)', 'AU-9 (2)']
+  tag nist_r4:               ['AU-4 (1)', 'AU-9 (2)']
+  tag cci:                   ['CCI-001851', 'CCI-001348']
   tag local_number:          "EF-8.6"
   tag srg:                   "SRG-APP-000358-CTR-000805"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -181,10 +181,10 @@ control "EF-8.7" do
        "audit-record storage capacity). A never-expire (unset) group fails."
   tag severity:              "low"
   tag severity_source:       "assessed"
-  tag nist:                  ["AU-4", "AU-11"]
-  tag ksi:                   ["KSI-MLA-OSM"]
-  tag nist_r4:               ["AU-4"]
-  tag cci:                   ["CCI-001849"]
+  tag nist:                  ['AU-11', 'AU-4']
+  tag ksi:                   ['KSI-MLA-OSM']
+  tag nist_r4:               ['AU-11', 'AU-4']
+  tag cci:                   ['CCI-000167', 'CCI-001849']
   tag local_number:          "EF-8.7"
   tag srg:                   "SRG-APP-000357-CTR-000800"
   tag applicable_partitions: ["aws", "aws-us-gov"]
