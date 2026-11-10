@@ -34,10 +34,10 @@ control "EF-12.1" do
        "by cis-nginx (nginx_tls_termination). SC-8 / SC-8(1) / SC-13."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["SC-8", "SC-8 (1)", "SC-13"]
-  tag ksi:                   ["KSI-CNA-MAT", "KSI-CNA-ULN", "KSI-SVC-SIN", "KSI-SVC-VRI"]
-  tag nist_r4:               ["SC-8", "SC-8 (1)"]
-  tag cci:                   ["CCI-002418", "CCI-002421"]
+  tag nist:                  ['SC-8', 'SC-8 (1)']
+  tag ksi:                   ['KSI-CNA-MAT', 'KSI-CNA-ULN', 'KSI-SVC-SIN']
+  tag nist_r4:               ['SC-8', 'SC-8 (1)']
+  tag cci:                   ['CCI-002418', 'CCI-002421']
   tag local_number:          "EF-12.1"
   tag srg:                   "SRG-APP-000439-CTR-001070"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -74,10 +74,10 @@ control "EF-12.2" do
        "pass/fail (impact 0.0)."
   tag severity:              "none"
   tag severity_source:       "assessed"
-  tag nist:                  ["CM-8"]
-  tag ksi:                   ["KSI-PIY-GIV"]
-  tag nist_r4:               ["CM-8"]
-  tag cci:                   ["CCI-000398"]
+  tag nist:                  ['CM-8 a 1']
+  tag ksi:                   ['KSI-PIY-GIV']
+  tag nist_r4:               ['CM-8']
+  tag cci:                   ['CCI-003962']
   tag local_number:          "EF-12.2"
   tag srg:                   "SRG-APP-000439-CTR-001070"
   tag applicable_partitions: ["aws", "aws-us-gov"]

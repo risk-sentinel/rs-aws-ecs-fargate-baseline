@@ -15,10 +15,10 @@ control "EF-10.1" do
         "be enabled where ECS is in use (SI-4 / AU-6)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["SI-4 a", "SI-4 (2)"]
-  tag ksi:                   ["KSI-MLA-OSM", "KSI-MLA-RVL", "KSI-SVC-EIS"]
-  tag nist_r4:               ["SI-4 (4)", "SI-4 a 1"]
-  tag cci:                   ["CCI-001253", "CCI-002661"]
+  tag nist:                  ['SI-4 a 1', 'SI-4 (2)']
+  tag ksi:                   ['KSI-MLA-OSM', 'KSI-MLA-RVL', 'KSI-SVC-EIS']
+  tag nist_r4:               ['SI-4 (2)', 'SI-4 a 1']
+  tag cci:                   ['CCI-002641', 'CCI-001260']
   tag local_number:          "EF-10.1"
   tag srg_source:            "DISA Container Platform SRG V2R4 (runtime monitoring)"
   tag applicable_partitions: ["aws", "aws-us-gov"]

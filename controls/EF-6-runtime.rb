@@ -40,10 +40,10 @@ control "EF-6.2" do
        "process isolation (CM-7/SC-39)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["CM-7 a", "SC-39"]
-  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-SVC-EIS"]
-  tag nist_r4:               ["CM-7 b", "SC-39"]
-  tag cci:                   ["CCI-000380", "CCI-002530"]
+  tag nist:                  ['SC-39', 'CM-7 b']
+  tag ksi:                   ['KSI-CMT-RMV', 'KSI-IAM-ELP', 'KSI-IAM-JIT', 'KSI-SVC-EIS']
+  tag nist_r4:               ['CM-7 b', 'SC-39']
+  tag cci:                   ['CCI-002530', 'CCI-000382']
   tag local_number:          "EF-6.2"
   tag srg:                   "SRG-APP-000431-CTR-001065"
   tag fsbp:                  "ECS.3"
@@ -104,10 +104,10 @@ control "EF-6.5" do
        "KMS key via the cluster's managed storage configuration (SC-28)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["SC-28"]
-  tag ksi:                   ["KSI-SVC-SIN"]
-  tag nist_r4:               ["SC-28"]
-  tag cci:                   ["CCI-000051", "CCI-001199"]
+  tag nist:                  ['SC-28', 'SC-28 (1)']
+  tag ksi:                   ['KSI-SVC-SIN']
+  tag nist_r4:               ['SC-28', 'SC-28 (1)']
+  tag cci:                   ['CCI-001199', 'CCI-002476']
   tag local_number:          "EF-6.5"
   tag cis_source:            "CIS AWS Compute v1.1.0 C-11.1"
   tag srg:                   "SRG-APP-000429-CTR-001060"
@@ -136,10 +136,10 @@ control "EF-6.6" do
        "TLS covered by EF-11/EF-12. Scoped to task defs that declare EFS volumes."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["SC-8", "SC-8 (1)", "SC-28"]
-  tag ksi:                   ["KSI-CNA-MAT", "KSI-CNA-ULN", "KSI-SVC-SIN"]
-  tag nist_r4:               ["SC-8", "SC-8 (1)"]
-  tag cci:                   ["CCI-002418", "CCI-002421"]
+  tag nist:                  ['SC-8', 'SC-8 (1)']
+  tag ksi:                   ['KSI-CNA-MAT', 'KSI-CNA-ULN', 'KSI-SVC-SIN']
+  tag nist_r4:               ['SC-8', 'SC-8 (1)']
+  tag cci:                   ['CCI-002418', 'CCI-002421']
   tag local_number:          "EF-6.6"
   tag srg:                   "SRG-APP-000439-CTR-001080"
   tag applicable_partitions: ["aws", "aws-us-gov"]
