@@ -9,10 +9,10 @@ control "EF-1.1" do
        "deployment. Pin by @sha256 digest for immutable, verifiable provenance."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["CM-2 (2)", "CM-8 a 1"]
-  tag ksi:                   ["KSI-PIY-GIV", "KSI-SVC-ACM", "KSI-SVC-VRI"]
-  tag nist_r4:               ["CM-2 (2)"]
-  tag cci:                   ["CCI-000302"]
+  tag nist:                  ['CM-2 (2)']
+  tag ksi:                   ['KSI-PIY-GIV', 'KSI-SVC-ACM', 'KSI-SVC-VRI']
+  tag nist_r4:               ['CM-2 (2)']
+  tag cci:                   ['CCI-000302']
   tag local_number:          "EF-1.1"
   tag srg:                   "SRG-APP-000131-CTR-000285"
   tag nist_800_190:          "4.1"
@@ -41,10 +41,10 @@ control "EF-1.2" do
        "may be deployed. Fails closed when trusted_image_registries is empty."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["CM-7 a", "SI-7 a"]
-  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-JIT", "KSI-SVC-VRI"]
-  tag nist_r4:               ["CM-7 a", "MA-3"]
-  tag cci:                   ["CCI-000381", "CCI-000865"]
+  tag nist:                  ['CM-7 (5) (b)', 'CM-7 a']
+  tag ksi:                   ['KSI-CMT-RMV', 'KSI-IAM-JIT', 'KSI-PIY-GIV']
+  tag nist_r4:               ['CM-7 (5) (b)', 'CM-7 a']
+  tag cci:                   ['CCI-001774', 'CCI-000381']
   tag local_number:          "EF-1.2"
   tag srg:                   "SRG-APP-000141-CTR-000320"
   tag fsbp:                  "n/a"
@@ -101,10 +101,9 @@ control "EF-1.4" do
        "different image, preserving supply-chain integrity (CM-5(6)/SI-7)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["CM-5 (6)", "SI-7 a"]
-  tag ksi:                   ["KSI-SVC-VRI"]
-  tag nist_r4:               ["CM-5 (3)"]
-  tag cci:                   ["CCI-001749"]
+  tag nist:                  ['CM-5 (6)']
+  tag nist_r4:               ['CM-5 (6)']
+  tag cci:                   ['CCI-001499']
   tag local_number:          "EF-1.4"
   tag srg:                   "SRG-APP-000131-CTR-000285"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -168,10 +167,10 @@ control "EF-1.5" do
        "Evaluated for digest-pinned task images; tag-only references are caught by EF-1.1."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["CM-5 (6)", "SI-7 a"]
-  tag ksi:                   ["KSI-SVC-VRI"]
-  tag nist_r4:               ["CM-5 (6)", "SI-7"]
-  tag cci:                   ["CCI-001499", "CCI-002703"]
+  tag nist:                  ['SI-7 a', 'SI-7 (6)']
+  tag ksi:                   ['KSI-SVC-VRI']
+  tag nist_r4:               ['SI-7', 'SI-7 (6)']
+  tag cci:                   ['CCI-002704', 'CCI-002716']
   tag local_number:          "EF-1.5"
   tag srg:                   "SRG-APP-000131-CTR-000285"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -197,10 +196,9 @@ control "EF-1.6" do
        "supply-chain analysis (SI-7/RA-5). Evaluated for digest-pinned task images."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["SI-7 a", "RA-5 a"]
-  tag ksi:                   ["KSI-SCR-MON", "KSI-SVC-VRI"]
-  tag nist_r4:               ["RA-5 a", "SI-7"]
-  tag cci:                   ["CCI-001054", "CCI-002703"]
+  tag nist:                  ['SR-4']
+  tag nist_r4_unmapped:      ['SR-4']
+  tag cci:                   ['CCI-005096']
   tag local_number:          "EF-1.6"
   tag srg:                   "SRG-APP-000131-CTR-000285"
   tag applicable_partitions: ["aws", "aws-us-gov"]

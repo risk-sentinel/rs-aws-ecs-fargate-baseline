@@ -70,10 +70,10 @@ control "EF-2.3" do
        "filesystem at runtime (AC-6/CM-7)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["AC-6", "CM-7 a"]
-  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-ELP", "KSI-IAM-JIT"]
-  tag nist_r4:               ["AC-6", "CM-7 b"]
-  tag cci:                   ["CCI-000225", "CCI-000380"]
+  tag nist:                  ['AC-6', 'CM-7 b']
+  tag ksi:                   ['KSI-CMT-RMV', 'KSI-IAM-ELP', 'KSI-IAM-JIT']
+  tag nist_r4:               ['AC-6', 'CM-7 b']
+  tag cci:                   ['CCI-000225', 'CCI-000382']
   tag local_number:          "EF-2.3"
   tag srg:                   "SRG-APP-000133-CTR-000295"
   tag fsbp:                  "ECS.5"
@@ -101,10 +101,10 @@ control "EF-2.4" do
        "capability must be in allowed_added_capabilities (least privilege)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["AC-6", "CM-7 a"]
-  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-ELP", "KSI-IAM-JIT"]
-  tag nist_r4:               ["AC-6 (8)"]
-  tag cci:                   ["CCI-002233"]
+  tag nist:                  ['AC-6', 'CM-7 a']
+  tag ksi:                   ['KSI-CMT-RMV', 'KSI-IAM-ELP', 'KSI-IAM-JIT']
+  tag nist_r4:               ['AC-6', 'CM-7 a']
+  tag cci:                   ['CCI-000225', 'CCI-000381']
   tag local_number:          "EF-2.4"
   tag srg:                   "SRG-APP-000342-CTR-000775"
   tag nist_800_190:          "4.5.3"
@@ -136,10 +136,10 @@ control "EF-2.5" do
        "privilege escalation and host introspection (AC-6)."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["AC-6"]
-  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT"]
-  tag nist_r4:               ["AC-6 (8)"]
-  tag cci:                   ["CCI-002233"]
+  tag nist:                  ['AC-6', 'AC-6 (8)']
+  tag ksi:                   ['KSI-IAM-ELP', 'KSI-IAM-JIT']
+  tag nist_r4:               ['AC-6', 'AC-6 (8)']
+  tag cci:                   ['CCI-000225', 'CCI-002233']
   tag local_number:          "EF-2.5"
   tag srg:                   "SRG-APP-000342-CTR-000775"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -220,9 +220,9 @@ control "EF-2.8" do
        "availability (SI-13/CP-10)."
   tag severity:              "low"
   tag severity_source:       "assessed"
-  tag nist:                  ["SI-13"]
-  tag nist_r4:               ["SI-13 b"]
-  tag cci:                   ["CCI-001318"]
+  tag nist:                  ['SI-13 b', 'SI-13 (4) (a)']
+  tag nist_r4:               ['SI-13 (4) (a)', 'SI-13 b']
+  tag cci:                   ['CCI-001318', 'CCI-001326']
   tag local_number:          "EF-2.8"
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
@@ -247,10 +247,10 @@ control "EF-2.10" do
        "are disallowed by SRG-CTR; bind unprivileged ports instead (CM-7)."
   tag severity:              "low"
   tag severity_source:       "assessed"
-  tag nist:                  ["CM-7 a"]
-  tag ksi:                   ["KSI-CMT-RMV", "KSI-IAM-JIT"]
-  tag nist_r4:               ["CM-7 b"]
-  tag cci:                   ["CCI-000382"]
+  tag nist:                  ['CM-7 b']
+  tag ksi:                   ['KSI-CMT-RMV', 'KSI-IAM-JIT']
+  tag nist_r4:               ['CM-7 b']
+  tag cci:                   ['CCI-000382']
   tag local_number:          "EF-2.10"
   tag srg:                   "SRG-APP-000142-CTR-000330"
   tag applicable_partitions: ["aws", "aws-us-gov"]

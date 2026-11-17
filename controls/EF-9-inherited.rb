@@ -98,10 +98,10 @@ control "EF-9.3" do
         "via AWS authorization (SRG-CTR orchestrator domain)."
   tag severity: "medium"
   tag severity_source: "unassessed"
-  tag nist: ["AC-3", "CM-5"]
-  tag ksi:  ["KSI-CMT-RMV", "KSI-CMT-RVP", "KSI-IAM-APM", "KSI-IAM-ELP", "KSI-IAM-JIT"]
-  tag nist_r4: ["AC-3", "CM-5 (1)"]
-  tag cci: ["CCI-000213", "CCI-001813"]
+  tag nist: ['AC-3', 'CM-5']
+  tag ksi:  ['KSI-CMT-RMV', 'KSI-CMT-RVP', 'KSI-IAM-APM', 'KSI-IAM-ELP', 'KSI-IAM-JIT']
+  tag nist_r4: ['AC-3', 'CM-5']
+  tag cci:  ['CCI-000213', 'CCI-000345']
   tag local_number: "EF-9.3"
   tag srg_source: "DISA Container Platform SRG V2R4 (orchestrator domain, AWS-inherited)"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -136,10 +136,10 @@ control "EF-9.4" do
         "consumer's USE of it (role scoping) is asserted by EF-4."
   tag severity: "medium"
   tag severity_source: "unassessed"
-  tag nist: ["IA-2", "IA-5"]
-  tag ksi:  ["KSI-IAM-APM", "KSI-IAM-ELP"]
-  tag nist_r4: ["IA-2", "IA-5 (1) (c)"]
-  tag cci: ["CCI-000764", "CCI-000196"]
+  tag nist: ['IA-2', 'IA-5 g']
+  tag ksi:  ['KSI-IAM-APM', 'KSI-IAM-ELP']
+  tag nist_r4: ['IA-2', 'IA-5 h']
+  tag cci:  ['CCI-000764', 'CCI-000183']
   tag local_number: "EF-9.4"
   tag srg_source: "DISA Container Platform SRG V2R4 (keystore/identity domain, AWS-inherited)"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -174,10 +174,10 @@ control "EF-9.5" do
         "logging is asserted by EF-8."
   tag severity: "medium"
   tag severity_source: "unassessed"
-  tag nist: ["AU-2", "AU-12"]
-  tag ksi:  ["KSI-CMT-LMC", "KSI-MLA-LET", "KSI-MLA-OSM", "KSI-MLA-RVL"]
-  tag nist_r4: ["AU-12 a", "AU-12 c"]
-  tag cci: ["CCI-000169", "CCI-000172"]
+  tag nist: ['AU-12 a', 'AU-12 c']
+  tag ksi:  ['KSI-MLA-LET']
+  tag nist_r4: ['AU-12 a', 'AU-12 c']
+  tag cci:  ['CCI-000169', 'CCI-000172']
   tag local_number: "EF-9.5"
   tag srg_source: "DISA Container Platform SRG V2R4 (audit domain, AWS-inherited)"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -211,10 +211,10 @@ control "EF-9.6" do
         "FIPS-validated by AWS and inherited (SRG-CTR crypto domain)."
   tag severity: "medium"
   tag severity_source: "unassessed"
-  tag nist: ["SC-13", "IA-7"]
-  tag ksi:  ["KSI-IAM-JIT", "KSI-SVC-SIN", "KSI-SVC-VRI"]
-  tag nist_r4: ["IA-7", "SC-13"]
-  tag cci: ["CCI-002450", "CCI-000803"]
+  tag nist: ['SC-13 b', 'IA-7']
+  tag ksi:  ['KSI-IAM-JIT', 'KSI-SVC-SIN', 'KSI-SVC-VRI']
+  tag nist_r4: ['IA-7', 'SC-13']
+  tag cci:  ['CCI-002450', 'CCI-000803']
   tag local_number: "EF-9.6"
   tag srg_source: "DISA Container Platform SRG V2R4 (crypto domain, AWS-inherited)"
   tag applicable_partitions: ["aws", "aws-us-gov"]

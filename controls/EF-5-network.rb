@@ -38,10 +38,10 @@ control "EF-5.2" do
        "from the internet (SC-7)."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["SC-7 a", "AC-3"]
-  tag ksi:                   ["KSI-CNA-ULN", "KSI-IAM-APM", "KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-SVC-EIS"]
-  tag nist_r4:               ["AC-3"]
-  tag cci:                   ["CCI-000051", "CCI-000213"]
+  tag nist:                  ['SC-7 c', 'SC-7 a']
+  tag ksi:                   ['KSI-CNA-ULN', 'KSI-SVC-EIS']
+  tag nist_r4:               ['SC-7 a', 'SC-7 c']
+  tag cci:                   ['CCI-001098', 'CCI-001097']
   tag local_number:          "EF-5.2"
   tag srg:                   "SRG-APP-000039-CTR-000110"
   tag fsbp:                  "ECS.2"

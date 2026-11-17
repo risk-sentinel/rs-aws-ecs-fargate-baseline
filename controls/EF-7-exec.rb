@@ -9,10 +9,10 @@ control "EF-7.1" do
        "ecs_exec_allowed_services."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ["AC-17 (2)", "AC-6 (9)"]
-  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-MLA-LET", "KSI-MLA-RVL", "KSI-SVC-ASM", "KSI-SVC-SIN"]
-  tag nist_r4:               ["AC-17 (1)", "AC-6 (8)"]
-  tag cci:                   ["CCI-000067", "CCI-002233"]
+  tag nist:                  ['AC-17 b', 'CM-7 b']
+  tag ksi:                   ['KSI-CMT-RMV', 'KSI-IAM-ELP', 'KSI-IAM-JIT']
+  tag nist_r4:               ['AC-17 b', 'CM-7 b']
+  tag cci:                   ['CCI-000065', 'CCI-000382']
   tag local_number:          "EF-7.1"
   tag srg:                   "SRG-APP-000033-CTR-000095"
   tag applicable_partitions: ["aws", "aws-us-gov"]
@@ -44,10 +44,10 @@ control "EF-7.2" do
        "(AU-12/SC-28)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["AU-12 a", "SC-28"]
-  tag ksi:                   ["KSI-MLA-LET", "KSI-SVC-SIN"]
-  tag nist_r4:               ["AU-12 c"]
-  tag cci:                   ["CCI-000172"]
+  tag nist:                  ['AU-12 c', 'AU-12 a', 'AC-17 (2)']
+  tag ksi:                   ['KSI-IAM-ELP', 'KSI-MLA-LET', 'KSI-SVC-ASM', 'KSI-SVC-SIN']
+  tag nist_r4:               ['AC-17 (2)', 'AU-12 a', 'AU-12 c']
+  tag cci:                   ['CCI-000172', 'CCI-000169', 'CCI-000068']
   tag local_number:          "EF-7.2"
   tag srg:                   "SRG-APP-000092-CTR-000165"
   tag applicable_partitions: ["aws", "aws-us-gov"]

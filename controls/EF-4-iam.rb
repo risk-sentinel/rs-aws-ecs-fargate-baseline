@@ -10,10 +10,10 @@ control "EF-4.1" do
        "does not inherit infrastructure permissions (AC-5/AC-6, 800-190 §4.5)."
   tag severity:              "medium"
   tag severity_source:       "unassessed"
-  tag nist:                  ["AC-5", "AC-6"]
-  tag ksi:                   ["KSI-IAM-ELP", "KSI-IAM-JIT", "KSI-PIY-RIS", "KSI-PIY-RSD"]
-  tag nist_r4:               ["AC-6 (8)"]
-  tag cci:                   ["CCI-002233"]
+  tag nist:                  ['AC-6', 'AC-5 b']
+  tag ksi:                   ['KSI-IAM-ELP', 'KSI-IAM-JIT', 'KSI-PIY-RIS', 'KSI-PIY-RSD']
+  tag nist_r4:               ['AC-5 c', 'AC-6']
+  tag cci:                   ['CCI-000225', 'CCI-002220']
   tag local_number:          "EF-4.1"
   tag srg:                   "SRG-APP-000342-CTR-000775"
   tag nist_800_190:          "4.5"
