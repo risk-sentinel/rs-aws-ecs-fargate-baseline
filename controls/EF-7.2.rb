@@ -1,40 +1,4 @@
 # encoding: UTF-8
-#
-# EF-7.x — ECS Exec. NIST AC-17/AC-6(9)/AU-12; AWS ECS Exec security.
-
-control "EF-7.1" do
-  title "ECS Exec must be disabled except on explicitly allowed services"
-  desc "enableExecuteCommand opens an interactive shell into running tasks "\
-       "(AC-17/AC-6(9)). It must be false unless the service is listed in "\
-       "ecs_exec_allowed_services."
-  tag severity:              "high"
-  tag severity_source:       "assessed"
-  tag nist:                  ['AC-17 b', 'CM-7 b']
-  tag ksi:                   ['KSI-CMT-RMV', 'KSI-IAM-ELP', 'KSI-IAM-JIT']
-  tag nist_r4:               ['AC-17 b', 'CM-7 b']
-  tag cci:                   ['CCI-000065', 'CCI-000382']
-  tag local_number:          "EF-7.1"
-  tag srg:                   "SRG-APP-000033-CTR-000095"
-  tag applicable_partitions: ["aws", "aws-us-gov"]
-  tag implementation_status: "implemented"
-
-  allowed = input("ecs_exec_allowed_services")
-  keys = ecs_service_keys
-  impact 0.7
-  impact 0.0 if keys.empty?
-  only_if("No ECS services in scope") { !keys.empty? }
-
-  keys.each do |k|
-    svc = aws_ecs_service_full(cluster: k[:cluster], service: k[:service])
-    permitted = allowed.include?(svc.service_name) || allowed.include?(svc.service_arn)
-    next if permitted # allowed services are governed by EF-7.2 instead
-
-    describe "ECS Exec for service #{svc.service_name}" do
-      subject { svc.exec_enabled? }
-      it { should eq false }
-    end
-  end
-end
 
 control "EF-7.2" do
   title "Where ECS Exec is enabled, sessions must be audited and KMS-encrypted"
@@ -42,6 +6,16 @@ control "EF-7.2" do
        "executeCommandConfiguration must log sessions to CloudWatch Logs or S3 "\
        "(logging=OVERRIDE with a destination) and encrypt them with a KMS key "\
        "(AU-12/SC-28)."
+  desc  'check', "
+    For each cluster running a service that has ECS Exec enabled and is listed in `ecs_exec_allowed_services`, the cluster's `executeCommandConfiguration` must set `logging` to `OVERRIDE` with a CloudWatch Logs group or an S3 bucket, and must name a KMS key.
+  "
+  desc  'fix', "
+    ```
+    aws ecs update-cluster --cluster <cluster> --configuration 'executeCommandConfiguration={kmsKeyId=<key-arn>,logging=OVERRIDE,logConfiguration={cloudWatchLogGroupName=<group>,cloudWatchEncryptionEnabled=true}}'
+    ```
+
+    The task role also needs `kms:Decrypt` on the key and permission to write to the log destination.
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['AU-12 c', 'AU-12 a', 'AC-17 (2)']
