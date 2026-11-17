@@ -5,6 +5,17 @@ control "EF-5.5" do
   desc "The security groups attached to a Fargate service must not permit "\
        "unrestricted inbound access from the internet (SC-7(3)). Deep check "\
        "resolves each SG's ingress rules."
+  desc  'check', "
+    For every Fargate ECS service in the scan regions, no security group attached to the service may allow inbound traffic from `0.0.0.0/0`.
+  "
+  desc  'fix', "
+    Remove the open rule and allow inbound only from the load balancer's security group or specific CIDRs:
+
+    ```
+    aws ec2 revoke-security-group-ingress --group-id <sg> --ip-permissions '<the 0.0.0.0/0 rule>'
+    aws ec2 authorize-security-group-ingress --group-id <sg> --protocol tcp --port <port> --source-group <alb-sg>
+    ```
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]

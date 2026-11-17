@@ -7,6 +7,12 @@ control "EF-6.6" do
        "between the task and EFS is TLS-protected (SC-8 / SC-8(1)). This is the "\
        "task's east-west storage transit, distinct from the north-south ALB/proxy "\
        "TLS covered by EF-11/EF-12. Scoped to task defs that declare EFS volumes."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Applies only to task definitions that declare an Amazon EFS volume. Every EFS volume must set `efsVolumeConfiguration.transitEncryption` to `ENABLED`.
+  "
+  desc  'fix', "
+    Set `\"transitEncryption\": \"ENABLED\"` (and optionally `transitEncryptionPort`) in each volume's `efsVolumeConfiguration`. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['SC-8', 'SC-8 (1)']

@@ -4,6 +4,14 @@ control "EF-6.3" do
   title "Fargate services must run the latest platform version"
   desc "platform_version should be LATEST so security patches apply "\
        "automatically (SI-2). A pinned numeric version drifts behind."
+  desc  'check', "
+    For every Fargate ECS service in the scan regions, `platformVersion` must be `LATEST`.
+  "
+  desc  'fix', "
+    ```
+    aws ecs update-service --cluster <cluster> --service <service> --platform-version LATEST --force-new-deployment
+    ```
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SI-2 a"]

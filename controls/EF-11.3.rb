@@ -5,6 +5,14 @@ control "EF-11.3" do
   desc "Any plaintext HTTP listener on an internet-facing ALB must redirect to "\
        "HTTPS (default action type=redirect, protocol HTTPS) so clients are "\
        "moved onto TLS rather than served over plaintext (SC-8 / FSBP ELB.1)."
+  desc  'check', "
+    For every internet-facing Application Load Balancer in the scan regions, every `HTTP` listener's default action must be a `redirect` whose protocol is `HTTPS`.
+  "
+  desc  'fix', "
+    ```
+    aws elbv2 modify-listener --listener-arn <http-listener-arn> --default-actions 'Type=redirect,RedirectConfig={Protocol=HTTPS,Port=443,StatusCode=HTTP_301}'
+    ```
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['SC-8', 'SC-8 (1)']

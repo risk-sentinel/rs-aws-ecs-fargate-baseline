@@ -4,6 +4,12 @@ control "EF-2.5" do
   title "Containers must not request privilege-escalating capabilities"
   desc "Containers must not add SYS_ADMIN/SYS_PTRACE/ALL, which enable "\
        "privilege escalation and host introspection (AC-6)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container may add `SYS_ADMIN`, `SYS_PTRACE` or `ALL` in `linuxParameters.capabilities.add`.
+  "
+  desc  'fix', "
+    Remove `SYS_ADMIN`, `SYS_PTRACE` and `ALL` from `linuxParameters.capabilities.add`. On Fargate, `SYS_PTRACE` is the only capability that can be added; add it only where a debugging or monitoring sidecar requires it. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['AC-6', 'AC-6 (8)']

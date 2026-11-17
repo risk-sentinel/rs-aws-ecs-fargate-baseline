@@ -4,6 +4,18 @@ control "EF-2.8" do
   title "Containers must define a health check"
   desc "A healthCheck lets ECS detect and replace unhealthy tasks, supporting "\
        "availability (SI-13/CP-10)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must define a `healthCheck` with a non-empty `command`.
+  "
+  desc  'fix', "
+    Add a health check to each container definition, for example:
+
+    ```
+    \"healthCheck\": { \"command\": [\"CMD-SHELL\", \"curl -f http://localhost:8080/health || exit 1\"], \"interval\": 30, \"timeout\": 5, \"retries\": 3 }
+    ```
+
+    Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ['SI-13 b', 'SI-13 (4) (a)']

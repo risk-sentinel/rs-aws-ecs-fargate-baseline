@@ -8,6 +8,12 @@ control "EF-8.6" do
        "(json-file, journald, syslog, local) that is lost when the task stops "\
        "(AU-4 / AU-9(2) — secondary/central audit storage). EF-8.1 asserts a "\
        "logConfiguration exists; this asserts it off-loads the records."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container's `logConfiguration.logDriver` must be `awslogs`, `awsfirelens` or `splunk`. A container with no log configuration, or with a local driver (`json-file`, `journald`, `syslog`, `fluentd`, `local`, `none`), fails.
+  "
+  desc  'fix', "
+    Set each container's `logDriver` to `awslogs` (CloudWatch Logs), `awsfirelens` (FireLens routing to a central destination) or `splunk`, with the driver's required options. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['AU-4 (1)', 'AU-9 (2)']

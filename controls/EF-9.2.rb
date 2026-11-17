@@ -4,6 +4,12 @@ control "EF-9.2" do
   title "Container runtime engine integrity (AWS-managed)"
   desc  "The container runtime engine on Fargate is AWS-managed; runtime isolation "\
         "and integrity are inherited via AWS authorization (SRG-CTR runtime domain)."
+  desc  'check', "
+    Inherited from AWS. Same evidence check as EF-9.1: the leveraged evidence document from `inherited_evidence_uri`, or the `aws-fargate-fedramp` entry under `leveraged_evidence_base`, must be reachable, exist, and be no older than `leveraged_evidence_max_age_days`. Skipped with instructions when no location is configured.
+  "
+  desc  'fix', "
+    Publish AWS's current authorization evidence covering the Fargate container runtime and set `leveraged_evidence_base` or `inherited_evidence_uri` to it, refreshing it before it ages out. Alternatively, record a CMS-pattern attestation with `saf attest apply`.
+  "
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["SC-39", "SI-7"]

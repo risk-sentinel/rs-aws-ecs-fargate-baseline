@@ -5,6 +5,16 @@ control "EF-7.1" do
   desc "enableExecuteCommand opens an interactive shell into running tasks "\
        "(AC-17/AC-6(9)). It must be false unless the service is listed in "\
        "ecs_exec_allowed_services."
+  desc  'check', "
+    For every ECS service in the scan regions that is not listed (by name or ARN) in the input `ecs_exec_allowed_services`, `enableExecuteCommand` must be false. Listed services are covered by EF-7.2.
+  "
+  desc  'fix', "
+    ```
+    aws ecs update-service --cluster <cluster> --service <service> --disable-execute-command --force-new-deployment
+    ```
+
+    If the service needs ECS Exec, add it to `ecs_exec_allowed_services` and meet EF-7.2.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['AC-17 b', 'CM-7 b']

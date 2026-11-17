@@ -4,6 +4,12 @@ control "EF-2.6" do
   title "Containers must declare CPU and memory limits"
   desc "Per-container cpu and memory (or memoryReservation) bound resource use, "\
        "limiting the blast radius of a noisy/compromised container (SC-6)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must set `cpu` greater than zero, and `memory` or `memoryReservation` greater than zero.
+  "
+  desc  'fix', "
+    Set container-level `cpu` and `memory` (hard limit) or `memoryReservation` (soft limit) in each container definition, sized within the task-level CPU and memory. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-6"]

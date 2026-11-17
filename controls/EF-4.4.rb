@@ -4,6 +4,12 @@ control "EF-4.4" do
   title "Task definitions must not embed long-lived AWS credentials"
   desc "Static AWS access keys must never be passed via environment variables; "\
        "use the task role for AWS access instead (IA-5/AC-6)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container's `environment` may set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN` or `ECS_ENGINE_AUTH_DATA`.
+  "
+  desc  'fix', "
+    Remove the static credentials from `environment` and grant the application AWS access through the task role (`taskRoleArn`). Deactivate and delete the exposed access key (`aws iam update-access-key --status Inactive`, then `aws iam delete-access-key`). Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-28", "AC-6"]

@@ -4,6 +4,18 @@ control "EF-6.5" do
   title "Clusters must encrypt Fargate ephemeral storage with a CMK"
   desc "Fargate ephemeral storage should be encrypted with a customer-managed "\
        "KMS key via the cluster's managed storage configuration (SC-28)."
+  desc  'check', "
+    For every ECS cluster in the scan regions, the cluster's managed storage configuration must name a KMS key for Fargate ephemeral storage (`configuration.managedStorageConfiguration.fargateEphemeralStorageKmsKeyId`).
+  "
+  desc  'fix', "
+    Create or choose a customer managed KMS key whose key policy allows ECS Fargate to use it, then:
+
+    ```
+    aws ecs update-cluster --cluster <cluster> --configuration 'managedStorageConfiguration={fargateEphemeralStorageKmsKeyId=<key-arn>}'
+    ```
+
+    Tasks launched after the change use the key; replace running tasks with a new deployment.
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['SC-28', 'SC-28 (1)']

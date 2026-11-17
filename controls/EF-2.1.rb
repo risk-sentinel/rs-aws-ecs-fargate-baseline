@@ -4,6 +4,12 @@ control "EF-2.1" do
   title "Containers must not run privileged"
   desc "A privileged container has near-host-level access, defeating container "\
        "isolation. No container definition may set privileged=true."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container definition may set `privileged` to true.
+  "
+  desc  'fix', "
+    Remove `privileged` from the container definition, or set it to false. Grant only the specific Linux capabilities the workload needs (see EF-2.4). Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]

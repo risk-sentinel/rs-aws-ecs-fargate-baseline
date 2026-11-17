@@ -5,6 +5,18 @@ control "EF-5.4" do
   desc "Each subnet a Fargate service launches into must be private (no default "\
        "route to an internet gateway), keeping tasks off the public internet "\
        "(SC-7). Deep check resolves the subnet route tables."
+  desc  'check', "
+    For every Fargate ECS service in the scan regions, resolve the route table of each subnet the service launches into. No subnet may have a default route (`0.0.0.0/0` or `::/0`) to an internet gateway (`igw-`).
+  "
+  desc  'fix', "
+    Move the service to private subnets, whose default route goes to a NAT gateway or has none:
+
+    ```
+    aws ecs update-service --cluster <cluster> --service <service> --network-configuration 'awsvpcConfiguration={subnets=[<private-subnet>,...],securityGroups=[<sg>],assignPublicIp=DISABLED}'
+    ```
+
+    Put internet-facing entry points (load balancers) in public subnets instead.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-7 a"]

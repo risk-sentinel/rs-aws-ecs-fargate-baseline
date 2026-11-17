@@ -4,6 +4,16 @@ control "EF-8.4" do
   title "Services, clusters, and task definitions must carry required tags"
   desc "Required governance tags (required_tag_keys) must be present for "\
        "inventory and ABAC (CM-8). Empty input = require at least one tag."
+  desc  'check', "
+    For every ECS cluster and service and every in-scope Fargate task definition revision in the scan regions, the resource's tag keys must include every key in the input `required_tag_keys`. When that input is empty, each resource must carry at least one tag.
+  "
+  desc  'fix', "
+    ```
+    aws ecs tag-resource --resource-arn <cluster-service-or-task-definition-arn> --tags key=<Key>,value=<Value>
+    ```
+
+    Set the tags in the infrastructure code too, so new task definition revisions carry them; `aws ecs register-task-definition --tags` applies them at registration.
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-8 a 1"]

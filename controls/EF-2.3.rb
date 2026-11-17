@@ -4,6 +4,12 @@ control "EF-2.3" do
   title "Containers must use a read-only root filesystem"
   desc "readonlyRootFilesystem=true prevents tampering with the container "\
        "filesystem at runtime (AC-6/CM-7)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must set `readonlyRootFilesystem` to true.
+  "
+  desc  'fix', "
+    Set `\"readonlyRootFilesystem\": true` in each container definition. Give the application writable paths it needs through task volumes mounted at those paths. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['AC-6', 'CM-7 b']

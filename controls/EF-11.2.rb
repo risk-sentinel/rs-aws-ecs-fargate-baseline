@@ -6,6 +6,16 @@ control "EF-11.2" do
        "TLS 1.2 or higher (SC-13). Legacy policies (TLS 1.0/1.1, the 2015/2016 "\
        "sets) permit deprecated protocols. The approved set is the "\
        "`alb_strong_ssl_policies` input."
+  desc  'check', "
+    For every internet-facing Application Load Balancer in the scan regions, every `HTTPS` or `TLS` listener's SSL policy must be one of the input `alb_strong_ssl_policies`.
+  "
+  desc  'fix', "
+    ```
+    aws elbv2 modify-listener --listener-arn <listener-arn> --ssl-policy <policy from alb_strong_ssl_policies>
+    ```
+
+    For example `ELBSecurityPolicy-TLS13-1-2-2021-06`, which allows only TLS 1.2 and 1.3.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['SC-13 b', 'SC-8 (1)']

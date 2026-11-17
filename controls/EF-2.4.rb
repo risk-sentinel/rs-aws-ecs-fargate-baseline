@@ -4,6 +4,18 @@ control "EF-2.4" do
   title "Containers must drop ALL Linux capabilities and add only an allowlist"
   desc "linuxParameters.capabilities.drop must include ALL; any added "\
        "capability must be in allowed_added_capabilities (least privilege)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container's `linuxParameters.capabilities.drop` must include `ALL`, and every capability in `linuxParameters.capabilities.add` must be listed in the input `allowed_added_capabilities`.
+  "
+  desc  'fix', "
+    In each container definition set:
+
+    ```
+    \"linuxParameters\": { \"capabilities\": { \"drop\": [\"ALL\"], \"add\": [<only capabilities in allowed_added_capabilities>] } }
+    ```
+
+    Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['AC-6', 'CM-7 a']

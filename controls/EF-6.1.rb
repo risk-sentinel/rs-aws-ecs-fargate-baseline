@@ -5,6 +5,12 @@ control "EF-6.1" do
   desc "If a task definition uses host network mode, no container may be "\
        "privileged or run as root (defense in depth; Fargate forbids host "\
        "mode but the assertion keeps the profile portable)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Applies only to task definitions using `host` network mode. In those, no container may be privileged (EF-2.1) or run as root (EF-2.2). Fargate does not support host network mode, so on Fargate this is not applicable.
+  "
+  desc  'fix', "
+    Use `awsvpc` network mode. If host mode is required on another launch type, set `privileged` to false and `user` to a non-root user in every container. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]

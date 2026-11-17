@@ -4,6 +4,12 @@ control "EF-2.2" do
   title "Containers must run as a non-root user"
   desc "Each container definition must set a non-root user. Running as root "\
        "(or leaving user unset) increases container-escape blast radius."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must set `user` to a non-root user. A container fails when `user` is unset, `root`, `0`, or starts with `root:` or `0:`.
+  "
+  desc  'fix', "
+    Set `user` in the container definition to a non-root UID or name, for example `\"user\": \"1000:1000\"`, and make sure the image runs correctly as that user (file ownership, ports above 1024). Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AC-6"]

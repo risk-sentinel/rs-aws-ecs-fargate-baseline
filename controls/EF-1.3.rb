@@ -4,6 +4,16 @@ control "EF-1.3" do
   title "ECR repositories backing task images must have scan-on-push enabled"
   desc "Image vulnerability scanning must run automatically on push so newly "\
        "introduced CVEs are detected (RA-5)."
+  desc  'check', "
+    For every in-account ECR repository that an in-scope Fargate task definition pulls from, confirm the repository has an image scanning configuration and that `scanOnPush` is true. Images from registries other than in-account ECR are not examined.
+  "
+  desc  'fix', "
+    ```
+    aws ecr put-image-scanning-configuration --repository-name <repo> --image-scanning-configuration scanOnPush=true
+    ```
+
+    Alternatively, enable a registry-level scanning rule (`aws ecr put-registry-scanning-configuration`) covering the repository.
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["RA-5 a"]

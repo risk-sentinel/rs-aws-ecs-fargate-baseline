@@ -4,6 +4,20 @@ control "EF-1.1" do
   title "Container images must be pinned by digest (not a mutable tag)"
   desc "Images referenced by mutable tag (or :latest) can change underneath a "\
        "deployment. Pin by @sha256 digest for immutable, verifiable provenance."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). List each container's `image`. Every image reference must include an `@sha256:` digest; a reference by tag alone (`repo:1.2`, `repo:latest`) fails.
+
+    Applies only when the input `require_image_digest_pinning` is true.
+  "
+  desc  'fix', "
+    Resolve each tag to its digest:
+
+    ```
+    aws ecr describe-images --repository-name <repo> --image-ids imageTag=<tag> --query 'imageDetails[0].imageDigest'
+    ```
+
+    Set the container's `image` to `<registry>/<repo>@sha256:<digest>`. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['CM-2 (2)']

@@ -5,6 +5,18 @@ control "EF-3.1" do
   desc "Secret-shaped values in container environment[] are visible in the "\
        "task definition. Use the secrets[] block with Secrets Manager / SSM "\
        "instead (CM-2/IA-5)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container's `environment` may contain a variable whose name looks like a secret: matching password, passwd, secret, token, api key, access key or private key, case-insensitively.
+  "
+  desc  'fix', "
+    Store each such value in AWS Secrets Manager or SSM Parameter Store and move it from `environment` to the container's `secrets` block:
+
+    ```
+    \"secrets\": [ { \"name\": \"DB_PASSWORD\", \"valueFrom\": \"arn:aws:secretsmanager:<region>:<account>:secret:<name>\" } ]
+    ```
+
+    Grant the execution role read access to that secret or parameter only. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-28", "CM-6 b"]

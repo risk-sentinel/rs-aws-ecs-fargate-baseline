@@ -5,6 +5,18 @@ control "EF-10.3" do
   desc  "operatingSystemFamily + cpuArchitecture must be explicitly set so the "\
         "runtime/image expectation is deterministic across deploys (CM-6 b). "\
         "Consumer-configurable on the task definition."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). The task definition's `runtimePlatform` must set both `operatingSystemFamily` and `cpuArchitecture`.
+  "
+  desc  'fix', "
+    Add to the task definition, matching the image:
+
+    ```
+    \"runtimePlatform\": { \"operatingSystemFamily\": \"LINUX\", \"cpuArchitecture\": \"X86_64\" }
+    ```
+
+    Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CM-6 b"]

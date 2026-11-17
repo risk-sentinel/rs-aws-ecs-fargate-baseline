@@ -5,6 +5,12 @@ control "EF-1.5" do
   desc "Container images must carry a verifiable signature (e.g., cosign/notation) so "\
        "their provenance and integrity can be attested before deployment (CM-5(6)/SI-7). "\
        "Evaluated for digest-pinned task images; tag-only references are caught by EF-1.1."
+  desc  'check', "
+    For each in-scope Fargate task image referenced as an in-account ECR image by digest, call `ecr:DescribeImageSigningStatus` for that digest. The image must report at least one signing status. Images referenced by tag alone are skipped here and fail EF-1.1.
+  "
+  desc  'fix', "
+    Sign images in the build pipeline before deployment, either with ECR managed signing (`aws ecr put-signing-configuration` with an AWS Signer profile) or with cosign or Notation. Push the signature to the same repository, and redeploy from the signed digest.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['SI-7 a', 'SI-7 (6)']

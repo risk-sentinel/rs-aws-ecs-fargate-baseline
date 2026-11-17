@@ -5,6 +5,12 @@ control "EF-9.5" do
   desc  "The control-plane audit infrastructure (API/control-plane logging) is "\
         "AWS-managed and inherited (SRG-CTR audit domain). The consumer's task-level "\
         "logging is asserted by EF-8."
+  desc  'check', "
+    Inherited from AWS. Same evidence check as EF-9.1: the leveraged evidence document from `inherited_evidence_uri`, or the `aws-fargate-fedramp` entry under `leveraged_evidence_base`, must be reachable, exist, and be no older than `leveraged_evidence_max_age_days`. Skipped with instructions when no location is configured. Task-level logging is checked by EF-8.
+  "
+  desc  'fix', "
+    Publish AWS's current authorization evidence covering control-plane audit logging and set `leveraged_evidence_base` or `inherited_evidence_uri` to it, refreshing it before it ages out. Alternatively, record a CMS-pattern attestation with `saf attest apply`.
+  "
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ['AU-12 a', 'AU-12 c']

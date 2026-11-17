@@ -4,6 +4,12 @@ control "EF-9.3" do
   title "ECS / Fargate orchestrator control plane (AWS-managed)"
   desc  "The ECS control plane (scheduling, API, state) is AWS-managed and inherited "\
         "via AWS authorization (SRG-CTR orchestrator domain)."
+  desc  'check', "
+    Inherited from AWS. Same evidence check as EF-9.1: the leveraged evidence document from `inherited_evidence_uri`, or the `aws-fargate-fedramp` entry under `leveraged_evidence_base`, must be reachable, exist, and be no older than `leveraged_evidence_max_age_days`. Skipped with instructions when no location is configured.
+  "
+  desc  'fix', "
+    Publish AWS's current authorization evidence covering the ECS control plane and set `leveraged_evidence_base` or `inherited_evidence_uri` to it, refreshing it before it ages out. Alternatively, record a CMS-pattern attestation with `saf attest apply`.
+  "
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ['AC-3', 'CM-5']

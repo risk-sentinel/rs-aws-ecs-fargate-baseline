@@ -5,6 +5,12 @@ control "EF-1.6" do
   desc "Each container image must carry a Software Bill of Materials (SPDX/CycloneDX) as "\
        "an OCI referrer, so its components are inventoried for vulnerability and "\
        "supply-chain analysis (SI-7/RA-5). Evaluated for digest-pinned task images."
+  desc  'check', "
+    For each in-scope Fargate task image referenced as an in-account ECR image by digest, list its OCI referrers (`ecr:ListImageReferrers`). At least one referrer must have an artifact or media type identifying an SBOM: SPDX, CycloneDX, in-toto or `sbom`. Images referenced by tag alone are skipped here and fail EF-1.1.
+  "
+  desc  'fix', "
+    Generate an SBOM in the build pipeline (for example `syft <image> -o cyclonedx-json`) and attach it to the image digest as an OCI referrer, for example with `cosign attach sbom` or `oras attach --artifact-type application/vnd.cyclonedx+json`. Redeploy from that digest.
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['SR-4']

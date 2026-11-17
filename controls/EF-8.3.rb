@@ -4,6 +4,14 @@ control "EF-8.3" do
   title "Clusters must enable Container Insights"
   desc "Container Insights collects metrics/logs needed for monitoring and "\
        "incident response (AU-6(3)/CA-7)."
+  desc  'check', "
+    For every ECS cluster in the scan regions, the `containerInsights` setting must be `enabled` or `enhanced`.
+  "
+  desc  'fix', "
+    ```
+    aws ecs update-cluster-settings --cluster <cluster> --settings name=containerInsights,value=enhanced
+    ```
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["AU-6 (3)"]

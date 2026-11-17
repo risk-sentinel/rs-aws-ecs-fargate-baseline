@@ -4,6 +4,16 @@ control "EF-5.2" do
   title "Services must not auto-assign public IPs"
   desc "assignPublicIp must be DISABLED so tasks are not directly reachable "\
        "from the internet (SC-7)."
+  desc  'check', "
+    For every Fargate ECS service in the scan regions, `networkConfiguration.awsvpcConfiguration.assignPublicIp` must be `DISABLED`.
+  "
+  desc  'fix', "
+    ```
+    aws ecs update-service --cluster <cluster> --service <service> --network-configuration 'awsvpcConfiguration={subnets=[<private-subnet>,...],securityGroups=[<sg>],assignPublicIp=DISABLED}'
+    ```
+
+    Tasks then need a NAT gateway or VPC endpoints for outbound AWS access.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['SC-7 c', 'SC-7 a']

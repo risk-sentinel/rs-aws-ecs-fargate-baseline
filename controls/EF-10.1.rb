@@ -5,6 +5,16 @@ control "EF-10.1" do
   desc  "GuardDuty Runtime Monitoring provides runtime threat detection for "\
         "Fargate tasks. It is consumer-configurable (not AWS-inherited) and must "\
         "be enabled where ECS is in use (SI-4 / AU-6)."
+  desc  'check', "
+    When any ECS cluster is in scope, list the account's GuardDuty detectors. At least one detector must be `ENABLED` with its `RUNTIME_MONITORING` feature `ENABLED`.
+  "
+  desc  'fix', "
+    ```
+    aws guardduty update-detector --detector-id <id> --features '[{\"Name\":\"RUNTIME_MONITORING\",\"Status\":\"ENABLED\",\"AdditionalConfiguration\":[{\"Name\":\"ECS_FARGATE_AGENT_MANAGEMENT\",\"Status\":\"ENABLED\"}]}]'
+    ```
+
+    Repeat in each region that runs ECS, or enable it organization-wide from the GuardDuty delegated administrator.
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['SI-4 a 1', 'SI-4 (2)']

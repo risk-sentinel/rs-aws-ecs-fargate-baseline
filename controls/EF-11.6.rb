@@ -5,6 +5,14 @@ control "EF-11.6" do
   desc "deletion_protection.enabled must be true so the ingress LB cannot be "\
        "removed accidentally or maliciously, an availability safeguard "\
        "(CP-10 / FSBP ELB.6)."
+  desc  'check', "
+    For every internet-facing Application Load Balancer in the scan regions, the attribute `deletion_protection.enabled` must be true.
+  "
+  desc  'fix', "
+    ```
+    aws elbv2 modify-load-balancer-attributes --load-balancer-arn <alb-arn> --attributes Key=deletion_protection.enabled,Value=true
+    ```
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["CP-10"]

@@ -4,6 +4,18 @@ control "EF-8.1" do
   title "Every container must declare a log configuration"
   desc "logConfiguration must be set on each container so task output is "\
        "captured for audit (AU-2/AU-12)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must define `logConfiguration` with a non-empty `logDriver`.
+  "
+  desc  'fix', "
+    Add a log configuration to each container definition, for example:
+
+    ```
+    \"logConfiguration\": { \"logDriver\": \"awslogs\", \"options\": { \"awslogs-group\": \"<group>\", \"awslogs-region\": \"<region>\", \"awslogs-stream-prefix\": \"<prefix>\" } }
+    ```
+
+    Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['AU-12 a', 'AU-12 c']

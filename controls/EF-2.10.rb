@@ -4,6 +4,12 @@ control "EF-2.10" do
   title "Containers must not bind privileged ports (<1024)"
   desc "Container ports below 1024 require elevated privilege historically and "\
        "are disallowed by SRG-CTR; bind unprivileged ports instead (CM-7)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container may map a `containerPort` between 1 and 1023.
+  "
+  desc  'fix', "
+    Configure the application to listen on a port of 1024 or higher, and update `portMappings` and any load balancer target group to match. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ['CM-7 b']

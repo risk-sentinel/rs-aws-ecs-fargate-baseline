@@ -3,6 +3,18 @@
 control "EF-2.7" do
   title "Containers should set ulimits"
   desc "ulimits (e.g. nofile) bound per-process resource consumption (SC-6)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must declare at least one entry in `ulimits`.
+  "
+  desc  'fix', "
+    Add `ulimits` to each container definition, for example:
+
+    ```
+    \"ulimits\": [ { \"name\": \"nofile\", \"softLimit\": 1024, \"hardLimit\": 4096 } ]
+    ```
+
+    Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["SC-6"]

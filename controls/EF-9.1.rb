@@ -5,6 +5,12 @@ control "EF-9.1" do
   desc  "The Fargate microVM host OS, kernel hardening, and patching are AWS-managed "\
         "and inherited via AWS's FedRAMP/DoD authorization. The consumer cannot "\
         "configure or query the host; evidence is the AWS authorization package."
+  desc  'check', "
+    Inherited from AWS. Resolve the leveraged evidence document: the input `inherited_evidence_uri`, or else the `aws-fargate-fedramp` entry under `leveraged_evidence_base`. The document must be reachable, exist, and be no older than `leveraged_evidence_max_age_days` (default 365). When no location is configured, the control is skipped with instructions.
+  "
+  desc  'fix', "
+    Obtain AWS's current FedRAMP or DoD authorization evidence covering Fargate (for example from AWS Artifact), publish it where the scanner can read it, and set `leveraged_evidence_base` or `inherited_evidence_uri` to it. Refresh it before it exceeds `leveraged_evidence_max_age_days`. Alternatively, record a CMS-pattern attestation with `saf attest apply`.
+  "
   tag severity: "medium"
   tag severity_source: "unassessed"
   tag nist: ["CM-6 b", "SI-2 c"]

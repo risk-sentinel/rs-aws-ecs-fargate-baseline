@@ -4,6 +4,12 @@ control "EF-5.1" do
   title "Task definitions must use awsvpc network mode"
   desc "Fargate requires awsvpc; asserting it here keeps task-level network "\
        "isolation explicit and portable to non-Fargate consumers (SC-7)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). The task definition's `networkMode` must be `awsvpc`.
+  "
+  desc  'fix', "
+    Set `\"networkMode\": \"awsvpc\"` in the task definition and give the service an `awsvpcConfiguration` with subnets and security groups. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SC-7 a"]

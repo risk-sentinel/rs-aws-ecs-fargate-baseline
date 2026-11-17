@@ -5,6 +5,12 @@ control "EF-4.3" do
   desc "The execution role should be scoped to specific ECR / Secrets Manager / "\
        "CloudWatch Logs actions and resources; it must not grant any wildcard "\
        "Action (AC-6). Deep check parses the role's policy documents."
+  desc  'check', "
+    For every execution role used by an in-scope Fargate task definition, read the role's inline and attached managed policy documents. No Allow statement may contain an action with `*` in it, whatever its resource.
+  "
+  desc  'fix', "
+    Scope the execution role to the exact actions it needs, for example `ecr:GetAuthorizationToken`, `ecr:BatchGetImage`, `ecr:GetDownloadUrlForLayer`, `logs:CreateLogStream`, `logs:PutLogEvents`, and `secretsmanager:GetSecretValue` on the task's secret ARNs. The AWS managed policy `AmazonECSTaskExecutionRolePolicy` lists actions without wildcards.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]

@@ -5,6 +5,12 @@ control "EF-4.2" do
   desc "The task role's policies must not contain Allow statements pairing a "\
        "wildcard Action with a wildcard Resource (over-broad grant, AC-6). "\
        "Deep check parses inline + attached managed policy documents."
+  desc  'check', "
+    For every task role used by an in-scope Fargate task definition, read the role's inline and attached managed policy documents. No Allow statement may combine an action containing `*` with a `Resource` of `*`.
+  "
+  desc  'fix', "
+    Replace wildcard grants with the specific actions and resource ARNs the application uses. IAM Access Analyzer policy generation (`aws accessanalyzer start-policy-generation`) can draft a policy from the role's CloudTrail activity. Update the policy with `aws iam put-role-policy` (inline) or a new managed policy version.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["AC-6"]

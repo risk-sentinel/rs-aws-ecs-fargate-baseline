@@ -7,6 +7,12 @@ control "EF-11.7" do
        "are never served an expired or about-to-expire certificate ("\
        "SC-17 / SC-8(1)). A strong SSL policy (EF-11.2) on an expired cert still "\
        "breaks TLS — this control closes that gap."
+  desc  'check', "
+    For every `HTTPS` or `TLS` listener on an internet-facing Application Load Balancer in the scan regions, read each bound ACM certificate. Each must have status `ISSUED` and expire more than the input `cert_expiry_warning_days` (default 30) days from now. Skipped when no certificate is found, or when the scanner image cannot call ACM.
+  "
+  desc  'fix', "
+    For an ACM-issued certificate, fix whatever blocks managed renewal (usually DNS validation records); `aws acm describe-certificate --certificate-arn <arn>` shows renewal status. For an imported certificate, import the renewed certificate (`aws acm import-certificate --certificate-arn <arn> ...`) or issue a new ACM certificate and attach it to the listener (`aws elbv2 modify-listener --certificates CertificateArn=<new-arn>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['SC-17 a', 'SC-8 (1)']

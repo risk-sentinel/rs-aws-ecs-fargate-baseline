@@ -4,6 +4,16 @@ control "EF-1.4" do
   title "ECR repositories must enforce image tag immutability"
   desc "Immutable tags prevent an existing tag from being overwritten with a "\
        "different image, preserving supply-chain integrity (CM-5(6)/SI-7)."
+  desc  'check', "
+    For every in-account ECR repository that an in-scope Fargate task definition pulls from, `imageTagMutability` must be `IMMUTABLE`.
+  "
+  desc  'fix', "
+    ```
+    aws ecr put-image-tag-mutability --repository-name <repo> --image-tag-mutability IMMUTABLE
+    ```
+
+    Build pipelines must then push a new tag for every build rather than overwrite an existing one.
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['CM-5 (6)']

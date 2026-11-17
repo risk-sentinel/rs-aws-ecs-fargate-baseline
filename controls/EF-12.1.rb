@@ -11,6 +11,14 @@ control "EF-12.1" do
        "material means TLS is not actually terminating where claimed. The "\
        "proxy's cipher/protocol configuration is validated inside the container "\
        "by cis-nginx (nginx_tls_termination). SC-8 / SC-8(1) / SC-13."
+  desc  'check', "
+    Applies when the input `tls_termination` is `proxy` or `both`. At least one container in the in-scope Fargate task definitions must be a reverse proxy, identified by an image or container name matching nginx, envoy, haproxy, traefik, httpd, apache or proxy. Each proxy found must have TLS material wired in: a secret, environment variable or mount point whose name or path mentions tls, ssl, cert, key, pem, crt or pkcs.
+  "
+  desc  'fix', "
+    Deliver the proxy's certificate and private key from Secrets Manager through the container's `secrets` block, or from a mounted volume, and configure the proxy to terminate TLS with them. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+
+    If TLS actually terminates at the load balancer, set `tls_termination` to `alb`. Validate the proxy's own TLS configuration with the cis-nginx profile.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['SC-8', 'SC-8 (1)']

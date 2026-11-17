@@ -5,6 +5,16 @@ control "EF-10.2" do
   desc  "The account-wide containerInsights default (ecs:ListAccountSettings) "\
         "ensures new clusters get monitoring even if a per-cluster setting is "\
         "missed (AU-6(3)/CA-7). Consumer-configurable, not AWS-inherited."
+  desc  'check', "
+    When any ECS cluster is in scope, the account setting `containerInsights` (`ecs:ListAccountSettings`) must be `enabled`.
+  "
+  desc  'fix', "
+    ```
+    aws ecs put-account-setting-default --name containerInsights --value enabled
+    ```
+
+    Existing clusters keep their own setting; EF-8.3 covers them.
+  "
   tag severity:              "low"
   tag severity_source:       "assessed"
   tag nist:                  ["AU-6 (3)", "CA-7"]

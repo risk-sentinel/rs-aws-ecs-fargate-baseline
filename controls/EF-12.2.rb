@@ -7,6 +7,12 @@ control "EF-12.2" do
        "ingress topology is visible and each proxy's in-container TLS "\
        "configuration can be validated with cis-nginx. Informational — no "\
        "pass/fail (impact 0.0)."
+  desc  'check', "
+    Informational, impact 0. Lists the reverse-proxy containers (nginx, envoy, haproxy, traefik, httpd, apache, proxy) found in the in-scope Fargate task definitions, with their images. Nothing passes or fails.
+  "
+  desc  'fix', "
+    No fix: this is an inventory. Validate each listed proxy's TLS configuration with the cis-nginx profile.
+  "
   tag severity:              "none"
   tag severity_source:       "assessed"
   tag nist:                  ['CM-8 a 1']

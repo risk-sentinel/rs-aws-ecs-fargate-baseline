@@ -6,6 +6,16 @@ control "EF-7.2" do
        "executeCommandConfiguration must log sessions to CloudWatch Logs or S3 "\
        "(logging=OVERRIDE with a destination) and encrypt them with a KMS key "\
        "(AU-12/SC-28)."
+  desc  'check', "
+    For each cluster running a service that has ECS Exec enabled and is listed in `ecs_exec_allowed_services`, the cluster's `executeCommandConfiguration` must set `logging` to `OVERRIDE` with a CloudWatch Logs group or an S3 bucket, and must name a KMS key.
+  "
+  desc  'fix', "
+    ```
+    aws ecs update-cluster --cluster <cluster> --configuration 'executeCommandConfiguration={kmsKeyId=<key-arn>,logging=OVERRIDE,logConfiguration={cloudWatchLogGroupName=<group>,cloudWatchEncryptionEnabled=true}}'
+    ```
+
+    The task role also needs `kms:Decrypt` on the key and permission to write to the log destination.
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['AU-12 c', 'AU-12 a', 'AC-17 (2)']

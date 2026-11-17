@@ -4,6 +4,12 @@ control "EF-1.2" do
   title "Container images must come from trusted registries"
   desc "Only images from approved registries (private ECR or vetted sources) "\
        "may be deployed. Fails closed when trusted_image_registries is empty."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container's `image` must start with one of the prefixes in the input `trusted_image_registries`. When that input is empty, every container fails: there is no approved registry to match.
+  "
+  desc  'fix', "
+    Set `trusted_image_registries` to the approved registry prefixes (for example `<account>.dkr.ecr.<region>.amazonaws.com/`). Move any image from an unapproved registry into an approved one, for example by pulling, re-tagging and pushing it to a private ECR repository, and point the container's `image` at it. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ['CM-7 (5) (b)', 'CM-7 a']

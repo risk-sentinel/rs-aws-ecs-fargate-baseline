@@ -4,6 +4,12 @@ control "EF-6.2" do
   title "Task definitions must not share the host PID namespace"
   desc "pidMode must not be 'host'; sharing the host PID namespace breaks "\
        "process isolation (CM-7/SC-39)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). The task definition's `pidMode` must not be `host`.
+  "
+  desc  'fix', "
+    Remove `pidMode` from the task definition, or set it to `task` where containers in the task need to share a process namespace. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ['SC-39', 'CM-7 b']

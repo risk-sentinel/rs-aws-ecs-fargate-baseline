@@ -5,6 +5,14 @@ control "EF-11.4" do
   desc "routing.http.drop_invalid_header_fields.enabled must be true so the ALB "\
        "strips malformed headers before forwarding to the Fargate tasks "\
        "(request-smuggling / header-injection hardening — FSBP ELB.4 / SI-10)."
+  desc  'check', "
+    For every internet-facing Application Load Balancer in the scan regions, the attribute `routing.http.drop_invalid_header_fields.enabled` must be true.
+  "
+  desc  'fix', "
+    ```
+    aws elbv2 modify-load-balancer-attributes --load-balancer-arn <alb-arn> --attributes Key=routing.http.drop_invalid_header_fields.enabled,Value=true
+    ```
+  "
   tag severity:              "medium"
   tag severity_source:       "unassessed"
   tag nist:                  ["SI-10"]

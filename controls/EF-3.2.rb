@@ -4,6 +4,12 @@ control "EF-3.2" do
   title "Injected secrets must reference Secrets Manager / SSM ARNs"
   desc "Every secrets[].valueFrom must be an ARN (Secrets Manager or SSM "\
        "Parameter Store), not an inline/plaintext value (IA-5(7)/SC-28)."
+  desc  'check', "
+    Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every entry in each container's `secrets` must have a `valueFrom` that is an ARN, for a Secrets Manager secret or an SSM parameter.
+  "
+  desc  'fix', "
+    Replace each non-ARN `valueFrom` with the full ARN of the Secrets Manager secret or SSM parameter. Register a new task definition revision with the change (`aws ecs register-task-definition --cli-input-json file://taskdef.json`), then update the service to use it (`aws ecs update-service --cluster <cluster> --service <service> --task-definition <family>:<revision>`).
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["IA-5 (7)", "SC-28"]

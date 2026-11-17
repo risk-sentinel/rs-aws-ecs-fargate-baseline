@@ -5,6 +5,18 @@ control "EF-1.7" do
   desc "Images with unremediated findings at or above max_image_finding_severity "\
        "must not be deployed (RA-5/SI-2). Requires ECR scan results to exist "\
        "(see EF-1.3)."
+  desc  'check', "
+    For each in-scope Fargate task image referenced as an in-account ECR image by digest, read the ECR scan finding counts. The count of findings above the input `max_image_finding_severity` (default HIGH, so CRITICAL by default) must be zero. Not applicable when the ceiling is CRITICAL. Requires scan results to exist (EF-1.3).
+  "
+  desc  'fix', "
+    Rebuild the image on a patched base and with updated dependencies until the scan reports no findings above the ceiling:
+
+    ```
+    aws ecr describe-image-scan-findings --repository-name <repo> --image-id imageDigest=<digest>
+    ```
+
+    Push the rebuilt image and redeploy from its digest. Accepting a specific finding is a risk decision for the system owner, not a profile setting.
+  "
   tag severity:              "high"
   tag severity_source:       "assessed"
   tag nist:                  ["RA-5 a", "SI-2 a"]
