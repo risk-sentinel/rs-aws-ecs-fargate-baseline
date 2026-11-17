@@ -1,0 +1,30 @@
+# encoding: UTF-8
+
+control "EF-1.5" do
+  title "Task images must be cryptographically signed"
+  desc "Container images must carry a verifiable signature (e.g., cosign/notation) so "\
+       "their provenance and integrity can be attested before deployment (CM-5(6)/SI-7). "\
+       "Evaluated for digest-pinned task images; tag-only references are caught by EF-1.1."
+  tag severity:              "high"
+  tag severity_source:       "assessed"
+  tag nist:                  ['SI-7 a', 'SI-7 (6)']
+  tag ksi:                   ['KSI-SVC-VRI']
+  tag nist_r4:               ['SI-7', 'SI-7 (6)']
+  tag cci:                   ['CCI-002704', 'CCI-002716']
+  tag local_number:          "EF-1.5"
+  tag srg:                   "SRG-APP-000131-CTR-000285"
+  tag applicable_partitions: ["aws", "aws-us-gov"]
+  tag implementation_status: "implemented"
+
+  images = task_image_refs
+  impact 0.7
+  impact 0.0 if images.empty?
+  only_if("No resolvable ECR task images") { !images.empty? }
+
+  images.each do |ref|
+    next unless ref[:repo] && ref[:digest]
+    describe aws_ecr_image(repository_name: ref[:repo], image_digest: ref[:digest]) do
+      it { should be_signed }
+    end
+  end
+end
