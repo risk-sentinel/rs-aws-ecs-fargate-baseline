@@ -4,9 +4,9 @@ control "EF-6.6" do
   title "Task EFS volumes must enable in-transit encryption"
   desc "Any task definition that mounts an Amazon EFS volume must set "\
        "efsVolumeConfiguration.transitEncryption to ENABLED, so the NFS traffic "\
-       "between the task and EFS is TLS-protected (SC-8 / SC-8(1)). This is the "\
-       "task's east-west storage transit, distinct from the north-south ALB/proxy "\
-       "TLS covered by EF-11/EF-12. Scoped to task defs that declare EFS volumes."
+       "between the task and EFS is TLS-protected. This is the task's east-west "\
+       "storage transit, distinct from the north-south ALB/proxy TLS covered by "\
+       "EF-11/EF-12. Scoped to task defs that declare EFS volumes."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Applies only to task definitions that declare an Amazon EFS volume. Every EFS volume must set `efsVolumeConfiguration.transitEncryption` to `ENABLED`.
   "

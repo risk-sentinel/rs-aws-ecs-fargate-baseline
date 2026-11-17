@@ -2,8 +2,8 @@
 
 control "EF-2.5" do
   title "Containers must not request privilege-escalating capabilities"
-  desc "Containers must not add SYS_ADMIN/SYS_PTRACE/ALL, which enable "\
-       "privilege escalation and host introspection (AC-6)."
+  desc "Containers must not add SYS_ADMIN/SYS_PTRACE/ALL, which enable privilege "\
+       "escalation and host introspection."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container may add `SYS_ADMIN`, `SYS_PTRACE` or `ALL` in `linuxParameters.capabilities.add`.
   "

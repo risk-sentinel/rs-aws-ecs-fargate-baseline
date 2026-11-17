@@ -3,7 +3,7 @@
 control "EF-2.3" do
   title "Containers must use a read-only root filesystem"
   desc "readonlyRootFilesystem=true prevents tampering with the container "\
-       "filesystem at runtime (AC-6/CM-7)."
+       "filesystem at runtime."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must set `readonlyRootFilesystem` to true.
   "

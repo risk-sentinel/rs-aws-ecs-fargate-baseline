@@ -4,9 +4,9 @@ control "EF-11.7" do
   title "ALB HTTPS listener certificates must be valid (issued, not expiring)"
   desc "The ACM certificate bound to each HTTPS/TLS listener must be in ISSUED "\
        "status and more than `cert_expiry_warning_days` from expiry, so clients "\
-       "are never served an expired or about-to-expire certificate ("\
-       "SC-17 / SC-8(1)). A strong SSL policy (EF-11.2) on an expired cert still "\
-       "breaks TLS — this control closes that gap."
+       "are never served an expired or about-to-expire certificate. A strong SSL "\
+       "policy (EF-11.2) on an expired cert still breaks TLS — this control closes "\
+       "that gap."
   desc  'check', "
     For every `HTTPS` or `TLS` listener on an internet-facing Application Load Balancer in the scan regions, read each bound ACM certificate. Each must have status `ISSUED` and expire more than the input `cert_expiry_warning_days` (default 30) days from now. Skipped when no certificate is found, or when the scanner image cannot call ACM.
   "

@@ -3,8 +3,7 @@
 control "EF-11.6" do
   title "ALBs must have deletion protection enabled"
   desc "deletion_protection.enabled must be true so the ingress LB cannot be "\
-       "removed accidentally or maliciously, an availability safeguard "\
-       "(CP-10 / FSBP ELB.6)."
+       "removed accidentally or maliciously, an availability safeguard."
   desc  'check', "
     For every internet-facing Application Load Balancer in the scan regions, the attribute `deletion_protection.enabled` must be true.
   "

@@ -4,7 +4,7 @@ control "EF-4.3" do
   title "Execution role must not grant wildcard actions"
   desc "The execution role should be scoped to specific ECR / Secrets Manager / "\
        "CloudWatch Logs actions and resources; it must not grant any wildcard "\
-       "Action (AC-6). Deep check parses the role's policy documents."
+       "Action. Deep check parses the role's policy documents."
   desc  'check', "
     For every execution role used by an in-scope Fargate task definition, read the role's inline and attached managed policy documents. No Allow statement may contain an action with `*` in it, whatever its resource.
   "

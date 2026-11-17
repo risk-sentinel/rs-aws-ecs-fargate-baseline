@@ -3,7 +3,7 @@
 control "EF-5.1" do
   title "Task definitions must use awsvpc network mode"
   desc "Fargate requires awsvpc; asserting it here keeps task-level network "\
-       "isolation explicit and portable to non-Fargate consumers (SC-7)."
+       "isolation explicit and portable to non-Fargate consumers."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). The task definition's `networkMode` must be `awsvpc`.
   "

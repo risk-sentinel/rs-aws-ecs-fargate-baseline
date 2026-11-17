@@ -2,11 +2,10 @@
 
 control "EF-8.7" do
   title "CloudWatch log groups for tasks must set a retention policy"
-  desc "Each CloudWatch Logs group referenced by an awslogs-driver container "\
-       "must have an explicit retention policy of at least "\
-       "`min_log_retention_days` days, so audit-record storage capacity is "\
-       "allocated and bounded rather than left to never-expire (AU-4 — allocate "\
-       "audit-record storage capacity). A never-expire (unset) group fails."
+  desc "Each CloudWatch Logs group referenced by an awslogs-driver container must "\
+       "have an explicit retention policy of at least `min_log_retention_days` "\
+       "days, so audit-record storage capacity is allocated and bounded rather "\
+       "than left to never-expire. A never-expire (unset) group fails."
   desc  'check', "
     For every CloudWatch Logs group named in an `awslogs` container's `awslogs-group` option across in-scope Fargate task definitions, the group must have a retention policy (`retentionInDays` set, not Never expire) of at least the input `min_log_retention_days` (default 30). A group that does not exist fails.
   "

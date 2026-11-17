@@ -2,10 +2,10 @@
 
 control "EF-11.2" do
   title "ALB HTTPS listeners must use a strong TLS security policy"
-  desc "Each HTTPS/TLS listener must use a predefined SSL policy that enforces "\
-       "TLS 1.2 or higher (SC-13). Legacy policies (TLS 1.0/1.1, the 2015/2016 "\
-       "sets) permit deprecated protocols. The approved set is the "\
-       "`alb_strong_ssl_policies` input."
+  desc "Each HTTPS/TLS listener must use a predefined SSL policy that enforces TLS "\
+       "1.2 or higher. Legacy policies (TLS 1.0/1.1, the 2015/2016 sets) permit "\
+       "deprecated protocols. The approved set is the `alb_strong_ssl_policies` "\
+       "input."
   desc  'check', "
     For every internet-facing Application Load Balancer in the scan regions, every `HTTPS` or `TLS` listener's SSL policy must be one of the input `alb_strong_ssl_policies`.
   "

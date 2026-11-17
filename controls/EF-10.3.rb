@@ -3,7 +3,7 @@
 control "EF-10.3" do
   title "Fargate task definitions must pin runtimePlatform"
   desc  "operatingSystemFamily + cpuArchitecture must be explicitly set so the "\
-        "runtime/image expectation is deterministic across deploys (CM-6 b). "\
+        "runtime/image expectation is deterministic across deploys. "\
         "Consumer-configurable on the task definition."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). The task definition's `runtimePlatform` must set both `operatingSystemFamily` and `cpuArchitecture`.

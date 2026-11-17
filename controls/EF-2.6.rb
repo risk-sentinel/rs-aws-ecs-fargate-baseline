@@ -3,7 +3,7 @@
 control "EF-2.6" do
   title "Containers must declare CPU and memory limits"
   desc "Per-container cpu and memory (or memoryReservation) bound resource use, "\
-       "limiting the blast radius of a noisy/compromised container (SC-6)."
+       "limiting the blast radius of a noisy/compromised container."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must set `cpu` greater than zero, and `memory` or `memoryReservation` greater than zero.
   "

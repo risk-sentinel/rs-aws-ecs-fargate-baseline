@@ -5,9 +5,9 @@ control "EF-8.6" do
   desc "Each container's logConfiguration.logDriver must be a central, off-host "\
        "driver (awslogs, awsfirelens, or splunk) so audit records are stored "\
        "durably away from the ephemeral task, not on a host-bound driver "\
-       "(json-file, journald, syslog, local) that is lost when the task stops "\
-       "(AU-4 / AU-9(2) — secondary/central audit storage). EF-8.1 asserts a "\
-       "logConfiguration exists; this asserts it off-loads the records."
+       "(json-file, journald, syslog, local) that is lost when the task stops. "\
+       "EF-8.1 asserts a logConfiguration exists; this asserts it off-loads the "\
+       "records."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container's `logConfiguration.logDriver` must be `awslogs`, `awsfirelens` or `splunk`. A container with no log configuration, or with a local driver (`json-file`, `journald`, `syslog`, `fluentd`, `local`, `none`), fails.
   "

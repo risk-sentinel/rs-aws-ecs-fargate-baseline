@@ -4,8 +4,7 @@ control "EF-7.2" do
   title "Where ECS Exec is enabled, sessions must be audited and KMS-encrypted"
   desc "For services permitted to use ECS Exec, the cluster's "\
        "executeCommandConfiguration must log sessions to CloudWatch Logs or S3 "\
-       "(logging=OVERRIDE with a destination) and encrypt them with a KMS key "\
-       "(AU-12/SC-28)."
+       "(logging=OVERRIDE with a destination) and encrypt them with a KMS key."
   desc  'check', "
     For each cluster running a service that has ECS Exec enabled and is listed in `ecs_exec_allowed_services`, the cluster's `executeCommandConfiguration` must set `logging` to `OVERRIDE` with a CloudWatch Logs group or an S3 bucket, and must name a KMS key.
   "
