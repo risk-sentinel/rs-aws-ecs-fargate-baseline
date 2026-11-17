@@ -214,15 +214,15 @@ control "EF-11.7" do
   title "ALB HTTPS listener certificates must be valid (issued, not expiring)"
   desc "The ACM certificate bound to each HTTPS/TLS listener must be in ISSUED "\
        "status and more than `cert_expiry_warning_days` from expiry, so clients "\
-       "are never served an expired or about-to-expire certificate (SC-12 / "\
+       "are never served an expired or about-to-expire certificate ("\
        "SC-17 / SC-8(1)). A strong SSL policy (EF-11.2) on an expired cert still "\
        "breaks TLS — this control closes that gap."
   tag severity:              "high"
   tag severity_source:       "assessed"
-  tag nist:                  ['SC-17 a', 'SC-12', 'SC-8 (1)']
+  tag nist:                  ['SC-17 a', 'SC-8 (1)']
   tag ksi:                   ['KSI-SVC-ASM', 'KSI-SVC-SIN']
   tag nist_r4:               ['SC-17', 'SC-8 (1)']
-  tag cci:                   ['CCI-001159', 'CCI-001138', 'CCI-002421']
+  tag cci:                   ['CCI-001159', 'CCI-002421']
   tag local_number:          "EF-11.7"
   tag srg:                   "SRG-APP-000516-CTR-001335"
   tag fsbp:                  "ACM.1"

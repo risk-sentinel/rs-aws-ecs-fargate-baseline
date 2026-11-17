@@ -71,8 +71,8 @@ control "EF-8.4" do
   tag severity_source:       "assessed"
   tag nist:                  ["CM-8 a 1"]
   tag ksi:                   ["KSI-PIY-GIV"]
-  tag nist_r4:               ["CM-8 a 1"]
-  tag cci:                   ["CCI-000389"]
+  tag nist_r4:               ["CM-8"]
+  tag cci:                   ["CCI-003962"]
   tag local_number:          "EF-8.4"
   tag fsbp:                  "ECS.13/14/15"
   tag cis_source:            "CIS AWS Compute v1.1.0 C-3.10/3.11/3.12"
@@ -119,7 +119,7 @@ control "EF-8.5" do
   tag nist:                  ['CP-10']
   tag ksi:                   ['KSI-RPL-ABO', 'KSI-RPL-ARP', 'KSI-RPL-RRO', 'KSI-RPL-TRC']
   tag nist_r4:               ['CP-10']
-  tag cci:                   ['CCI-000552']
+  tag cci:                   ['CCI-004028']
   tag local_number:          "EF-8.5"
   tag applicable_partitions: ["aws", "aws-us-gov"]
   tag implementation_status: "implemented"
