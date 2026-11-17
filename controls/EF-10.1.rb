@@ -2,11 +2,11 @@
 
 control "EF-10.1" do
   title "GuardDuty Runtime Monitoring must cover ECS/Fargate"
-  desc  "GuardDuty Runtime Monitoring provides runtime threat detection for "\
-        "Fargate tasks. It is consumer-configurable (not AWS-inherited) and must "\
-        "be enabled where ECS is in use (SI-4 / AU-6)."
+  desc  "GuardDuty Runtime Monitoring provides runtime threat detection for Fargate "\
+        "tasks. It is consumer-configurable (not AWS-inherited) and must be enabled "\
+        "where ECS is in use."
   desc  'check', "
-    When any ECS cluster is in scope, list the account's GuardDuty detectors. At least one detector must be `ENABLED` with its `RUNTIME_MONITORING` feature `ENABLED`.
+    For every region that has an in-scope ECS cluster, GuardDuty must have an `ENABLED` detector whose `RUNTIME_MONITORING` feature is `ENABLED` with its `ECS_FARGATE_AGENT_MANAGEMENT` configuration `ENABLED`. Without agent management, Fargate tasks get no GuardDuty agent. A region whose detectors cannot be read fails as unreadable, not as covered.
   "
   desc  'fix', "
     ```
@@ -32,7 +32,11 @@ control "EF-10.1" do
   impact 0.0 if clusters.empty?
   only_if("No ECS clusters in scope") { !clusters.empty? }
 
-  describe aws_guardduty_ecs_coverage do
-    it { should be_runtime_monitoring_enabled }
+  # GuardDuty is regional: check every region that runs an in-scope cluster.
+  regions = clusters.map { |arn| arn.split(":")[3] }.compact.uniq
+  coverage = aws_guardduty_ecs_coverage(regions: regions)
+  describe coverage do
+    its("unreadable_regions") { should be_empty }
+    its("uncovered_regions") { should be_empty }
   end
 end

@@ -3,9 +3,9 @@
 control "EF-1.3" do
   title "ECR repositories backing task images must have scan-on-push enabled"
   desc "Image vulnerability scanning must run automatically on push so newly "\
-       "introduced CVEs are detected (RA-5)."
+       "introduced CVEs are detected."
   desc  'check', "
-    For every in-account ECR repository that an in-scope Fargate task definition pulls from, confirm the repository has an image scanning configuration and that `scanOnPush` is true. Images from registries other than in-account ECR are not examined.
+    For every ECR repository an in-scope Fargate task definition pulls from, queried in the region and registry (account) named in the image URI, the repository must have an image scanning configuration with `scanOnPush` true. Images from any other registry are reported as skipped, not assessed.
   "
   desc  'fix', "
     ```
@@ -27,12 +27,19 @@ control "EF-1.3" do
   tag implementation_status: "implemented"
 
   repos = ecr_repos_in_scope
+  other = unassessable_images(need_digest: false)
   impact 0.5
   impact 0.0 if repos.empty?
-  only_if("No in-account ECR repositories backing Fargate task images") { !repos.empty? }
+  only_if("No ECR repositories back the in-scope task images (#{other.size} image(s) from other registries)") { !repos.empty? }
 
-  repos.each do |repo|
-    describe aws_ecr_repository(repository_name: repo) do
+  other.each do |raw, why|
+    describe "Image #{raw}" do
+      skip "Not assessed: #{why}."
+    end
+  end
+
+  repos.each do |r|
+    describe aws_ecr_repository(repository_name: r[:repo], region: r[:region], registry_id: r[:registry_id]) do
       its("image_scanning_configuration") { should_not be_nil }
       its("scan_on_push") { should eq true }
     end

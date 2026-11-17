@@ -15,16 +15,24 @@ class AwsEcrRepository < AwsResourceBase
     end
   "
 
-  attr_reader :repository_name, :image_scanning_configuration, :scan_on_push, :image_tag_mutability
+  attr_reader :region, :registry_id, :repository_name, :image_scanning_configuration, :scan_on_push, :image_tag_mutability
 
   def initialize(opts = {})
     opts = { repository_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i[repository_name])
+    validate_parameters(required: %i[repository_name], allow: %i[region registry_id])
     @repository_name = opts[:repository_name]
+    @region          = opts[:region].to_s
+    @registry_id     = opts[:registry_id].to_s
     @exists = false
     catch_aws_errors do
-      repo = @aws.ecr_client.describe_repositories(repository_names: [@repository_name]).repositories.first
+      # The repository's own region and registry, parsed from the image URI:
+      # the scanner's default region and account may hold a different
+      # repository of the same name, or none.
+      client = @region.empty? ? @aws.ecr_client : ::Aws::ECR::Client.new(region: @region)
+      args = { repository_names: [@repository_name] }
+      args[:registry_id] = @registry_id unless @registry_id.empty?
+      repo = client.describe_repositories(**args).repositories.first
       next if repo.nil?
       @exists                       = true
       @image_scanning_configuration = repo.image_scanning_configuration
