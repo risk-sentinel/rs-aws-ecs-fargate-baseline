@@ -2,7 +2,7 @@
 
 control "EF-2.7" do
   title "Containers should set ulimits"
-  desc "ulimits (e.g. nofile) bound per-process resource consumption (SC-6)."
+  desc "ulimits (e.g. nofile) bound per-process resource consumption."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must declare at least one entry in `ulimits`.
   "

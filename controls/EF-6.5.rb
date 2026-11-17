@@ -2,8 +2,8 @@
 
 control "EF-6.5" do
   title "Clusters must encrypt Fargate ephemeral storage with a CMK"
-  desc "Fargate ephemeral storage should be encrypted with a customer-managed "\
-       "KMS key via the cluster's managed storage configuration (SC-28)."
+  desc "Fargate ephemeral storage should be encrypted with a customer-managed KMS "\
+       "key via the cluster's managed storage configuration."
   desc  'check', "
     For every ECS cluster in the scan regions, the cluster's managed storage configuration must name a KMS key for Fargate ephemeral storage (`configuration.managedStorageConfiguration.fargateEphemeralStorageKmsKeyId`).
   "

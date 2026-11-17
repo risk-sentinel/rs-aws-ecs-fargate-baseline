@@ -5,12 +5,12 @@ control "EF-12.1" do
   desc "When this workload terminates TLS at a reverse proxy rather than (or in "\
        "addition to) the ALB — `tls_termination` is 'proxy' or 'both' — a "\
        "reverse-proxy container (nginx/envoy/haproxy/traefik/apache) must be "\
-       "present in the Fargate task definitions and have TLS key material wired "\
-       "(a secret, env var, or mounted volume referencing a certificate/key). "\
-       "Fail-closed: proxy termination is declared but no proxy holds TLS "\
-       "material means TLS is not actually terminating where claimed. The "\
-       "proxy's cipher/protocol configuration is validated inside the container "\
-       "by cis-nginx (nginx_tls_termination). SC-8 / SC-8(1) / SC-13."
+       "present in the Fargate task definitions and have TLS key material wired (a "\
+       "secret, env var, or mounted volume referencing a certificate/key). "\
+       "Fail-closed: proxy termination is declared but no proxy holds TLS material "\
+       "means TLS is not actually terminating where claimed. The proxy's "\
+       "cipher/protocol configuration is validated inside the container by "\
+       "cis-nginx (nginx_tls_termination)."
   desc  'check', "
     Applies when the input `tls_termination` is `proxy` or `both`. At least one container in the in-scope Fargate task definitions must be a reverse proxy, identified by an image or container name matching nginx, envoy, haproxy, traefik, httpd, apache or proxy. Each proxy found must have TLS material wired in: a secret, environment variable or mount point whose name or path mentions tls, ssl, cert, key, pem, crt or pkcs.
   "

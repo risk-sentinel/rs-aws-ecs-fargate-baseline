@@ -2,8 +2,8 @@
 
 control "EF-5.2" do
   title "Services must not auto-assign public IPs"
-  desc "assignPublicIp must be DISABLED so tasks are not directly reachable "\
-       "from the internet (SC-7)."
+  desc "assignPublicIp must be DISABLED so tasks are not directly reachable from "\
+       "the internet."
   desc  'check', "
     For every Fargate ECS service in the scan regions, `networkConfiguration.awsvpcConfiguration.assignPublicIp` must be `DISABLED`.
   "

@@ -3,8 +3,8 @@
 control "EF-11.3" do
   title "ALB HTTP listeners must redirect to HTTPS"
   desc "Any plaintext HTTP listener on an internet-facing ALB must redirect to "\
-       "HTTPS (default action type=redirect, protocol HTTPS) so clients are "\
-       "moved onto TLS rather than served over plaintext (SC-8 / FSBP ELB.1)."
+       "HTTPS (default action type=redirect, protocol HTTPS) so clients are moved "\
+       "onto TLS rather than served over plaintext."
   desc  'check', "
     For every internet-facing Application Load Balancer in the scan regions, every `HTTP` listener's default action must be a `redirect` whose protocol is `HTTPS`.
   "

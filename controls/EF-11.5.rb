@@ -3,7 +3,7 @@
 control "EF-11.5" do
   title "ALBs must have access logging enabled"
   desc "access_logs.s3.enabled must be true so ingress request records are "\
-       "captured for audit + incident response (AU-2 / FSBP ELB.5)."
+       "captured for audit + incident response."
   desc  'check', "
     For every internet-facing Application Load Balancer in the scan regions, the attribute `access_logs.s3.enabled` must be true.
   "

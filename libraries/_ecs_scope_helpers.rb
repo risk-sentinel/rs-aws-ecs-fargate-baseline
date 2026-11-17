@@ -108,9 +108,11 @@ module EcsScopeHelpers
   end
 
   # Image references across all Fargate task defs, parsed into
-  # {repo:, digest:, registry:, raw:} where the image is an in-account ECR URI:
-  #   <acct>.dkr.ecr.<region>.amazonaws.com/<repo>[@sha256:<digest>|:tag]
-  # Non-ECR or unparseable images yield repo:/digest: nil.
+  # {raw:, registry:, registry_id:, region:, repo:, digest:} where the image is
+  # an ECR URI:
+  #   <acct>.dkr.ecr.<region>.amazonaws.com/<repo>[:tag][@sha256:<digest>]
+  # Images from any other registry yield repo:/digest: nil; controls report
+  # them as not assessed rather than dropping them.
   def task_image_refs
     @task_image_refs ||= begin
       refs = []
@@ -127,9 +129,26 @@ module EcsScopeHelpers
     end
   end
 
-  # Distinct in-account ECR repository names backing Fargate task images.
+  # Distinct ECR repositories backing Fargate task images, with where they live:
+  # {repo:, region:, registry_id:}. The same name in two regions or registries
+  # is two repositories.
   def ecr_repos_in_scope
-    @ecr_repos_in_scope ||= task_image_refs.map { |r| r[:repo] }.compact.uniq
+    @ecr_repos_in_scope ||= task_image_refs.select { |r| r[:repo] }
+                                           .map { |r| r.slice(:repo, :region, :registry_id) }
+                                           .uniq
+  end
+
+  # Images no ECR control can assess, with the reason, for reporting as skipped.
+  # need_digest: true for checks that read a specific image (signing, SBOM, scan
+  # findings), which a tag-only reference cannot identify.
+  def unassessable_images(need_digest:)
+    task_image_refs.filter_map do |r|
+      if r[:repo].nil?
+        [r[:raw], "not an ECR image"]
+      elsif need_digest && r[:digest].nil?
+        [r[:raw], "referenced by tag, not digest (see EF-1.1)"]
+      end
+    end
   end
 
   # Reverse-proxy / web-proxy container images by well-known name.
@@ -171,19 +190,15 @@ module EcsScopeHelpers
 
   def parse_ecr_image(img)
     s = img.to_s
-    out = { raw: s, repo: nil, digest: nil, registry: nil }
+    out = { raw: s, repo: nil, digest: nil, registry: nil, registry_id: nil, region: nil }
     # ECR registry host: <acct>.dkr.ecr.<region>.amazonaws.com(.cn)
-    if s =~ %r{\A(\d+\.dkr\.ecr\.[a-z0-9-]+\.amazonaws\.com(?:\.cn)?)/(.+)\z}
-      out[:registry] = Regexp.last_match(1)
-      remainder = Regexp.last_match(2)
-      if remainder.include?("@sha256:")
-        repo, digest = remainder.split("@", 2)
-        out[:repo] = repo
-        out[:digest] = digest
-      else
-        out[:repo] = remainder.split(":", 2).first
-      end
-    end
+    m = %r{\A((\d+)\.dkr\.ecr\.([a-z0-9-]+)\.amazonaws\.com(?:\.cn)?)/(.+)\z}.match(s)
+    return out unless m
+    out[:registry], out[:registry_id], out[:region] = m[1], m[2], m[3]
+    # <repo>[:tag][@sha256:<digest>]; the tag and digest may both be present.
+    name, digest = m[4].split("@", 2)
+    out[:digest] = digest if digest.to_s.start_with?("sha256:")
+    out[:repo] = name.sub(/:[^\/:]+\z/, "")
     out
   end
 end

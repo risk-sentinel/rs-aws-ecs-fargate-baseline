@@ -3,8 +3,8 @@
 control "EF-5.4" do
   title "Service tasks must run in private subnets"
   desc "Each subnet a Fargate service launches into must be private (no default "\
-       "route to an internet gateway), keeping tasks off the public internet "\
-       "(SC-7). Deep check resolves the subnet route tables."
+       "route to an internet gateway), keeping tasks off the public internet. Deep "\
+       "check resolves the subnet route tables."
   desc  'check', "
     For every Fargate ECS service in the scan regions, resolve the route table of each subnet the service launches into. No subnet may have a default route (`0.0.0.0/0` or `::/0`) to an internet gateway (`igw-`).
   "

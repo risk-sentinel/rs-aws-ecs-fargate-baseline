@@ -3,8 +3,8 @@
 control "EF-5.5" do
   title "Service security groups must not allow 0.0.0.0/0 ingress"
   desc "The security groups attached to a Fargate service must not permit "\
-       "unrestricted inbound access from the internet (SC-7(3)). Deep check "\
-       "resolves each SG's ingress rules."
+       "unrestricted inbound access from the internet. Deep check resolves each "\
+       "SG's ingress rules."
   desc  'check', "
     For every Fargate ECS service in the scan regions, no security group attached to the service may allow inbound traffic from `0.0.0.0/0`.
   "

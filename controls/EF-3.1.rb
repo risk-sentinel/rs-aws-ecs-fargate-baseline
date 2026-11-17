@@ -2,9 +2,8 @@
 
 control "EF-3.1" do
   title "Secrets must not be passed as plaintext environment variables"
-  desc "Secret-shaped values in container environment[] are visible in the "\
-       "task definition. Use the secrets[] block with Secrets Manager / SSM "\
-       "instead (CM-2/IA-5)."
+  desc "Secret-shaped values in container environment[] are visible in the task "\
+       "definition. Use the secrets[] block with Secrets Manager / SSM instead."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container's `environment` may contain a variable whose name looks like a secret: matching password, passwd, secret, token, api key, access key or private key, case-insensitively.
   "

@@ -3,8 +3,8 @@
 control "EF-4.2" do
   title "Task role must not grant wildcard action on wildcard resource"
   desc "The task role's policies must not contain Allow statements pairing a "\
-       "wildcard Action with a wildcard Resource (over-broad grant, AC-6). "\
-       "Deep check parses inline + attached managed policy documents."
+       "wildcard Action with a wildcard Resource (an over-broad grant). Deep check "\
+       "parses inline + attached managed policy documents."
   desc  'check', "
     For every task role used by an in-scope Fargate task definition, read the role's inline and attached managed policy documents. No Allow statement may combine an action containing `*` with a `Resource` of `*`.
   "

@@ -3,7 +3,7 @@
 control "EF-2.8" do
   title "Containers must define a health check"
   desc "A healthCheck lets ECS detect and replace unhealthy tasks, supporting "\
-       "availability (SI-13/CP-10)."
+       "availability."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must define a `healthCheck` with a non-empty `command`.
   "

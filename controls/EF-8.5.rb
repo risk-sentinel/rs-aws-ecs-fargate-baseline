@@ -3,7 +3,7 @@
 control "EF-8.5" do
   title "Services should enable the deployment circuit breaker"
   desc "The deployment circuit breaker auto-rolls-back failed deployments, "\
-       "supporting availability (SI-13/CP-10)."
+       "supporting availability."
   desc  'check', "
     For every Fargate ECS service in the scan regions, `deploymentConfiguration.deploymentCircuitBreaker.enable` must be true.
   "

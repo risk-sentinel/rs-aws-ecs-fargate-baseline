@@ -2,8 +2,8 @@
 
 control "EF-4.4" do
   title "Task definitions must not embed long-lived AWS credentials"
-  desc "Static AWS access keys must never be passed via environment variables; "\
-       "use the task role for AWS access instead (IA-5/AC-6)."
+  desc "Static AWS access keys must never be passed via environment variables; use "\
+       "the task role for AWS access instead."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container's `environment` may set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN` or `ECS_ENGINE_AUTH_DATA`.
   "

@@ -3,9 +3,8 @@
 control "EF-11.1" do
   title "Internet-facing ALBs must offer a TLS (HTTPS) listener"
   desc "An internet-facing Application Load Balancer that terminates client "\
-       "traffic must encrypt data in transit via an HTTPS/TLS listener "\
-       "(SC-8). An HTTP-only internet-facing ALB exposes plaintext to the "\
-       "internet."
+       "traffic must encrypt data in transit via an HTTPS/TLS listener. An "\
+       "HTTP-only internet-facing ALB exposes plaintext to the internet."
   desc  'check', "
     For every internet-facing Application Load Balancer in the scan regions, at least one listener must use protocol `HTTPS` or `TLS`.
   "

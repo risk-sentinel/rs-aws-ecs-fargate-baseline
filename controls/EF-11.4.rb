@@ -4,7 +4,7 @@ control "EF-11.4" do
   title "ALBs must drop invalid HTTP header fields"
   desc "routing.http.drop_invalid_header_fields.enabled must be true so the ALB "\
        "strips malformed headers before forwarding to the Fargate tasks "\
-       "(request-smuggling / header-injection hardening — FSBP ELB.4 / SI-10)."
+       "(request-smuggling and header-injection hardening)."
   desc  'check', "
     For every internet-facing Application Load Balancer in the scan regions, the attribute `routing.http.drop_invalid_header_fields.enabled` must be true.
   "

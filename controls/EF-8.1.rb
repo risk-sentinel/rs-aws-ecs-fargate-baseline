@@ -2,8 +2,8 @@
 
 control "EF-8.1" do
   title "Every container must declare a log configuration"
-  desc "logConfiguration must be set on each container so task output is "\
-       "captured for audit (AU-2/AU-12)."
+  desc "logConfiguration must be set on each container so task output is captured "\
+       "for audit."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). Every container must define `logConfiguration` with a non-empty `logDriver`.
   "

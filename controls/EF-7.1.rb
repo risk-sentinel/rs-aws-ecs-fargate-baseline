@@ -2,9 +2,8 @@
 
 control "EF-7.1" do
   title "ECS Exec must be disabled except on explicitly allowed services"
-  desc "enableExecuteCommand opens an interactive shell into running tasks "\
-       "(AC-17/AC-6(9)). It must be false unless the service is listed in "\
-       "ecs_exec_allowed_services."
+  desc "enableExecuteCommand opens an interactive shell into running tasks. It "\
+       "must be false unless the service is listed in ecs_exec_allowed_services."
   desc  'check', "
     For every ECS service in the scan regions that is not listed (by name or ARN) in the input `ecs_exec_allowed_services`, `enableExecuteCommand` must be false. Listed services are covered by EF-7.2.
   "

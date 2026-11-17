@@ -2,8 +2,8 @@
 
 control "EF-2.10" do
   title "Containers must not bind privileged ports (<1024)"
-  desc "Container ports below 1024 require elevated privilege historically and "\
-       "are disallowed by SRG-CTR; bind unprivileged ports instead (CM-7)."
+  desc "Container ports below 1024 require elevated privilege historically and are "\
+       "disallowed by SRG-CTR; bind unprivileged ports instead."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). No container may map a `containerPort` between 1 and 1023.
   "

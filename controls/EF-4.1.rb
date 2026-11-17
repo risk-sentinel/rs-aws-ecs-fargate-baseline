@@ -2,9 +2,9 @@
 
 control "EF-4.1" do
   title "Task role must be distinct from the execution role"
-  desc "The execution role (image pull, log push, secret fetch) and the task "\
-       "role (application AWS permissions) must be separate so the application "\
-       "does not inherit infrastructure permissions (AC-5/AC-6, 800-190 §4.5)."
+  desc "The execution role (image pull, log push, secret fetch) and the task role "\
+       "(application AWS permissions) must be separate so the application does not "\
+       "inherit infrastructure permissions."
   desc  'check', "
     Examines the latest ACTIVE revision of every Fargate task definition in the scan regions (`scan_regions`). The task definition must set both `taskRoleArn` and `executionRoleArn`, and they must be different roles.
   "

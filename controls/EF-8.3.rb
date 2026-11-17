@@ -3,7 +3,7 @@
 control "EF-8.3" do
   title "Clusters must enable Container Insights"
   desc "Container Insights collects metrics/logs needed for monitoring and "\
-       "incident response (AU-6(3)/CA-7)."
+       "incident response."
   desc  'check', "
     For every ECS cluster in the scan regions, the `containerInsights` setting must be `enabled` or `enhanced`.
   "
