@@ -85,18 +85,28 @@ a decision rather than a convenience.
 
 ## Controls
 
-58 controls across eight families:
+58 controls across twelve families. IDs are `EF-<family>.<rule>`, where **`EF` = ECS Fargate**,
+the same short-prefix scheme as `SEC` (Secrets Manager) and `CT` (CloudTrail) in the sibling
+profiles. There is no CIS or STIG benchmark for Fargate to number from, so the ID is this
+profile's own and is recorded in `tag local_number`. Numbers are stable and never reused; a few
+(EF-2.9, EF-5.3, EF-6.4, EF-8.2) were never assigned.
 
 | Family | Assesses |
 |---|---|
-| Task definition | non-root user, read-only root filesystem, no privileged mode, bounded cpu/memory, dropped capabilities |
-| Image provenance | digest pinning, trusted registries, ECR scan-on-push and finding severity |
-| Network | `awsvpc` mode, private subnets with no default route to an internet gateway, security-group ingress |
-| TLS | load-balancer listener policy and certificate expiry, or in-task termination |
-| IAM | task and execution role scoping, no wildcard actions, role-policy document parsing |
-| Secrets | `secrets[]` from Secrets Manager / SSM rather than plaintext `environment[]` |
-| Logging | log driver configured and log-group retention |
-| Tagging | governance tags on cluster, service and task definition |
+| **EF-1** Image supply chain | digest pinning, trusted registries, ECR scan-on-push and tag immutability, image signature, attached SBOM, finding severity |
+| **EF-2** Container hardening | privileged mode, non-root user, read-only root filesystem, capabilities, CPU/memory limits, ulimits, health check, privileged ports |
+| **EF-3** Secrets handling | `secrets[]` from Secrets Manager / SSM rather than plaintext `environment[]` |
+| **EF-4** IAM roles | task vs execution role, wildcard grants in role-policy documents, no embedded long-lived credentials |
+| **EF-5** Network isolation | `awsvpc` mode, no public IP, private subnets with no default route to an internet gateway, security-group ingress |
+| **EF-6** Runtime isolation and platform | host network and PID namespace, Fargate platform version, ephemeral-storage CMK, EFS in-transit encryption |
+| **EF-7** ECS Exec | disabled unless allowed; audited and KMS-encrypted where enabled |
+| **EF-8** Logging, tagging and resilience | log configuration and off-host shipping, Container Insights, log-group retention, governance tags, deployment circuit breaker |
+| **EF-9** Inherited (AWS-managed) | host OS/kernel, runtime engine, control plane, identity store, audit infrastructure, FIPS modules — evidenced, not host-tested |
+| **EF-10** Detection and currency | GuardDuty Runtime Monitoring with Fargate agent management, account Container Insights default, pinned `runtimePlatform`, base-image currency |
+| **EF-11** Ingress TLS (ALB) | HTTPS listener, TLS policy, HTTP→HTTPS redirect, invalid-header dropping, access logs, deletion protection, certificate validity |
+| **EF-12** Reverse-proxy TLS | TLS termination where declared, ingress container inventory |
+
+Each family's NIST, SRG, CCI and FSBP anchors are in [`PROVENANCE.md`](PROVENANCE.md).
 
 ---
 
