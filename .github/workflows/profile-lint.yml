@@ -121,3 +121,9 @@ jobs:
         # a resource called in a describe body — it only raises on a real exec
         # against a live target, which this repo cannot run. Hence a linter.
         run: python3 tools/lint_resource_scope.py controls libraries
+
+      - name: Family anchors in sync with the control tags
+        # docs/family-anchors.md is generated from the controls' tags. A tag
+        # change that does not regenerate it leaves PROVENANCE.md citing anchors
+        # no control carries.
+        run: python3 tools/render_provenance.py --check
